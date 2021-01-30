@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+
+// Bootstrap theming
+@import "assets/theme";
+@import "~bootstrap";
+
+// Custom theme styles
+@import "assets/theme/imports";
+
+* {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body {
+  color: $Suva-Grey;
+}

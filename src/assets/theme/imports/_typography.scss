@@ -1,48 +1,22 @@
 h1 {
-  font-size: 24px;
+  font-size: 1.4em;
 }
 
 h3 {
-  font-size: 16px;
+  font-size: 1.1em;
 }
 
 h4 {
-  font-size: 12px;
+  font-size: 0.85em;
 }
 
 div, p, span, a {
-  font-size: 14px;
+  font-size: 0.85em;
 }
 
 header {
-  height: 72px;
-  z-index: 1050;
 }
 
-.split-line {
-  height: 40px;
-}
-
-.search-div {
-  border-radius: 20px;
-  height: 27px;
-  width: 218px;
-}
-
-.search-div input:focus {
-  outline-width: 0;
-}
-
-.left-panel {
-  width: 82px;
-  height: 100%;
-}
 
 footer {
-  position: absolute;
-  bottom: 0px;
-  //height: 197px;
-  width: 100%;
-  padding-left: 82px;
-  background: black;
 }
