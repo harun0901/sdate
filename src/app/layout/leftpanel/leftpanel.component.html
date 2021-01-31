@@ -1,0 +1,33 @@
+<div class="pt-20 d-flex justify-content-end">
+  <div class="left-panel width-200">
+    <div class="bg-white shadow-sm mb-30">
+      <h4 class="text-dark font-weight-bold">YOU HAVE</h4>
+      <div class="text-primary text-center font-24">
+        <span class="font-40">1250</span> coins
+      </div>
+      <div>
+        <button class="btn btn-info w-100 py-5">Buy Coins</button>
+      </div>
+    </div>
+    <div class="bg-white p-10 shadow-sm">
+      <h6>Search</h6>
+      <hr/>
+      <p class="m-0">I'm looking for</p>
+      <div class="w-100 d-flex justify-content-around align-items-center mb-10">
+        <button class="btn btn-dark w-50 d-flex justify-content-center p-1"><sdate-icon [width]="25" icon="female" color="geraldine"></sdate-icon></button>
+        <button class="btn btn-primary w-50 d-flex justify-content-center p-1"><sdate-icon [width]="25" icon="male" color="geraldine"></sdate-icon></button>
+      </div>
+      <label class="pr-5">Age range</label>
+      <input class="width-35 height-25 border-dark border-2 text-center rounded-sm" [value]="startAge" /> <span> ~ </span> <input class="width-35 height-25 border-dark border-2 text-center rounded-sm" [value]="endAge" />
+      <div class="my-25">
+        <npn-slider [min]="16" [max]="120" (onChange)="onSliderChange($event)"></npn-slider>
+      </div>
+      <p class="m-0">City</p>
+      <div class="mb-15">
+        <input class="w-75 height-35 border-dark border-2 rounded-sm" placeholder="location" />
+      </div>
+
+      <button class="btn btn-primary">SEARCH</button>
+    </div>
+  </div>
+</div>
