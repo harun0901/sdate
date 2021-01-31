@@ -1,17 +1,36 @@
-h1 {
-  font-size: 1.4em;
+div, p, a, span {
+  font-size: 14px;
 }
 
-h3 {
-  font-size: 1.1em;
+a {
+  color: inherit;
 }
 
-h4 {
-  font-size: 0.85em;
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 0 !important;
 }
 
-div, p, span, a {
-  font-size: 0.85em;
+@for $i from 5 through 90 {
+  .font-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+
+@for $i from 1 through 20 {
+  .multi-line-text-overflow-#{$i} {
+    display: -webkit-box;
+    -webkit-line-clamp: #{$i};
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.text-overflow {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 header {

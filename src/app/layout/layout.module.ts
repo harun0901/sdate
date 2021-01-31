@@ -1,17 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NpnSliderModule } from 'npn-slider';
 
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LeftpanelComponent } from './leftpanel/leftpanel.component';
+import { NotificationComponent } from './notification/notification.component';
+import { PipesModule } from '../ui-kit/pipes/pipes.module';
+import { IconModule } from '../ui-kit/icon/icon.module';
 
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, NotificationComponent],
   imports: [
     CommonModule,
-    LayoutRoutingModule
+    NpnSliderModule,
+    LayoutRoutingModule,
+    PipesModule,
+    IconModule,
   ]
 })
 export class LayoutModule { }
