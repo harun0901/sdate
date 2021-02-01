@@ -10,6 +10,7 @@ export class ColorPipe implements PipeTransform {
     'jacksons-purple': '#232F92',
     riptide: '#7CE7AC',
     geraldine: '#FF808B',
+    Cabaret: '#D05068',
     'cream-can': '#F4BE5E',
     waterloo: '#8181A5',
     mercury: '#E5E5E5',
