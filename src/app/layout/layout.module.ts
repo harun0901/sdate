@@ -7,19 +7,20 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LeftpanelComponent } from './leftpanel/leftpanel.component';
-import { NotificationComponent } from './notification/notification.component';
 import { PipesModule } from '../ui-kit/pipes/pipes.module';
 import { IconModule } from '../ui-kit/icon/icon.module';
+import { RightpanelComponent } from './rightpanel/rightpanel.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, NotificationComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent],
   imports: [
     CommonModule,
     NpnSliderModule,
     LayoutRoutingModule,
     PipesModule,
     IconModule,
-  ]
+  ],
 })
 export class LayoutModule { }

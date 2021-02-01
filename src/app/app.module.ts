@@ -10,9 +10,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  exports: [
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
