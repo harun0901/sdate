@@ -1,0 +1,37 @@
+<ng-container>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked($event)">
+    <div class="width-350">
+      <div class="d-flex justify-content-start mb-10">
+        <a class="close" mat-dialog-close=""><span class="material-icons">close</span></a>
+      </div>
+      <div mat-dialog-content>
+        <div class="d-flex">
+          <button class="btn w-50 d-flex align-items-center bg-info p-0 mr-1"><span class="bg-transparent"><sdate-icon
+            [width]="30" icon="google" color="white"></sdate-icon></span><span class="ml-30 text-white">Google</span>
+          </button>
+          <button class="btn w-50 d-flex align-items-center bg-info p-0"><span class="bg-transparent px-1"><sdate-icon
+            [width]="20" icon="face" color="white"></sdate-icon></span><span class="ml-30 text-white">Facebook</span>
+          </button>
+        </div>
+        <div class="d-flex align-items-center my-15">
+          <div class="col col-sm-5 border-dark border-bottom"></div>
+          <div class="col col-sm-2 d-flex justify-content-center align-items-center"><span>or</span></div>
+          <div class="col col-sm-5 border-dark border-bottom"></div>
+        </div>
+        <div class="mb-30">
+          <label for="email" class="mb-1 text-black-50">Email Address/Username</label>
+          <input class="w-100 height-35 border-dark border-1 px-5" id="email" formControlName="email"
+                 placeholder="Your email address" [(ngModel)]="email"/>
+          <label for="password" class="mt-10 mb-1 text-black-50">Password</label>
+          <input class="w-100 height-35 border-dark border-1 px-5" id="password" formControlName="password"
+                 placeholder="Your password" [(ngModel)]="password" type="password"/>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-10" mat-dialog-actions>
+        <span class="text-primary">Forgot Password?</span>
+        <button class="btn btn-light rounded-0" type="submit">Login</button>
+      </div>
+    </div>
+  </form>
+</ng-container>
