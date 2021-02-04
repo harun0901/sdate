@@ -17,10 +17,12 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { VisitorsComponent } from './visitors/visitors.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { PersoncardComponent } from './personcard/personcard.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent, ChatroomComponent, LikesComponent, FavoritesComponent, VisitorsComponent, InboxComponent, PersoncardComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent, ChatroomComponent, LikesComponent, FavoritesComponent, VisitorsComponent, InboxComponent, PersoncardComponent, MyprofileComponent, ProfileComponent],
   imports: [
     CommonModule,
     NpnSliderModule,
