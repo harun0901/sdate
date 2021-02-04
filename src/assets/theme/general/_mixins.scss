@@ -1,0 +1,106 @@
+@import "_variable";
+
+@mixin absolute_middle($segment) {
+  position: absolute;
+  @if $segment == y {
+    top: 50%;
+    transform: translateY(-50%);
+  } @else {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+}
+
+@mixin absolute_fit_parent() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin circle($size) {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  min-width: $size;
+  max-width: $size;
+  min-height: $size;
+  max-height: $size;
+  border-radius: 50%;
+}
+
+@mixin pretty-scroll() {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(102, 102, 102, 0.5);
+    outline: 1px solid  rgba(102, 102, 102, 0.5);
+  }
+}
+
+@mixin image_fit() {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@mixin stroke_invalid() {
+  box-shadow: 0 0 5px 2px #f44336;
+  border-radius: 5px;
+}
+
+@mixin image_background_rect() {
+  .image-background-rect {
+    position: absolute;
+    z-index: 0;
+    width: calc(100% - 10px);
+    height: 100%;
+    bottom: -8px;
+    right: -8px;
+    border-radius: 10px;
+  }
+}
+
+@mixin flex($segment, $size) {
+  flex: 0 0 $size;
+  #{$segment}: $size;
+  min-#{$segment}: $size;
+  max-#{$segment}: $size;
+}
+
+@mixin carousel_area($parent-width, $left: unset, $right: unset, $top: unset, $bottom: unset, $image-border-color: false) {
+  .carousel-area {
+    position: absolute;
+    z-index: 1;
+    width: $parent-width;
+    top: $top;
+    left: $left;
+    right: $right;
+    bottom: $bottom;
+
+    .img-wrapper {
+      img {
+        border-radius: 10px;
+        @if $image-border-color {
+          border: solid 1px $mercury;
+        }
+      }
+    }
+  }
+
+
+  @include media-breakpoint-down(md) {
+    .carousel-area {
+      position: static;
+      width: 100%;
+    }
+  }
+}

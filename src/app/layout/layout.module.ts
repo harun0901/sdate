@@ -12,10 +12,15 @@ import { IconModule } from '../ui-kit/icon/icon.module';
 import { RightpanelComponent } from './rightpanel/rightpanel.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { LikesComponent } from './likes/likes.component';
+import { FavoritesComponent } from './favorites/favorites.component';
+import { VisitorsComponent } from './visitors/visitors.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { PersoncardComponent } from './personcard/personcard.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent, ChatroomComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent, ChatroomComponent, LikesComponent, FavoritesComponent, VisitorsComponent, InboxComponent, PersoncardComponent],
   imports: [
     CommonModule,
     NpnSliderModule,

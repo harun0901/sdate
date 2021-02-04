@@ -33,9 +33,63 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-header {
+.menu-item {
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 1em;
 }
 
-
-footer {
+.menu-item:hover {
+  background: #8DA3BA;
+  text-decoration: none;
 }
+
+.person-card {
+  width: 100% !important;
+  min-width: 290px;
+  min-height: 350px;
+}
+
+.person-card img, .person-card .avatar-part{
+  width: 290px;
+  height: 290px;
+}
+.person-card .detail-part {
+  height: 60px;
+}
+
+@media (min-width: 576px) { //sm
+  .person-sm-card {
+    width: 32% !important;
+    min-width: 240px;
+    min-height: 300px;
+  }
+
+  .person-sm-card img, .person-sm-card .avatar-part{
+    width: 240px;
+    height: 240px;
+  }
+
+  .person-card .detail-part {
+    height: 60px;
+  }
+}
+
+.online-state {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+//@media (min-width: 576px) { //sm
+//}
+//
+//@media (min-width: 768px) { //md
+//}
+//
+//@media (min-width: 992px) { //lg
+//}
+//
+//@media (min-width: 1200px) { //xl
+//}

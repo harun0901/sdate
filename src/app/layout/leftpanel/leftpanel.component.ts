@@ -12,7 +12,7 @@ export class LeftpanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.startAge = 10;
+    this.startAge = 16;
     this.endAge = 120;
   }
 
