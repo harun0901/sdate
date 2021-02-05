@@ -1,1 +1,81 @@
-<p>myprofile works!</p>
+<div class="container">
+  <div class="">
+    <h2>InfoCenter</h2>
+    <div class="d-flex align-items-center justify-content-around mt-10">
+      <div class="w-25 bg-primary m-5">
+        <a class="btn btn-primary text-decoration-none w-100">
+          <i class="icon-chat text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
+          <h1 class="text-white text-center font-35">64</h1>
+          <h3 class="text-white text-center">new Messages</h3>
+          <span
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+        </a>
+      </div>
+      <div class="w-25 bg-primary m-5">
+        <a class="btn btn-primary text-decoration-none w-100">
+          <i class="icon-eye text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
+          <h1 class="text-white text-center font-35">11</h1>
+          <h3 class="text-white text-center">new Visitors</h3>
+          <span
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+        </a>
+      </div>
+      <div class="w-25 bg-primary m-5">
+        <a class="btn btn-primary text-decoration-none w-100">
+          <i class="icon-heart text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
+          <h1 class="text-white text-center font-35">6</h1>
+          <h3 class="text-white text-center">new Likes</h3>
+          <span
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+        </a>
+      </div>
+      <div class="w-25 bg-primary m-5">
+        <a class="btn btn-info text-decoration-none w-100">
+          <i class="icon-personalMail text-white font-40 d-flex justify-content-center big-shadow-info"></i>
+          <h1 class="text-white text-center font-35">6</h1>
+          <h3 class="text-white text-center">new Likes</h3>
+          <span class="m-10 bg-white text-info height-25 d-flex align-items-center justify-content-center">To your mailbox</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mt-30 mb-5">
+    <h2 class="mb-20">My Profile</h2>
+    <sdate-profile></sdate-profile>
+  </div>
+  <div class="d-flex">
+    <div class="p-15 bg-white w-25 mr-5">
+      <h2>Personal Information</h2>
+      <p>*This data would not be published!</p>
+      <h3>Birthday*</h3>
+      <div class="d-flex">
+        <select class="form-control mr-1" id="day">
+          <option>01</option>
+        </select>
+        <select class="form-control mr-1" id="month">
+          <option>01</option>
+        </select>
+        <select class="form-control mr-1" id="year">
+          <option>01</option>
+        </select>
+      </div>
+      <label class="mt-20" for="email_info">Email*</label>
+      <input class="form-control" id="email_info"/>
+      <div class="d-flex justify-content-end mt-10  ">
+        <button class="btn btn-info mr-10 rounded-0">Abort</button>
+        <button class="btn btn-primary rounded-0">Save</button>
+      </div>
+    </div>
+    <div class="bg-white p-20 w-25 d-flex align-items-center">
+      <a class="btn text-decoration-none p-0 m-0">
+        <i class="icon-upload text-black-50 font-40 d-flex justify-content-center"></i>
+        <h5 class="text-black-50 text-center">Drag and Drop your image here to Upload or</h5>
+        <h3 class="text-black-50 text-center">new Visitors</h3>
+        <br>
+        <span class="border-info border-1 text-info py-5 px-10 mt-20">Browse image</span>
+        <br>
+        <a class="btn text-primary">Guidelines</a>
+      </a>
+    </div>
+  </div>
+</div>

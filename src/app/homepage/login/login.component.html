@@ -1,5 +1,5 @@
 <ng-container>
-
+  <sdate-spinner *ngIf="isLoading"></sdate-spinner>
   <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked($event)">
     <div class="width-350">
       <div class="d-flex justify-content-start mb-10">
@@ -30,7 +30,7 @@
       </div>
       <div class="d-flex justify-content-between align-items-center mb-10" mat-dialog-actions>
         <span class="text-primary">Forgot Password?</span>
-        <button class="btn btn-light rounded-0" type="submit">Login</button>
+        <button class="btn btn-light rounded-0" type="submit" [disabled]="loginForm.invalid || isLoading">Login</button>
       </div>
     </div>
   </form>

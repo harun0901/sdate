@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { OpenPageService } from '../../core/services/open-page.service';
 
 @Component({
   selector: 'sdate-chatroom',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chatroom.component.scss']
 })
 export class ChatroomComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    private openPageSv: OpenPageService
+  ) { }
 
   ngOnInit(): void {
+    this.openPageSv.send('chatroom');
   }
 
 }

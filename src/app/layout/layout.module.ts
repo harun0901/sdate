@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NpnSliderModule } from 'npn-slider';
+import { A11yModule } from '@angular/cdk/a11y';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -22,13 +26,32 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, LeftpanelComponent, RightpanelComponent, NotificationComponent, ChatroomComponent, LikesComponent, FavoritesComponent, VisitorsComponent, InboxComponent, PersoncardComponent, MyprofileComponent, ProfileComponent],
+  declarations: [
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    LeftpanelComponent,
+    RightpanelComponent,
+    NotificationComponent,
+    ChatroomComponent,
+    LikesComponent,
+    FavoritesComponent,
+    VisitorsComponent,
+    InboxComponent,
+    PersoncardComponent,
+    MyprofileComponent,
+    ProfileComponent
+  ],
   imports: [
     CommonModule,
     NpnSliderModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
     LayoutRoutingModule,
     PipesModule,
     IconModule,
+    A11yModule,
   ],
 })
 export class LayoutModule { }

@@ -1,0 +1,6 @@
+@import "../../../../assets/theme";
+
+.circle {
+  @include circle(25px);
+  border: 1px solid;
+}

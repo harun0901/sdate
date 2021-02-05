@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  api: 'http://localhost:3000',
+  localStorage: {
+    prefix: 'sdate',
+    accessToken: 'access_token',
+    customerSignupWizard: 'customer_signup_wizard',
+  },
 };
 
 /*

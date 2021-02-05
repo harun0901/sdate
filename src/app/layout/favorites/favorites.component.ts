@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OpenPageService } from '../../core/services/open-page.service';
 
 @Component({
   selector: 'sdate-favorites',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FavoritesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private openPageSv: OpenPageService
+  ) { }
 
   ngOnInit(): void {
+    this.openPageSv.send('favorite');
   }
 
 }

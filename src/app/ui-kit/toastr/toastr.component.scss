@@ -14,7 +14,7 @@
 }
 
 .img-wrapper {
-  //@include flex(width, 26px);
+  @include flex(width, 26px);
 }
 
 @include media-breakpoint-down(md) {

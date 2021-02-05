@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { LoginComponent } from '../login/login.component';
 
@@ -11,7 +11,7 @@ import { LoginComponent } from '../login/login.component';
 })
 export class LogoComponent implements OnInit {
 
-  constructor(private dialog: MatDialog,
+  constructor(public loginDialog: MatDialog,
               private router: Router,
   ) { }
 
@@ -20,7 +20,7 @@ export class LogoComponent implements OnInit {
 
   onLoginClicked($event): void {
     $event.preventDefault();
-    const dialogRef = this.dialog.open(LoginComponent, {
+    const dialogRef = this.loginDialog.open(LoginComponent, {
       panelClass: 'full-panel',
     });
 

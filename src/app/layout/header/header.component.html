@@ -6,7 +6,7 @@
     <div class="col-sm-6 justify-content-center align-items-center d-none d-lg-flex">
       <a class="menu-item" [routerLink]="['chatroom']"><h4>CHATS</h4></a>
       <a class="menu-item" [routerLink]="['inbox']"><h4>INBOX</h4></a>
-      <a class="menu-item" [routerLink]="['vistors']"><h4>VISTORS</h4></a>
+      <a class="menu-item" [routerLink]="['visitors']"><h4>VISITORS</h4></a>
       <a class="menu-item" [routerLink]="['likes']"><h4>LIKES</h4></a>
       <a class="menu-item" [routerLink]="['favorites']"><h4>FAVORITES</h4></a>
     </div>
@@ -17,10 +17,32 @@
       <div class="mr-10">
         <button class="btn btn-info p-5">Buy Coins</button>
       </div>
-      <label class="text-white m-0 max-width-80 text-overflow d-none d-lg-block">Aleksei Panvo</label>
-      <button class="btn bg-transparent p-5 mr-10 d-none d-lg-block">
-        <sdate-icon [width]="24" icon="list" color="white"></sdate-icon>
+      <a class="text-decoration-none text-white m-0 max-width-80 text-overflow d-none d-lg-block" [routerLink]="['/home/my-profile']">Aleksei Panvo</a>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10 d-none d-lg-block" aria-label="Main Menu">
+        <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/home/my-profile']">
+          <span>My Profile</span>
+        </button>
+        <hr class="m-0 h-0 bg-dark"/>
+        <button mat-menu-item [routerLink]="['/']">
+          <span>Logout</span>
+        </button>
+        <hr class="m-0 h-0 bg-dark"/>
+        <button mat-menu-item>
+          <span>Help/Support</span>
+        </button>
+        <button mat-menu-item>
+          <span>Imprint</span>
+        </button>
+        <button mat-menu-item>
+          <span>Privacy Policy</span>
+        </button>
+        <button mat-menu-item>
+          <span>Terms and Conditions</span>
+        </button>
+      </mat-menu>
       <div class="d-none d-lg-block">
         <img class="width-45 height-45" src="../../../assets/image/uploaded/1.png" alt="#"/>
       </div>
@@ -33,8 +55,30 @@
       <a class="menu-item m-0 p-2"><sdate-icon [width]="16" icon="star" color="white"></sdate-icon></a>
       <a class="menu-item m-0 p-2"><sdate-icon [width]="16" icon="grid" color="white"></sdate-icon></a>
       <a class="menu-item m-0 p-2"><sdate-icon [width]="16" icon="heart" color="white"></sdate-icon></a>
-      <button class="btn bg-transparent p-5 mr-10">
-        <sdate-icon [width]="24" icon="list" color="white"></sdate-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10" aria-label="Main Menu">
+        <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/home/my-profile']">
+          <span>My Profile</span>
+        </button>
+        <hr class="m-0 h-0 bg-dark"/>
+        <button mat-menu-item (click)="logOut()">
+          <span>Logout</span>
+        </button>
+        <hr class="m-0 h-0 bg-dark"/>
+        <button mat-menu-item>
+          <span>Help/Support</span>
+        </button>
+        <button mat-menu-item>
+          <span>Imprint</span>
+        </button>
+        <button mat-menu-item>
+          <span>Privacy Policy</span>
+        </button>
+        <button mat-menu-item>
+          <span>Terms and Conditions</span>
+        </button>
+      </mat-menu>
   </div>
 </header>

@@ -1,14 +1,16 @@
 <sdate-header></sdate-header>
 <div class="bg-dark d-flex">
-  <div class="col col-lg-3 d-none d-lg-block">
+  <div class="col col-lg-3 d-none d-lg-block" *ngIf="openPage !== 'my-profile' && openPage !== 'profile'">
     <sdate-leftpanel></sdate-leftpanel>
   </div>
-  <div class="col col-sm-12 col-lg-6">
+  <div class="col col-lg-1 d-none d-lg-block" *ngIf="openPage === 'my-profile' || openPage === 'profile'">
+  </div>
+  <div [ngClass]="openPage === 'profile' || openPage === 'my-profile' ? 'col col-sm-12 col-lg-8' : 'col col-sm-12 col-lg-6'">
     <div class="w-100 h-100 mt-20">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="col col-lg-3 d-none d-lg-block">
+  <div [ngClass]="openPage === 'profile' || openPage === 'my-profile' ? 'col col-lg-2 d-none d-lg-block' : 'col col-lg-3 d-none d-lg-block'">
     <sdate-rightpanel></sdate-rightpanel>
   </div>
 </div>
