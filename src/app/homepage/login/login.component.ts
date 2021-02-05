@@ -42,10 +42,9 @@ export class LoginComponent implements OnInit {
     // // $event.preventDefault();
     // console.log(this.loginForm.value);
     // -------------------------auth api integration--------------------------------
-    this.isLoading = true;
-
-    const loginInfo = this.loginForm.value;
-    await this.auth.login(loginInfo).toPromise();
+    // this.isLoading = true;
+    // const loginInfo = this.loginForm.value;
+    // await this.auth.login(loginInfo).toPromise();
     // -----------------------------------------------------------------------------
     let retStr = 'incorrect email/password.';
     if (this.loginForm.value.email === 'admin@gmail.com' && this.loginForm.value.password === 'adminadmin') {
