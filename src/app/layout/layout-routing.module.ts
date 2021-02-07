@@ -9,44 +9,49 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ROUTES } from '../core/data/routes';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: ROUTES.root,
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: ROUTES.root,
         component: ChatroomComponent,
       },
       {
-        path: 'chatroom',
+        path: ROUTES.home.chatroom,
         component: ChatroomComponent,
       },
       {
-        path: 'inbox',
+        path: ROUTES.home.inbox,
         component: InboxComponent,
       },
       {
-        path: 'visitors',
+        path: ROUTES.home.visitors,
         component: VisitorsComponent,
       },
       {
-        path: 'likes',
+        path: ROUTES.home.likes,
         component: LikesComponent,
       },
       {
-        path: 'favorites',
+        path: ROUTES.home.favorites,
         component: FavoritesComponent,
       },
       {
-        path: 'my-profile',
+        path: ROUTES.home.myprofile,
         component: MyprofileComponent,
       },
       {
-        path: 'profile',
+        path: ROUTES.home.profile,
         component: ProfileComponent,
+      },
+      {
+        path: ROUTES.home.support.root,
+        loadChildren: () => import('./support/support.module').then(m => m.SupportModule),
       },
     ]
   }

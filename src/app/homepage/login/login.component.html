@@ -1,6 +1,6 @@
 <ng-container>
   <sdate-spinner *ngIf="isLoading"></sdate-spinner>
-  <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked($event)">
+  <form [formGroup]="loginForm" (ngSubmit)="onLoginClicked()">
     <div class="width-350">
       <div class="d-flex justify-content-start mb-10">
         <a class="close" mat-dialog-close=""><span class="material-icons">close</span></a>

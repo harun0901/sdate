@@ -181,6 +181,8 @@ export class AuthService {
       await this.router.navigate([ROUTES.admin.root, ROUTES.admin.dashboard]);
     } else if (role === UserRole.Contractor) {
       await this.router.navigate([ROUTES.contractor.root, ROUTES.contractor.projects]);
+    } else if (role === UserRole.Admin) {
+      await this.router.navigate([ROUTES.admin.root]);
     } else {
       this.logout();
     }

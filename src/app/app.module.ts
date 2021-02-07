@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from './ui-kit/toastr/toastr.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserAnimationsModule,
     ToastrModule,
     NgbModule,
+    ScrollToModule.forRoot(),
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor}

@@ -8,83 +8,29 @@ export const ROUTES = {
     myProjects: '',
   },
   admin: {
-    root: '/home',
+    root: 'home',
     dashboard: '',
   },
   contractor: {
     root: '/home',
     projects: '',
   },
-  landingPages: {
-    contactUs: 'contact-us',
-    whyChooseUs: 'why-choose-us',
-    aboutUs: 'about-us',
-    patioPackages: 'patio-packages',
-    partners: 'partners',
-    faqs: 'faqs',
-    privacyPolicy: 'privacy-policy',
-    legalNotice: 'legal-notice',
-    requestEstimate: {
-      root: 'request-estimate',
-      step1: 'step-1',
-      step2: 'step-2',
-      step3: 'step-3',
-      step4: 'step-4'
-    },
-    requestApplication: 'request-application',
-    ideaBoard: 'idea-board',
-    hardscapeEducation: 'hardscape-education',
-    services: {
-      root: 'services',
-      patios: 'patios',
-      walkways: 'walkways',
-      retainingWalls: 'retaining-walls',
-      driveways: 'driveways',
-      poolPatios: 'pool-patios',
-      completeTransformations: 'complete-transformations',
-      designServices: 'design-services',
-      stepsAndStaircases: 'steps-and-staircases',
-      inlaysAndBorders: 'inlays-and-borders',
-      paversVsConcrete: 'pavers-vs-concrete',
-    },
-    blog: 'blog'
-  },
-  // marketing landing pages
-  marketingPages: {
-    ct: {
-      root: 'ct',
-      tolland: 'tolland',
-      fairfield: 'fairfield',
-      hartford: 'hartford',
-      litchfield: 'litchfield',
-      middlesex: 'middlesex',
-      newHaven: 'new-haven',
-      newLondon: 'new-london',
-      windham: 'windham',
-    },
-    westernMass: {
-      root: 'westernmass',
-    },
-  },
-  // local landing pages
-  localPages: {
-    contents: {
-      financing: 'financing',
-      freeFirePit: 'free-fire-pit',
-      seasonSpecial: 'season-special'
-    },
-    ma: {
-      root: 'ma',
-      hampden: 'hampden'
-    },
-    ct: {
-      root: 'ct',
-      tolland: 'tolland'
+  root: '',
+  home: {
+    root: 'home',
+    chatroom: 'chatroom',
+    inbox: 'inbox',
+    visitors: 'visitors',
+    likes: 'likes',
+    favorites: 'favorites',
+    myprofile: 'my-profile',
+    profile: 'profile',
+    support: {
+      root: 'support',
+      guideline: 'guideline',
+      faq: 'faq',
+      contact: 'contact',
     }
-  },
-  externalLinks: {
-    login: 'login',
-    redirect: 'redirect'
   }
 };
 

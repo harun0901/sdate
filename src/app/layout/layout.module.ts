@@ -40,7 +40,7 @@ import { ProfileComponent } from './profile/profile.component';
     InboxComponent,
     PersoncardComponent,
     MyprofileComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ export enum UserRole {
   Consultant = 'CONSULTANT',
   Contractor = 'CONTRACTOR',
   Customer = 'CUSTOMER',
+  Admin = 'ADMIN',
   SuperAdmin = 'SUPER_ADMIN',
 }
 

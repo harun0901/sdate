@@ -25,13 +25,13 @@ export class LogoComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.length) {
-        if ( result.toString() === 'login success' ) {
-          this.router.navigate(['home']);
-        } else {
-          alert(result.toString());
-        }
-      }
+      // if (result && result.length) {
+      //   if ( result.toString() === 'login success' ) {
+      //     this.router.navigate(['home']);
+      //   } else {
+      //     alert(result.toString());
+      //   }
+      // }
     });
   }
 
