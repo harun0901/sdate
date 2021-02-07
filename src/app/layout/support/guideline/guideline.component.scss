@@ -1,0 +1,14 @@
+.example-button-toggle-label {
+  display: inline-block;
+  margin: 16px;
+}
+
+.mat-tab-label {
+  background: #D05068 !important;
+  color: white;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  background: white !important;
+  color: #D05068;
+}

@@ -1,0 +1,60 @@
+<div class="bg-white shadow-sm p-30">
+  <h1 class="text-black-50">Help/Support</h1>
+  <div class="row my-20">
+    <div class="col col-sm-2">
+      <button class="btn btn-primary rounded-0 w-100 mb-20"
+              (click)="navigate([ROUTES.home.root,ROUTES.home.support.root, ROUTES.home.support.faq])">FAQ
+      </button>
+      <button class="btn btn-primary rounded-0 w-100"
+              (click)="navigate([ROUTES.home.root,ROUTES.home.support.root, ROUTES.home.support.guideline])">Guidelines
+      </button>
+    </div>
+    <div class="col col-sm-10">
+      <h1 class="text-black-50 mb-20">Guidelines</h1>
+
+      <mat-tab-group animationDuration="2000ms">
+        <mat-tab label="Photo">
+          <p class="text-black-50">
+            Photo
+            Make your profile interesting with an expressive profile picture and introduce yourself!
+
+            Your profile picture is your business card! It appears in the search and influences other member’s impression of you. And the first impression counts!
+
+            If one or more pictures violate our guidelines, they will be deleted. Multiple violations can lead to a complete deletion of your profile.
+
+            Make sure your pictures do not violate the following guidelines:
+          </p>
+        </mat-tab>
+        <mat-tab label="About me">
+          <p class="text-black-50">
+            About me
+            Make your profile interesting with an expressive profile text and show who you are, what you like, what qualities you like in your partner, and more!
+
+            Your profile text may be the first thing other members read about you! Show your good side, stay polite and make yourself interesting. This influences the other member’s impression of you.
+
+            The first impression counts!
+
+            If your "About me" text violates our policies, it will be deleted. Multiple violations can lead to a complete deletion of your profile.
+
+            Therefore, pay attention to what you write and do not violate the following guidelines:
+          </p>
+        </mat-tab>
+        <mat-tab label="User name">
+          <p class="text-black-50">
+            User name
+            Usernames with sexual origins or insinuations will be deleted.
+
+            Sexual origin
+            User names with sexual origin can be deleted by us.
+
+            Violence - Insults - Racism - Religion
+            Usernames refer to violence, insults, political slogans or racist insinuations will be deleted.
+
+            Telephone numbers, advertising of other services
+            Usernames containing telephone numbers, or advertising of other services will be deleted.
+          </p>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

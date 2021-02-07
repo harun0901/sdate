@@ -1,0 +1,32 @@
+<div class="bg-white shadow-sm p-30">
+  <h1 class="text-black-50">Help/Support</h1>
+  <div class="row my-20">
+    <div class="col col-sm-2">
+      <button class="btn btn-primary rounded-0 w-100 mb-20" (click)="navigate([ROUTES.home.root,ROUTES.home.support.root, ROUTES.home.support.faq])">FAQ</button>
+      <button class="btn btn-primary rounded-0 w-100" (click)="navigate([ROUTES.home.root,ROUTES.home.support.root, ROUTES.home.support.guideline])">Guidelines</button>
+    </div>
+    <div class="col col-sm-10">
+      <div>
+        <h1 class="text-black-50 mb-20">Contact Form</h1>
+
+        <label for="email" class="text-black-50 mt-20">Email Address</label>
+        <input id="email" class="w-100 height-35 border-dark border-2 rounded-sm mr-5 px-5" placeholder="sdate@gmail.com"/>
+
+        <label for="userName" class="text-black-50 mt-20">Username</label>
+        <input id="userName" class="w-100 height-35 border-dark border-2 rounded-sm mr-5 px-5" placeholder="sdate admin"/>
+
+        <label for="subject" class="text-black-50 mt-20">Subject</label>
+        <select class="w-100 height-35 border-dark border-2 rounded-sm mr-5 px-5 text-black-50" id="subject">
+          <option>~choose a subject~</option>
+          <option>Subject1</option>
+        </select>
+
+        <label for="description" class="text-black-50 mt-20">Description</label>
+        <textarea id="description" cols="50" rows="5" class="cdk-textarea-autosize w-100"></textarea>
+
+        <button class="btn btn-primary rounded-0 mt-20">SUBMIT</button>
+
+      </div>
+    </div>
+  </div>
+</div>
