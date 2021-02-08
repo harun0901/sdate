@@ -17,7 +17,7 @@
       <div class="mr-10">
         <button class="btn btn-info p-5">Buy Coins</button>
       </div>
-      <a class="text-decoration-none text-white m-0 max-width-80 text-overflow d-none d-lg-block" (click)="navigate([ROUTES.home.root, ROUTES.home.myprofile])">Aleksei Panvo</a>
+      <a class="btn text-decoration-none text-white m-0 max-width-80 p-0 m-0 text-overflow d-none d-lg-block" (click)="navigate([ROUTES.home.root, ROUTES.home.myprofile])">Aleksei Panvo</a>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10 d-none d-lg-block" aria-label="Main Menu">
         <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
       </button>
@@ -33,13 +33,13 @@
         <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.support.root])">
           <span>Help/Support</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.imprint])">
           <span>Imprint</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.privacy])">
           <span>Privacy Policy</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.terms])">
           <span>Terms and Conditions</span>
         </button>
       </mat-menu>
@@ -70,13 +70,13 @@
         <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.support.root])">
           <span>Help/Support</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.imprint])">
           <span>Imprint</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.privacy])">
           <span>Privacy Policy</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.legal.root, ROUTES.home.legal.terms])">
           <span>Terms and Conditions</span>
         </button>
       </mat-menu>

@@ -53,6 +53,10 @@ const routes: Routes = [
         path: ROUTES.home.support.root,
         loadChildren: () => import('./support/support.module').then(m => m.SupportModule),
       },
+      {
+        path: ROUTES.home.legal.root,
+        loadChildren: () => import('./legal/legal.module').then(m => m.LegalModule),
+      },
     ]
   }
 ];

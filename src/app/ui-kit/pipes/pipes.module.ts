@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { ColorPipe } from './color.pipe';
 import { AgePipe } from './age.pipe';
+import { IsMinePipe } from './is-mine.pipe';
 
 @NgModule({
   declarations: [
     ColorPipe,
     AgePipe,
+    IsMinePipe,
   ],
   imports: [
     CommonModule
@@ -15,6 +17,7 @@ import { AgePipe } from './age.pipe';
   exports: [
     ColorPipe,
     AgePipe,
+    IsMinePipe,
   ]
 })
 export class PipesModule { }

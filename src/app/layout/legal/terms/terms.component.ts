@@ -7,21 +7,21 @@ import { ScrollPosition } from '../../../core/data/scroll-pos';
 import { OpenPageService } from '../../../core/services/open-page.service';
 
 @Component({
-  selector: 'sdate-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  selector: 'sdate-terms',
+  templateUrl: './terms.component.html',
+  styleUrls: ['./terms.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class TermsComponent implements OnInit {
   ROUTES = ROUTES;
 
   constructor(
     private router: Router,
     private scrollToService: ScrollToService,
-    private openPageSv: OpenPageService,
+    private openPageSv: OpenPageService
   ) { }
 
   ngOnInit(): void {
-    this.openPageSv.send('contact');
+    this.openPageSv.send('terms');
   }
 
   navigate(path: string | string[]): void {
@@ -29,5 +29,4 @@ export class ContactComponent implements OnInit {
       this.scrollToService.scrollTo({ target: ScrollPosition.Root });
     });
   }
-
 }

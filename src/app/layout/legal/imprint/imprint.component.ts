@@ -7,11 +7,11 @@ import { ScrollPosition } from '../../../core/data/scroll-pos';
 import { OpenPageService } from '../../../core/services/open-page.service';
 
 @Component({
-  selector: 'sdate-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  selector: 'sdate-imprint',
+  templateUrl: './imprint.component.html',
+  styleUrls: ['./imprint.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ImprintComponent implements OnInit {
   ROUTES = ROUTES;
 
   constructor(
@@ -21,7 +21,7 @@ export class ContactComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.openPageSv.send('contact');
+    this.openPageSv.send('imprint');
   }
 
   navigate(path: string | string[]): void {

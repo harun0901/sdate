@@ -30,6 +30,12 @@ export const ROUTES = {
       guideline: 'guideline',
       faq: 'faq',
       contact: 'contact',
+    },
+    legal: {
+      root: 'legal',
+      terms: 'terms',
+      privacy: 'privacy',
+      imprint: 'imprint',
     }
   }
 };

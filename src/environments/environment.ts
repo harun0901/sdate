@@ -10,6 +10,13 @@ export const environment = {
     accessToken: 'access_token',
     customerSignupWizard: 'customer_signup_wizard',
   },
+  socket: {
+    url: 'http://localhost:3000',
+    join: 'join',
+    events: 'events',
+    messages: 'messages',
+  },
+
 };
 
 /*

@@ -4,6 +4,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { ROUTES, toAbsolutePath } from '../../../core/data/routes';
 import { ScrollPosition } from '../../../core/data/scroll-pos';
+import { OpenPageService } from '../../../core/services/open-page.service';
 
 @Component({
   selector: 'sdate-faq',
@@ -17,9 +18,11 @@ export class FaqComponent implements OnInit {
   constructor(
     private router: Router,
     private scrollToService: ScrollToService,
+    private openPageSv: OpenPageService,
     ) { }
 
   ngOnInit(): void {
+    this.openPageSv.send('faq');
   }
 
   navigate(path: string | string[]): void {
