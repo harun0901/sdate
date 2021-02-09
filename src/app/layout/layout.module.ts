@@ -23,6 +23,8 @@ import { InboxComponent } from './inbox/inbox.component';
 import { PersoncardComponent } from './personcard/personcard.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserlistComponent } from './userlist/userlist.component';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
     PersoncardComponent,
     MyprofileComponent,
     ProfileComponent,
+    UserlistComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,7 @@ import { ProfileComponent } from './profile/profile.component';
     PipesModule,
     IconModule,
     A11yModule,
+    ReactiveFormsModule,
   ],
 })
 export class LayoutModule { }

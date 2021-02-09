@@ -26,8 +26,4 @@ export class SocketService {
   subscribeMessages() {
     return this.socket.fromEvent(`${this.authService.user.id}_${environment.socket.messages}`);
   }
-
-  subscribeLogRocketRecordings() {
-    return this.socket.fromEvent(`log_rocket_recordings`);
-  }
 }

@@ -1,9 +1,10 @@
 import { Entity } from './base';
 
 export enum UserRole {
+  Moderator = 'MODERATOR',
   Consultant = 'CONSULTANT',
   Contractor = 'CONTRACTOR',
-  Customer = 'CUSTOMER',
+  Customer = 'USER',
   Admin = 'ADMIN',
   SuperAdmin = 'SUPER_ADMIN',
 }
@@ -43,19 +44,18 @@ export interface CreditCard extends Entity {
 
 export interface User extends Entity {
   email: string;
-  isEmailVerified: boolean;
-  role: UserRole;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  avatar?: string;
-  ideas?: string[];
-  creditCard: CreditCard;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  invitationStatus?: InvitationStatus;
-  stripeCustomerId?: string;
+  fullName: string;
+  role: string;
+  // lastName: string;
+  // phone: string;
+  // avatar?: string;
+  // ideas?: string[];
+  // creditCard: CreditCard;
+  // address?: string;
+  // latitude?: number;
+  // longitude?: number;
+  // invitationStatus?: InvitationStatus;
+  // stripeCustomerId?: string;
   // relations for profile
   // contractorProfile?: ContractorProfile;
 }

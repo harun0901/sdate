@@ -94,17 +94,17 @@ export class AuthService {
     return this.http.post(url, { oldPassword, newPassword });
   }
 
-  verifyEmail(verifyToken: string): Observable<any> {
-    const url = `${environment.api}/auth/verify`;
-    return this.http.post(url, { verifyToken }).pipe(
-      tap(() => {
-        if (this.user) {
-          this.user.isEmailVerified = true;
-          this.user$.next(this.user);
-        }
-      })
-    );
-  }
+  // verifyEmail(verifyToken: string): Observable<any> {
+  //   const url = `${environment.api}/auth/verify`;
+  //   return this.http.post(url, { verifyToken }).pipe(
+  //     tap(() => {
+  //       if (this.user) {
+  //         this.user.isEmailVerified = true;
+  //         this.user$.next(this.user);
+  //       }
+  //     })
+  //   );
+  // }
 
   sendEmailChangeEmail(userId: string, targetEmail: string): Observable<SuccessResponse> {
     const url = `${environment.api}/user/${userId}/change-email`;
@@ -182,6 +182,8 @@ export class AuthService {
     } else if (role === UserRole.Contractor) {
       await this.router.navigate([ROUTES.contractor.root, ROUTES.contractor.projects]);
     } else if (role === UserRole.Admin) {
+      await this.router.navigate([ROUTES.admin.root]);
+    } else if (role === UserRole.Moderator) {
       await this.router.navigate([ROUTES.admin.root]);
     } else {
       this.logout();

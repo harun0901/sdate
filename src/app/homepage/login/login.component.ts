@@ -43,14 +43,15 @@ export class LoginComponent implements OnInit {
     try {
       this.isLoading = true;
       const loginInfo = this.loginForm.value;
-      // await this.auth.login(loginInfo).toPromise();
-      // const token = await this.auth.decodeToken();
-      // this.auth.navigateByUserRole(token.role);
+      /*********real mode***************/
+      await this.auth.login(loginInfo).toPromise();
+      const token = await this.auth.decodeToken();
+      this.auth.navigateByUserRole(token.role);
       /*********test mode***************/
-      if (loginInfo.email !== 'admin@gmail.com' || loginInfo.password !== 'adminadmin') {
-        throw new Error('invalid ID');
-      }
-      this.auth.navigateByUserRole(UserRole.Admin);
+      // if (loginInfo.email !== 'admin@gmail.com' || loginInfo.password !== 'adminadmin') {
+      //   throw new Error('invalid ID');
+      // }
+      // this.auth.navigateByUserRole(UserRole.Admin);
       /*********test mode***************/
       this.dialogRef.close();
       this.toastr.success(`You've successfully logged in.`);

@@ -22,6 +22,11 @@ export class ChatService {
     private http: HttpClient
   ) { }
 
+  sendMessage(payload: SendMessagePayload): Observable<Chat> {
+    const url = `${environment.api}/sdate/chat/send-message`;
+    return this.http.post<Chat>(url, payload);
+  }
+
   initProjectConsultationChat(projectId: string): Observable<Chat> {
     const url = `${environment.api}/chat/init/project-consultation/${projectId}`;
     return this.http.post<Chat>(url, null);
@@ -45,11 +50,6 @@ export class ChatService {
   getMessages(id: string): Observable<Chat[]> {
     const url = `${environment.api}/chat/${id}/messages`;
     return this.http.get<Chat[]>(url);
-  }
-
-  sendMessage(id: string, payload: SendMessagePayload): Observable<Chat> {
-    const url = `${environment.api}/chat/${id}/message`;
-    return this.http.post<Chat>(url, payload);
   }
 
   readAllMessages(id: string): Observable<SuccessResponse> {

@@ -28,6 +28,7 @@
     "angular-material-expansion-panel": "^0.7.2",
     "bootstrap": "^4.6.0",
     "class-validator": "^0.13.1",
+    "crypto-js": "^4.0.0",
     "express": "^4.17.1",
     "jwt-decode": "^3.1.2",
     "ngx-socket-io": "^3.2.0",

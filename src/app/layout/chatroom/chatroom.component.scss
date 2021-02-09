@@ -1,3 +1,35 @@
 .drak-border {
   outline: 1px solid #aaa;
 }
+div.message_box.justify-content-start {
+  flex-direction: row-reverse;
+  justify-content: flex-end !important;
+}
+
+div.message_box.justify-content-start div.message_content{
+  background: #27AE60;
+}
+
+div.message_box.justify-content-end div.message_content{
+  background: #D05068;
+}
+
+div.message_box.justify-content-start div.message_content:before {
+  content: '';
+  position: absolute;
+  border-width: .25rem 1rem .25rem 0rem;
+  border-style: solid;
+  left: -.5rem;
+  bottom: .3rem;
+  border-color: transparent #27AE60 transparent transparent;
+}
+
+div.message_box.justify-content-end div.message_content:before {
+  content: '';
+  position: absolute;
+  border-width: .25rem 0 .25rem 1rem;
+  border-style: solid;
+  right: -.5rem;
+  bottom: .3rem;
+  border-color: transparent transparent transparent #D05068;
+}

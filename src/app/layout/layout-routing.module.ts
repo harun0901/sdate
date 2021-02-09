@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
 import { InboxComponent } from './inbox/inbox.component';
@@ -10,6 +10,10 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ROUTES } from '../core/data/routes';
+import { UserResolver } from '../core/resolvers/user.resolver';
+import { RoleGuard } from '../core/guards/role.guard';
+import { UserRole } from '../core/models/auth';
+import { UserlistComponent } from './userlist/userlist.component';
 
 
 const routes: Routes = [
@@ -19,11 +23,25 @@ const routes: Routes = [
     children: [
       {
         path: ROUTES.root,
-        component: ChatroomComponent,
+        redirectTo: ROUTES.home.chats,
+      },
+      {
+        path: ROUTES.home.chats,
+        component: UserlistComponent,
+        resolve: { user: UserResolver },
+        canActivate: [RoleGuard],
+        data: {
+          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator]
+        }
       },
       {
         path: ROUTES.home.chatroom,
         component: ChatroomComponent,
+        resolve: { user: UserResolver },
+        canActivate: [RoleGuard],
+        data: {
+          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator]
+        }
       },
       {
         path: ROUTES.home.inbox,

@@ -28,10 +28,17 @@ export interface Chat extends Entity {
   gift: string;
   kiss: string;
   seen: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ChatEmit{
+  id: string;
+  chat: Chat;
 }
 
 export interface SendMessagePayload {
-  receiver: number;
+  receiverId: string;
   text: string;
   gift: string;
   kiss: string;

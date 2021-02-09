@@ -12,7 +12,7 @@ export class VisitorsComponent implements OnInit {
   constructor(private openPageSv: OpenPageService) { }
 
   ngOnInit(): void {
-    this.openPageSv.send('chatroom');
+    this.openPageSv.send('visitors');
   }
 
 }

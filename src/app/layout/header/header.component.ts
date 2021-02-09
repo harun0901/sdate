@@ -11,6 +11,7 @@ import { SocketService } from '../../core/services/socket.service';
 import { ChatService } from '../../core/services/chat.service';
 import { IsMinePipe } from '../../ui-kit/pipes/is-mine.pipe';
 import { Chat } from '../../core/models/chat';
+import { ChatStoreService } from '../../core/services/chat-store.service';
 
 @Component({
   selector: 'sdate-header',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
     private socketService: SocketService,
     private chatService: ChatService,
     private isMinePipe: IsMinePipe,
+    private chatStoreService: ChatStoreService,
     ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class HeaderComponent implements OnInit {
     ).subscribe(
       (message: Chat) => {
         if (this.isMinePipe.transform(message)) {
-          alert('One Message received');
+          this.chatStoreService.addChat(message.sender.id, message);
         }
       }
     );
@@ -63,11 +65,11 @@ export class HeaderComponent implements OnInit {
 
 
   private async loadUnreadMessages(): Promise<void> {
-    try {
-      this.total = await this.chatService.totalUnreadCount().toPromise();
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   this.total = await this.chatService.totalUnreadCount().toPromise();
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 
 

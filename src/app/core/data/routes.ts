@@ -18,7 +18,9 @@ export const ROUTES = {
   root: '',
   home: {
     root: 'home',
-    chatroom: 'chatroom',
+    chats: 'chats',
+    chatroom_root: 'chatroom',
+    chatroom: 'chatroom/:userId',
     inbox: 'inbox',
     visitors: 'visitors',
     likes: 'likes',
