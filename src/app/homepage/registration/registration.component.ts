@@ -41,16 +41,9 @@ export class RegistrationComponent implements OnInit {
     try {
       this.isLoading = true;
       const regInfo = this.registrationForm.value;
-      /*********real mode***************/
       await this.auth.register(regInfo).toPromise();
       const token = await this.auth.decodeToken();
       this.auth.navigateByUserRole(token.role);
-      /*********test mode***************/
-      // if (loginInfo.email !== 'admin@gmail.com' || loginInfo.password !== 'adminadmin') {
-      //   throw new Error('invalid ID');
-      // }
-      // this.auth.navigateByUserRole(UserRole.Admin);
-      /*********test mode***************/
       this.dialogRef.close();
       this.toastr.success(`You've successfully Registered.`);
     } catch (e) {
