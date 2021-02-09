@@ -21,6 +21,7 @@ import { ChatStoreService } from '../../core/services/chat-store.service';
 })
 export class HeaderComponent implements OnInit {
   ROUTES = ROUTES;
+  userName: string;
   total = 0;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.userName = this.auth.user.fullName;
     this.subscribeMessages();
     this.chatService.totalUnreadChanged$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)

@@ -1,0 +1,64 @@
+<ng-container>
+  <sdate-spinner *ngIf="isLoading"></sdate-spinner>
+  <form [formGroup]="registrationForm" (ngSubmit)="onRegistrationClicked()">
+    <div class="max-width-350">
+      <div class="mb-10 text-black-50">
+        <h2 mat-dialog-title>REGISTRATION</h2>
+      </div>
+      <div mat-dialog-content>
+        <div class="mb-30">
+          <label for="fullName" class="mb-1 text-black-50">Username</label>
+          <input class="w-100 height-35 border-dark border-1 px-5 mb-15" id="fullName" formControlName="fullName"
+                 placeholder="Your username"/>
+          <label for="email" class="mb-1 text-black-50">Email address</label>
+          <input class="w-100 height-35 border-dark border-1 px-5 mb-15" id="email" formControlName="email"
+                 placeholder="Your email address"/>
+          <label for="password" class="mt-10 mb-1 text-black-50">Password</label>
+          <input class="w-100 height-35 border-dark border-1 px-5 mb-15" id="password" formControlName="password"
+                 placeholder="Your password" type="password"/>
+          <label class="mt-10 mb-1 text-black-50">Age</label>
+          <br>
+          <mat-form-field appearance="fill">
+            <mat-label>Select your age</mat-label>
+            <mat-select formControlName="age">
+              <mat-option value="18">18</mat-option>
+              <mat-option value="19">19</mat-option>
+              <mat-option value="20">20</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <label class="mt-10 mb-1 text-black-50">I am</label>
+          <br>
+          <mat-radio-group aria-label="Select an option" formControlName="gender">
+            <mat-radio-button value="female" class="mr-15 text-black-50">a Woman</mat-radio-button>
+            <mat-radio-button value="male" class="text-black-50">a Man</mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <label class="mt-10 mb-1 text-black-50">I'm looking for</label>
+          <br>
+          <mat-radio-group aria-label="Select an option" formControlName="lookingFor">
+            <mat-radio-button value="female" class="mr-15 text-black-50">a Woman</mat-radio-button>
+            <mat-radio-button value="male" class="text-black-50">a Man</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-10" mat-dialog-actions>
+        <button class="btn btn-light rounded-0 w-100" type="submit" [disabled]="registrationForm.invalid || isLoading">REGISTER</button>
+      </div>
+
+      <div class="d-flex align-items-center my-15">
+        <div class="col col-sm-5 border-dark border-bottom"></div>
+        <div class="col col-sm-2 d-flex justify-content-center align-items-center"><span>or</span></div>
+        <div class="col col-sm-5 border-dark border-bottom"></div>
+      </div>
+      <div class="d-sm-flex">
+        <a class="btn w-100 height-30 d-flex align-items-center bg-info p-0 mb-1 mr-1"><span class="bg-transparent"><sdate-icon
+          [width]="30" icon="google" color="white"></sdate-icon></span><p class="text-white m-0 p-0 w-75 text-center">Google</p>
+        </a>
+        <a class="btn w-100 height-30 d-flex align-items-center bg-info p-0 mb-1"><span class="bg-transparent px-1"><sdate-icon
+          [width]="20" icon="face" color="white"></sdate-icon></span><p class="text-white m-0 p-0 w-75 text-center">Facebook</p>
+        </a>
+      </div>
+    </div>
+  </form>
+</ng-container>

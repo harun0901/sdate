@@ -1,4 +1,4 @@
-import { User } from './auth';
+import { User } from './user';
 import { Entity } from './base';
 
 export enum MessageFrom {

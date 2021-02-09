@@ -11,7 +11,7 @@ import { Chat, SendMessagePayload } from '../../core/models/chat';
 import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
-import { User } from '../../core/models/auth';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-chatroom',

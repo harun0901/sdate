@@ -7,25 +7,29 @@ import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from '../../core/services/toastr.service';
 
 @Component({
-  selector: 'sdate-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'sdate-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss']
 })
-
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   isLoading: boolean;
-  loginForm: FormGroup;
+  registrationForm: FormGroup;
 
   constructor(
     private router: Router,
-    private dialogRef: MatDialogRef<LoginComponent>,
+    private dialogRef: MatDialogRef<RegistrationComponent>,
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private toastr: ToastrService
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.registrationForm = this.formBuilder.group({
+      fullName: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
+      age: [18, [Validators.required]],
+      gender: ['male', [Validators.required]],
+      lookingFor: ['female', [Validators.required]],
+      agreePrivacy: ['true', [Validators.required]]
     });
   }
 
@@ -33,12 +37,12 @@ export class LoginComponent implements OnInit {
     this.isLoading = false;
   }
 
-  async onLoginClicked(): Promise<void> {
+  async onRegistrationClicked(): Promise<void> {
     try {
       this.isLoading = true;
-      const loginInfo = this.loginForm.value;
+      const regInfo = this.registrationForm.value;
       /*********real mode***************/
-      await this.auth.login(loginInfo).toPromise();
+      await this.auth.register(regInfo).toPromise();
       const token = await this.auth.decodeToken();
       this.auth.navigateByUserRole(token.role);
       /*********test mode***************/
@@ -48,7 +52,7 @@ export class LoginComponent implements OnInit {
       // this.auth.navigateByUserRole(UserRole.Admin);
       /*********test mode***************/
       this.dialogRef.close();
-      this.toastr.success(`You've successfully logged in.`);
+      this.toastr.success(`You've successfully Registered.`);
     } catch (e) {
       this.toastr.danger(`Invalid email or password. Please try again.`);
     } finally {

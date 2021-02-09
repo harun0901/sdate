@@ -9,16 +9,16 @@
           <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onLoginClicked($event)">
+          <button mat-menu-item (click)="onLoginClicked()">
             <span>Login</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="onRegisterClicked()">
             <span>Registration</span>
           </button>
         </mat-menu>
       </div>
       <div>
-        <button class="btn btn-light" (click)="onLoginClicked($event)">LOGIN</button>
+        <button class="btn btn-light" (click)="onLoginClicked()">LOGIN</button>
       </div>
     </div>
   </div>

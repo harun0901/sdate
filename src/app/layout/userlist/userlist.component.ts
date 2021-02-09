@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../../core/services/user.service';
-import { User } from '../../core/models/auth';
+import { User } from '../../core/models/user';
 import { OpenPageService } from '../../core/services/open-page.service';
 
 @Component({
@@ -18,11 +18,11 @@ export class UserlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.openPageSv.send('chats');
-    this.getAllUsers();
+    this.getRandomUserByLimit();
   }
 
-  async getAllUsers(): Promise<void> {
-    this.userList = await this.userService.getAll().toPromise();
+  async getRandomUserByLimit(): Promise<void> {
+    this.userList = await this.userService.getRandomUserByLimit({limit_count: '9'}).toPromise();
   }
 
 }

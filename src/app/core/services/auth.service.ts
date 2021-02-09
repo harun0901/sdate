@@ -9,8 +9,8 @@ import jwt_decode from 'jwt-decode';
 import { environment } from '../../../environments/environment';
 import { ROUTES } from '../data/routes';
 import { SuccessResponse } from '../models/success-response';
+import { User } from '../models/user';
 import {
-  User,
   UserRole,
   LoginPayload,
   LoginResponse,
@@ -49,6 +49,16 @@ export class AuthService {
       tap(res => {
         this.user = res;
         this.user$.next(this.user);
+      })
+    );
+  }
+
+  register(payload: User): Observable<LoginResponse> {
+    payload.role = UserRole.Customer;
+    const url = `${environment.api}/auth/register`;
+    return this.http.post<LoginResponse>(url, payload).pipe(
+      tap(res => {
+        this.authenticateUser(res.accessToken);
       })
     );
   }
@@ -176,7 +186,7 @@ export class AuthService {
       role = token.role;
     }
     if (role === UserRole.Customer) {
-      await this.router.navigate([ROUTES.client.root, ROUTES.client.myProjects]);
+      await this.router.navigate([ROUTES.admin.root]);
     } else if (role === UserRole.Consultant || role === UserRole.SuperAdmin) {
       await this.router.navigate([ROUTES.admin.root, ROUTES.admin.dashboard]);
     } else if (role === UserRole.Contractor) {

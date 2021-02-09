@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import * as CryptoJS from 'crypto-js';
 
-import { User } from '../../core/models/auth';
+import { User } from '../../core/models/user';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
 import { AuthService } from '../../core/services/auth.service';
