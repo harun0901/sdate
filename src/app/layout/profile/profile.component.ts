@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { OpenPageService } from '../../core/services/open-page.service';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-profile',
@@ -8,7 +9,8 @@ import { OpenPageService } from '../../core/services/open-page.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  @Input() customerInfo: User;
+  @Input() isOwner: boolean;
   constructor(private openPageSv: OpenPageService) { }
 
   ngOnInit(): void {

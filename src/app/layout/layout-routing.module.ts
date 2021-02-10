@@ -20,6 +20,11 @@ const routes: Routes = [
   {
     path: ROUTES.root,
     component: LayoutComponent,
+    resolve: { user: UserResolver },
+    canActivate: [RoleGuard],
+    data: {
+      roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator]
+    },
     children: [
       {
         path: ROUTES.root,
@@ -62,6 +67,11 @@ const routes: Routes = [
       {
         path: ROUTES.home.myprofile,
         component: MyprofileComponent,
+        resolve: { user: UserResolver },
+        canActivate: [RoleGuard],
+        data: {
+          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator]
+        }
       },
       {
         path: ROUTES.home.profile,

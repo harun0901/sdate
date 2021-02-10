@@ -2,8 +2,6 @@ import { Entity } from './base';
 
 export enum UserRole {
   Moderator = 'MODERATOR',
-  Consultant = 'CONSULTANT',
-  Contractor = 'CONTRACTOR',
   Customer = 'USER',
   Admin = 'ADMIN',
   SuperAdmin = 'SUPER_ADMIN',

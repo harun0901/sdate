@@ -1,12 +1,12 @@
-<div>
+<div class="text-black-50">
   <div class="p-20 bg-white shadow-sm d-flex justify-content-between align-items-center mb-5">
     <div class="width-250 height-250">
       <a class="" href="#"><img class="width-250 height-250" src="../../../assets/images/uploaded/2.png" alt="#"/></a>
     </div>
     <div class="ml-20">
-      <h1>Aleksei Panov</h1>
+      <h1>{{customerInfo && customerInfo.fullName}}</h1>
       <br>
-      <h3>30 years old from Moscow</h3>
+      <h3><span>{{customerInfo && customerInfo.birthday.toString() | age}}</span> years old from Moscow</h3>
       <br>
       <h2>About me</h2>
       <textarea class="cdk-textarea-autosize" rows="3" cols="50" placeholder="About me..."></textarea>
@@ -49,32 +49,30 @@
     <h2 class="py-15">Facts</h2>
     <div class="d-flex">
       <div class="w-25">
-        <h4>Looking for</h4><h3>Men</h3>
+        <h4>Looking for</h4><h3>{{customerInfo && customerInfo.lookingFor || 'No Answer'}}</h3>
         <br>
-        <h4>Body</h4><h3>No Answer</h3>
+        <h4>Body</h4><h3>{{customerInfo && customerInfo.body || 'No Answer'}}</h3>
         <br>
-        <h4>Education</h4><h3>Men</h3>
+        <h4>Education</h4><h3>{{customerInfo && customerInfo.education || 'No Answer'}}</h3>
       </div>
       <div class="w-25">
-        <h4>Looking for</h4><h3>Men</h3>
+        <h4>Interested In</h4><h3>{{customerInfo && customerInfo.interestedIn || 'No Answer'}}</h3>
         <br>
-        <h4>Body</h4><h3>No Answer</h3>
+        <h4>Kids</h4><h3>{{customerInfo && customerInfo.kids || 'No Answer'}}</h3>
         <br>
-        <h4>Education</h4><h3>Men</h3>
+        <h4>Profession</h4><h3>{{customerInfo && customerInfo.profession || 'No Answer'}}</h3>
       </div>
       <div class="w-25">
-        <h4>Looking for</h4><h3>Men</h3>
+        <h4>RelationShip Status</h4><h3>{{customerInfo && customerInfo.relationshipStatus || 'No Answer'}}</h3>
         <br>
-        <h4>Body</h4><h3>No Answer</h3>
+        <h4>Smoker</h4><h3>{{customerInfo && customerInfo.smoker || 'No Answer'}}</h3>
         <br>
-        <h4>Education</h4><h3>Men</h3>
+        <h4>Language</h4><h3>{{customerInfo && customerInfo.language || 'No Answer'}}</h3>
       </div>
       <div class="w-25">
-        <h4>Looking for</h4><h3>Men</h3>
+        <h4>Height</h4><h3>{{customerInfo && customerInfo.height || 'No Answer'}}</h3>
         <br>
-        <h4>Body</h4><h3>No Answer</h3>
-        <br>
-        <h4>Education</h4><h3>Men</h3>
+        <h4>Alcohol</h4><h3>{{customerInfo && customerInfo.alcohol || 'No Answer'}}</h3>
       </div>
     </div>
   </div>

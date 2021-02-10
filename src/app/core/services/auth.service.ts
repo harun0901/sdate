@@ -187,13 +187,11 @@ export class AuthService {
     }
     if (role === UserRole.Customer) {
       await this.router.navigate([ROUTES.admin.root]);
-    } else if (role === UserRole.Consultant || role === UserRole.SuperAdmin) {
-      await this.router.navigate([ROUTES.admin.root, ROUTES.admin.dashboard]);
-    } else if (role === UserRole.Contractor) {
-      await this.router.navigate([ROUTES.contractor.root, ROUTES.contractor.projects]);
+    } else if (role === UserRole.Moderator) {
+      await this.router.navigate([ROUTES.admin.root]);
     } else if (role === UserRole.Admin) {
       await this.router.navigate([ROUTES.admin.root]);
-    } else if (role === UserRole.Moderator) {
+    } else if (role === UserRole.SuperAdmin) {
       await this.router.navigate([ROUTES.admin.root]);
     } else {
       this.logout();

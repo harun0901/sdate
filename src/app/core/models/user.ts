@@ -4,18 +4,20 @@ export interface User extends Entity {
   email: string;
   fullName: string;
   role: string;
-  // lastName: string;
-  // phone: string;
-  // avatar?: string;
-  // ideas?: string[];
-  // creditCard: CreditCard;
-  // address?: string;
-  // latitude?: number;
-  // longitude?: number;
-  // invitationStatus?: InvitationStatus;
-  // stripeCustomerId?: string;
-  // relations for profile
-  // contractorProfile?: ContractorProfile;
+  gender: string;
+  lookingFor: string;
+  body: string;
+  education: string;
+  interestedIn: string;
+  kids: string;
+  profession: string;
+  relationshipStatus: string;
+  smoker: string;
+  language: string;
+  height: string;
+  alcohol: string;
+  birthday: Date;
+  avatar: string;
 }
 
 export interface LimitCount {
