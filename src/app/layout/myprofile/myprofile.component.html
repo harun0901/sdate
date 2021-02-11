@@ -1,4 +1,9 @@
 <div class="container text-black-50">
+
+
+  <div class="width-300 height-300 bg-white border-1">
+    <sdate-image-cropper></sdate-image-cropper>
+  </div>
   <div class="">
     <h2>InfoCenter</h2>
     <div class="d-flex align-items-center justify-content-around mt-10">
@@ -48,7 +53,7 @@
       <h2>Personal Information</h2>
       <p>*This data would not be published!</p>
       <h3>Birthday*</h3>
-      <mat-form-field appearance="fill" class="example-form-field">
+      <mat-form-field appearance="fill" class="example-form-field w-100">
         <mat-label>Choose your birthday</mat-label>
         <input matInput [matDatepicker]="datepicker" value="{{user && user.birthday}}">
         <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -67,7 +72,7 @@
       </div>
     </div>
     <div class="bg-white p-20 w-25 d-flex align-items-center">
-      <a class="btn text-decoration-none p-0 m-0">
+      <a class="btn text-decoration-none p-0 m-0" (click)="onAvatarClicked()">
         <i class="icon-upload text-black-50 font-40 d-flex justify-content-center"></i>
         <h5 class="text-black-50 text-center">Drag and Drop your image here to Upload or</h5>
         <h3 class="text-black-50 text-center">new Visitors</h3>

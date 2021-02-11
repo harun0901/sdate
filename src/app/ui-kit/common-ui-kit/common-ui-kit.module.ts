@@ -10,27 +10,32 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { ImageRendererComponent } from './image-renderer/image-renderer.component';
 import { ActionDropdownComponent } from './action-dropdown/action-dropdown.component';
 import { CheckMarkCircleComponent } from './check-mark-circle/check-mark-circle.component';
+import { ImageCropperComponent } from './image-cropper/image-cropper.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
     SpinnerComponent,
     ImageRendererComponent,
     ActionDropdownComponent,
-    CheckMarkCircleComponent
+    CheckMarkCircleComponent,
+    ImageCropperComponent,
   ],
   imports: [
     CommonModule,
     MatProgressSpinnerModule,
     NgbDropdownModule,
     IconModule,
-    PipesModule
+    PipesModule,
+    ImageCropperModule,
   ],
   exports: [
     SpinnerComponent,
     ImageRendererComponent,
     ActionDropdownComponent,
-    CheckMarkCircleComponent
-  ]
+    CheckMarkCircleComponent,
+    ImageCropperComponent,
+  ],
 })
 export class CommonUiKitModule {
 }

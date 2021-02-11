@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
-import * as CryptoJS from 'crypto-js';
 
 import { User } from '../../core/models/user';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
@@ -32,7 +31,6 @@ export class PersoncardComponent implements OnInit {
   }
 
   onMessageClick(selUserId): void {
-    // selUserId = CryptoJS.enc.Base64.stringify(selUserId);
     this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, selUserId]);
   }
 

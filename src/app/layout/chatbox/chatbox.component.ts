@@ -1,39 +1,43 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { OpenPageService } from '../../core/services/open-page.service';
-import { ChatStoreService } from '../../core/services/chat-store.service';
 import { Chat, SendMessagePayload } from '../../core/models/chat';
+import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
+import { ROUTES, toAbsolutePath } from '../../core/data/routes';
+import { ScrollPosition } from '../../core/data/scroll-pos';
 import { User } from '../../core/models/user';
 
 @Component({
-  selector: 'sdate-chatroom',
-  templateUrl: './chatroom.component.html',
-  styleUrls: ['./chatroom.component.scss']
+  selector: 'sdate-chatbox',
+  templateUrl: './chatbox.component.html',
+  styleUrls: ['./chatbox.component.scss']
 })
-export class ChatroomComponent implements OnInit, OnDestroy {
+export class ChatboxComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
+  show: boolean;
+  ROUTES = ROUTES;
   chatStore: Chat[];
-  customerId: string;
+  @Input() customerId: string;
   customerInfo: User;
   chatForm: FormGroup;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
-    private openPageSv: OpenPageService,
     private chatStoreService: ChatStoreService,
     private cRef: ChangeDetectorRef,
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: ActivatedRoute,
     private userService: UserService,
+    private router: Router,
+    private scrollToService: ScrollToService,
   ) {
     this.chatForm = this.formBuilder.group({
       message_content: ['', [Validators.required]],
@@ -41,13 +45,11 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.openPageSv.send('chatroom');
-    this.customerId = this.router.snapshot.paramMap.get('userId');
     this.getCustomerInfo(this.customerId);
-    this.chatStoreService.setChatroomUserId(this.customerId);
     this.chatStore = [];
+    this.show = true;
 
-    this.chatStoreService.chatroomStore$.asObservable().pipe(
+    this.chatStoreService.chatStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
         if (this.customerId === chatEmmitInfo.id) {
@@ -84,10 +86,29 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     }
   }
 
+  onCloseClicked(): void {
+    this.chatStoreService.deleteChat(this.customerId);
+  }
+
+  onToggle(): void {
+    this.show = !this.show;
+  }
+
+  onExpandClicked(): void {
+    this.chatStoreService.deleteChat(this.customerId);
+    this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.customerId]);
+  }
+
+  navigate(path: string | string[]): void {
+    this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+    });
+  }
+
   ngOnDestroy(): void {
+    this.chatStoreService.deleteChat(this.customerId);
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();
-    this.chatStoreService.setChatroomUserId('');
   }
 
 }

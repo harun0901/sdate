@@ -17,6 +17,11 @@ export enum MessageStatusType {
   Mailed = 'MAILED',
 }
 
+export enum ChatRoomEventType {
+  AddChatBox = 'ADDNEWCHATBOX',
+  DeleteOneChatBox = 'DELETEONECHATBOX'
+}
+
 
 export interface Chat extends Entity {
   id: string;

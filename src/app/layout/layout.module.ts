@@ -29,6 +29,8 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserlistComponent } from './userlist/userlist.component';
+import { CommonUiKitModule } from '../ui-kit/common-ui-kit/common-ui-kit.module';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import { UserlistComponent } from './userlist/userlist.component';
     MyprofileComponent,
     ProfileComponent,
     UserlistComponent,
+    ChatboxComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +67,7 @@ import { UserlistComponent } from './userlist/userlist.component';
     IconModule,
     A11yModule,
     ReactiveFormsModule,
+    CommonUiKitModule,
   ],
 })
 export class LayoutModule { }

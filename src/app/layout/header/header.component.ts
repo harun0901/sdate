@@ -19,7 +19,7 @@ import { ChatStoreService } from '../../core/services/chat-store.service';
   styleUrls: ['./header.component.scss'],
   providers: [IsMinePipe]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
   userName: string;
   total = 0;
@@ -58,7 +58,11 @@ export class HeaderComponent implements OnInit {
     ).subscribe(
       (message: Chat) => {
         if (this.isMinePipe.transform(message)) {
-          this.chatStoreService.addChat(message.sender.id, message);
+          if (message.sender.id === this.chatStoreService.chatroomUserId) {
+            this.chatStoreService.addRoomChat(message);
+          } else {
+            this.chatStoreService.addChat(message.sender.id, message);
+          }
         }
       }
     );

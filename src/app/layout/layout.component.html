@@ -1,17 +1,20 @@
 <sdate-header></sdate-header>
 <div class="bg-dark d-flex">
-  <div class="col col-lg-3 d-none d-lg-block" *ngIf="openPage !== 'my-profile' && openPage !== 'profile' && openPage !== 'chatroom'">
+  <div class="col col-lg-3 d-none d-lg-block" *ngIf="exceptPageList.indexOf(openPage) < 0">
     <sdate-leftpanel></sdate-leftpanel>
   </div>
-  <div class="col col-lg-1 d-none d-lg-block" *ngIf="openPage === 'my-profile' || openPage === 'profile' || openPage === 'chatroom'">
+  <div class="col col-lg-1 d-none d-lg-block" *ngIf="exceptPageList.indexOf(openPage) > -1">
   </div>
-  <div [ngClass]="openPage === 'profile' || openPage === 'my-profile' || openPage === 'chatroom' ? 'col col-sm-12 col-lg-8' : 'col col-sm-12 col-lg-6'">
+  <div [ngClass]="exceptPageList.indexOf(openPage) > -1 ? 'col col-sm-12 col-lg-8' : 'col col-sm-12 col-lg-6'">
     <div class="w-100 h-100 mt-20">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <div [ngClass]="openPage === 'profile' || openPage === 'my-profile' || openPage === 'chatroom' ? 'col col-lg-2 d-none d-lg-block' : 'col col-lg-3 d-none d-lg-block'">
+  <div [ngClass]="exceptPageList.indexOf(openPage) > -1 ? 'col col-lg-2 d-none d-lg-block' : 'col col-lg-3 d-none d-lg-block'">
     <sdate-rightpanel></sdate-rightpanel>
   </div>
+</div>
+<div class="position-sticky bottom-10 right-0 max-height-400 mr-400 float-right z-index-10 d-flex justify-content-end flex-wrap">
+  <sdate-chatbox class="d-flex align-items-end" *ngFor="let chatId of chatIdStore" [customerId]="chatId"></sdate-chatbox>
 </div>
 <sdate-footer></sdate-footer>

@@ -1,28 +1,18 @@
-<div class="w-100 d-flex">
-  <div class="col col-lg-3 d-none d-lg-block">
-    <div class="bg-white shadow-sm width-200 min-height-400">
-      <div class="width-200 height-200 p-1">
-        <img class="width-200 height-200" src="../../../assets/images/uploaded/2.png" alt="#"/>
-      </div>
-      <h2 class="text-primary text-center">{{ customerInfo && customerInfo.fullName }}</h2>
-      <h3 class="text-black-50 text-center">{{ customerInfo && customerInfo.email }}</h3>
+<div class="width-300 bg-white shadow-lg m-5 dark-border">
+  <div class="height-40 bg-primary w-100 d-flex align-items-center justify-content-between">
+    <div class="shadow-lg">
+      <img class="width-40 height-40" src="../../../assets/images/uploaded/1.png" alt="#"/>
+    </div>
+    <h3 class="text-white">{{customerInfo && customerInfo.fullName}}</h3>
+    <div class="d-flex align-items-center justify-content-around">
+      <a class="btn btn-primary text-white p-1 font-15 mr-0" (click)="onExpandClicked()"><i class="icon-expand"></i></a>
+      <a class="btn btn-primary text-white p-1 font-15 mr-0" (click)="onToggle()"><i class="icon-minimize"></i></a>
+      <a class="btn btn-primary text-white p-1 font-12 mr-2" (click)="onCloseClicked()"><i class="icon-close"></i></a>
     </div>
   </div>
-  <div class="col col-12 col-lg-9">
-    <div class="py-15 height-100 mb-1 bg-white shadow-sm ">
-      <h3 class="text-center mb-10">{{ customerInfo && customerInfo.fullName }}</h3>
-      <div class="d-flex align-items-center justify-content-center">
-        <span class="mr-10">offline</span>
-        <div class="bg-danger width-5 height-5 rounded-circle mr-10"></div>
-        <button class="btn text-primary"><sdate-icon [width]="10" icon="heart" color="Cabaret"></sdate-icon></button>
-        <label class="text-primary m-0">Like him</label>
-      </div>
-    </div>
-    <div class="w-100 height-400 bg-white shadow-sm mb-2">
-      <div class="p-5">
-        <p class="bg-warning text-center text-info font-weight-bold m-0 py-5">Trust yourself and take the first step!</p>
-      </div>
-      <div class="chat-history p-10 overflow-auto max-height-350" #scrollMe>
+  <ng-container *ngIf="show">
+    <div class="height-285">
+      <div class="chat-history p-10 overflow-auto max-height-285" #scrollMe>
         <div *ngFor="let chat of chatStore" [ngClass]="chat.sender.id === customerId ? 'message_box d-flex align-items-end justify-content-start mb-10' : 'message_box d-flex align-items-end justify-content-end mb-10'">
           <div class="message_content position-relative p-10 text-white rounded-sm mw-75">
             <p class="p-0 m-0">
@@ -35,8 +25,8 @@
         </div>
       </div>
     </div>
-    <form [formGroup]="chatForm"  (ngSubmit)="onTransferClicked()" (keydown.control.enter)="onTransferClicked()">
-      <div class="w-100 height-70 bg-white shadow-sm d-flex align-items-center">
+    <form [formGroup]="chatForm" (ngSubmit)="onTransferClicked()" (keydown.control.enter)="onTransferClicked()">
+      <div class="w-100 height-70 bg-white shadow-sm d-flex align-items-center p-1">
         <div class="w-100 height-70">
           <textarea class="w-100 h-100 m-0 border-0" rows="3" cols="50" formControlName="message_content"></textarea>
         </div>
@@ -51,5 +41,5 @@
         </div>
       </div>
     </form>
-  </div>
+  </ng-container>
 </div>

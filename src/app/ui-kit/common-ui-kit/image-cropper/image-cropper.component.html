@@ -1,0 +1,25 @@
+<ng-container>
+  <div class="d-flex justify-content-start">
+    <a class="close" mat-dialog-close=""><span class="material-icons">close</span></a>
+    <h1 class="text-black-50 ml-20">Upload Image...</h1>
+  </div>
+  <div class="weight-300 height-300 p-10" mat-dialog-content>
+    <div class="d-flex justify-content-around align-items-center">
+      <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mr-10 mb-10" (click)="fileInput.click()">Select File</button>
+      <button class="btn btn-primary height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mb-10" (click)="uploadImg()">Upload</button>
+    </div>
+    <input class="hide" style="display: none;" type="file" (change)="fileChangeEvent($event)" #fileInput/>
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <img [src]="croppedImage" />
+  </div>
+  <div mat-dialog-actions></div>
+</ng-container>
