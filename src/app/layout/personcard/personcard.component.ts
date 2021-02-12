@@ -49,10 +49,21 @@ export class PersoncardComponent implements OnInit {
 
   async onLikeClicked(): Promise<void> {
     let user;
-    if (this.customerState === UserShowType.RANDOM){
-      user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
-    } else if (this.customerState === UserShowType.LIKE){
+    if (this.customerState === UserShowType.LIKE){
       user = await this.userService.removeLikeUser({id: this.customerInfo.id}).toPromise();
+    } else {
+      user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
+    }
+    this.toastr.success(`You've successfully changed.`);
+    this.signalService.sendSignal(Signal.UserListchanged);
+  }
+
+  async onFavoriteClicked(): Promise<void> {
+    let user;
+    if (this.customerState === UserShowType.FAVORITE){
+      user = await this.userService.removeFavoriteUser({id: this.customerInfo.id}).toPromise();
+    } else {
+      user = await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
     }
     this.toastr.success(`You've successfully changed.`);
     this.signalService.sendSignal(Signal.UserListchanged);

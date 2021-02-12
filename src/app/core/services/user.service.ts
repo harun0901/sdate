@@ -57,4 +57,19 @@ export class UserService {
     const url = `${environment.api}/sdate/user/getLikedUser`;
     return this.http.get<User[]>(url);
   }
+
+  favoriteUser(payload: UserLike): Observable<User> {
+    const url = `${environment.api}/sdate/user/favoriteUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  removeFavoriteUser(payload: UserLike): Observable<User> {
+    const url = `${environment.api}/sdate/user/removeFavoriteUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  getFavoriteUser(): Observable<User[]> {
+    const url = `${environment.api}/sdate/user/getFavoriteUser`;
+    return this.http.get<User[]>(url);
+  }
 }

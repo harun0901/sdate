@@ -49,6 +49,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100% !important;
   min-width: 290px;
   min-height: 350px;
+  box-sizing: border-box;
 }
 
 .person-card img, .person-card .avatar-part{
@@ -111,6 +112,11 @@ textarea:focus {
 
 .dark-border:focus {
   outline: 1px solid #007ab5;
+}
+
+.custom-backdrop {
+  background-color: gray;
+  opacity: .2 !important;
 }
 
 //@media (min-width: 576px) { //sm

@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-
 </div>
 <div class="d-flex flex-wrap justify-content-between align-items-center">
+  <sdate-personcard *ngFor="let user of userList" [customerInfo]="user" [customerState]="userState"></sdate-personcard>
 </div>

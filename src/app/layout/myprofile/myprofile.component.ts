@@ -8,6 +8,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
 import { ToastrService } from '../../core/services/toastr.service';
+import { ScrollPosition } from '../../core/data/scroll-pos';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 @Component({
   selector: 'sdate-myprofile',
@@ -23,6 +25,7 @@ export class MyprofileComponent implements OnInit {
     private infoFB: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
+    private scrollToService: ScrollToService,
     public uploadImgDialog: MatDialog,
   ) {
     this.user = authService.user;
@@ -38,9 +41,11 @@ export class MyprofileComponent implements OnInit {
   }
 
   onAvatarClicked(): void {
+    window.scroll(0, 0);
     this.uploadImgDialog.open(ImageCropperComponent, {
       width: '350px',
       panelClass: 'full-panel',
+      backdropClass: 'custom-backdrop'
     });
   }
 
