@@ -1,0 +1,6 @@
+<div class="form-group" [class.label-input-group]="label">
+  <label class="form-label">
+    {{ label }}
+    <input class="w-100 height-35 dark-border border-0 px-5 mt-5 text-black-50" [min]="min" [type]="type" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="change($event)" [readonly]="readonly">
+  </label>
+</div>

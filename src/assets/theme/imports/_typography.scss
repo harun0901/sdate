@@ -90,6 +90,8 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 1px 1px #0077b1, 2px 2px #0077b2, 3px 3px #0078b3, 4px 4px #0078b4, 5px 5px #0079b4, 6px 6px #007ab5, 7px 7px #007ab6, 8px 8px #007bb7, 9px 9px #007bb8, 10px 10px #007cb9, 11px 11px #007cba, 12px 12px #007dba, 13px 13px #007ebb, 14px 14px #007ebc, 15px 15px #007fbd, 16px 16px #007fbe, 17px 17px #0080bf, 18px 18px #0080bf, 19px 19px #0081c0, 20px 20px #0082c1, 21px 21px #0082c2, 22px 22px #0083c3, 23px 23px #0083c4, 24px 24px #0084c5, 25px 25px #0084c5, 26px 26px #0085c6, 27px 27px #0086c7, 28px 28px #0086c8, 29px 29px #0087c9, 30px 30px #0087ca, 31px 31px #0088cb, 32px 32px #0088cb, 33px 33px #0089cc, 34px 34px #008acd, 35px 35px #008ace, 36px 36px #008bcf, 37px 37px #008bd0, 38px 38px #008cd0, 39px 39px #008cd1, 40px 40px #008dd2, 41px 41px #008ed3, 42px 42px #008ed4, 43px 43px #008fd5, 44px 44px #008fd6, 45px 45px #0090d6, 46px 46px #0090d7, 47px 47px #0091d8, 48px 48px #0092d9, 49px 49px #0092da, 50px 50px #0093db, 51px 51px #0093dc, 52px 52px #0094dc, 53px 53px #0094dd, 54px 54px #0095de, 55px 55px #0096df, 56px 56px #0096e0, 57px 57px #0097e1, 58px 58px #0097e1, 59px 59px #0098e2, 60px 60px #0098e3;
 }
 
+p { word-break: break-all }
+
 textarea {
   resize: none;
   outline: 1px solid #aaa;
@@ -97,6 +99,18 @@ textarea {
 
 textarea:focus {
   outline: 1px solid #aaa;
+}
+
+.dark-border {
+  outline: 1px solid #aaa;
+}
+
+.dark-border:hover {
+  outline: 1px solid #8DA3BA;
+}
+
+.dark-border:focus {
+  outline: 1px solid #007ab5;
 }
 
 //@media (min-width: 576px) { //sm

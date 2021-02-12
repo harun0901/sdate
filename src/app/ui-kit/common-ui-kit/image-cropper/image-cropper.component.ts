@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageService } from '../../../core/services/image.service';
 
 @Component({
   selector: 'sdate-image-cropper',
@@ -10,7 +11,7 @@ export class ImageCropperComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
-  constructor() { }
+  constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
   }
@@ -32,7 +33,14 @@ export class ImageCropperComponent implements OnInit {
   }
 
   uploadImg(): void {
-    console.log(this.croppedImage);
+    this.imageService.uploadImage(this.croppedImage).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

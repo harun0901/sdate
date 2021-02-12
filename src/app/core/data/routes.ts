@@ -26,7 +26,8 @@ export const ROUTES = {
     likes: 'likes',
     favorites: 'favorites',
     myprofile: 'my-profile',
-    profile: 'profile',
+    profile_root: 'profile',
+    profile: 'profile/:userId',
     support: {
       root: 'support',
       guideline: 'guideline',

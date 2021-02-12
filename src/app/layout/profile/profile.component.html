@@ -4,19 +4,28 @@
       <a class="" href="#"><img class="width-250 height-250" src="../../../assets/images/uploaded/2.png" alt="#"/></a>
     </div>
     <div class="ml-20">
-      <h1>{{customerInfo && customerInfo.fullName}}</h1>
-      <br>
-      <h3><span>{{customerInfo && customerInfo.birthday.toString() | age}}</span> years old from Moscow</h3>
-      <br>
-      <h2>About me</h2>
-      <textarea class="cdk-textarea-autosize" rows="3" cols="50" placeholder="About me..."></textarea>
-      <div class="d-flex justify-content-between">
-        <a class="btn text-primary">Guidelines</a>
-        <div>
-          <button class="btn btn-info mr-10 rounded-0">Abort</button>
-          <button class="btn btn-primary rounded-0">Save</button>
+      <form [formGroup]="basicFG" (ngSubmit)="onBasicSubmitClicked()">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 *ngIf="!isEditBasic">{{customerInfo && customerInfo.fullName}}</h1>
+          <sdate-text-input label="Username" placeholder="Username" formControlName="fullName" *ngIf="isEditBasic"></sdate-text-input>
+          <a class="btn font-15 text-primary" (click)="onEditBasicToggle()" *ngIf="!isEditBasic && isEditable"><i class="icon-edit"></i></a>
+          <a class="btn font-15 text-info" (click)="onEditBasicToggle()" *ngIf="isEditBasic && isEditable"><i class="icon-check"></i></a>
         </div>
-      </div>
+        <br>
+        <h3 *ngIf="!isEditBasic"><span>{{customerInfo && customerInfo.birthday.toString() | age}}</span> years old from <span>{{customerInfo && customerInfo.location}}</span></h3>
+        <sdate-text-input label="Location" placeholder="location" formControlName="location" *ngIf="isEditBasic"></sdate-text-input>
+        <br>
+        <h2>About me</h2>
+        <textarea *ngIf="!isEditBasic" class="cdk-textarea-autosize border-0 dark-border text-black-50" disabled rows="3" cols="50" placeholder="About me...">{{customerInfo && customerInfo.about}}</textarea>
+        <textarea *ngIf="isEditBasic" class="cdk-textarea-autosize border-0 dark-border text-black-50" rows="3" cols="50" placeholder="About me..." formControlName="about"></textarea>
+        <div class="d-flex justify-content-between">
+          <a class="btn text-primary" (click)="navigate([ROUTES.home.root, ROUTES.home.support.root, ROUTES.home.support.guideline])">Guidelines</a>
+          <div *ngIf="isEditBasic">
+            <button class="btn btn-info mr-10 rounded-0" (click)="onEditBasicToggle()">Abort</button>
+            <button class="btn btn-primary rounded-0">Save</button>
+          </div>
+        </div>
+      </form>
     </div>
     <div>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5">
@@ -46,34 +55,110 @@
     </div>
   </div>
   <div class="bg-white p-15">
-    <h2 class="py-15">Facts</h2>
-    <div class="d-flex">
-      <div class="w-25">
-        <h4>Looking for</h4><h3>{{customerInfo && customerInfo.lookingFor || 'No Answer'}}</h3>
-        <br>
-        <h4>Body</h4><h3>{{customerInfo && customerInfo.body || 'No Answer'}}</h3>
-        <br>
-        <h4>Education</h4><h3>{{customerInfo && customerInfo.education || 'No Answer'}}</h3>
+    <form [formGroup]="factFG" (ngSubmit)="onFactSubmitClicked()">
+      <div class="py-15 d-flex justify-content-between">
+        <h2>Facts</h2>
+        <a class="btn font-15 text-primary" (click)="onEditFactsToggle()" *ngIf="!isEditFact && isEditable"><i class="icon-edit"></i></a>
+        <a class="btn font-15 text-info" (click)="onEditFactsToggle()" *ngIf="isEditFact && isEditable"><i class="icon-check"></i></a>
       </div>
-      <div class="w-25">
-        <h4>Interested In</h4><h3>{{customerInfo && customerInfo.interestedIn || 'No Answer'}}</h3>
-        <br>
-        <h4>Kids</h4><h3>{{customerInfo && customerInfo.kids || 'No Answer'}}</h3>
-        <br>
-        <h4>Profession</h4><h3>{{customerInfo && customerInfo.profession || 'No Answer'}}</h3>
+      <div class="d-flex">
+
+        <div class="w-25 mr-10" *ngIf="!isEditFact">
+          <h4>Looking for</h4><h3>{{customerInfo && customerInfo.lookingFor || 'No Answer'}}</h3>
+          <br>
+          <h4>Body</h4><h3>{{customerInfo && customerInfo.body || 'No Answer'}}</h3>
+          <br>
+          <h4>Education</h4><h3>{{customerInfo && customerInfo.education || 'No Answer'}}</h3>
+        </div>
+        <div class="w-25 mr-10" *ngIf="isEditFact">
+          <sdate-select label="Looking for" [options]="lookingForList" formControlName="lookingFor"></sdate-select>
+          <sdate-select label="Body" [options]="bodyList" formControlName="body"></sdate-select>
+          <sdate-select label="Education" [options]="educationList" formControlName="education"></sdate-select>
+        </div>
+        <div class="w-25 mr-10" *ngIf="!isEditFact">
+          <h4>Interested In</h4><h3>{{customerInfo && customerInfo.interestedIn || 'No Answer'}}</h3>
+          <br>
+          <h4>Kids</h4><h3>{{customerInfo && customerInfo.kids || 'No Answer'}}</h3>
+          <br>
+          <h4>Profession</h4><h3>{{customerInfo && customerInfo.profession || 'No Answer'}}</h3>
+        </div>
+        <div class="w-25 mr-10" *ngIf="isEditFact">
+          <div>
+<!--            <label for="factFormField-Interested in">Interested In</label>-->
+<!--            <div class="selectButtons d-flex flex-wrap">-->
+<!--              <input type="checkbox" id="factFormField-Interested in1" name="interests" value="1" formControlName="interestedIn">-->
+<!--              <label for="factFormField-Interested in1"><i class="icon-check"> </i>Dates</label>-->
+<!--              <input type="checkbox" id="factFormField-Interested in2" name="interests" value="2" formControlName="interestedIn">-->
+<!--              <label for="factFormField-Interested in2" ><i class="icon-check"> </i>Flirts</label>-->
+<!--              <input type="checkbox" id="factFormField-Interested in3" name="interests" value="3" formControlName="interestedIn">-->
+<!--              <label for="factFormField-Interested in3" ><i class="icon-check"> </i>Chats</label>-->
+<!--              <input type="checkbox" id="factFormField-Interested in4" name="interests" value="4" formControlName="interestedIn">-->
+<!--              <label for="factFormField-Interested in4" ><i class="icon-check"> </i>Friendship</label>-->
+<!--              <input type="checkbox" id="factFormField-Interested in5" name="interests" value="5" formControlName="interestedIn">-->
+<!--              <label for="factFormField-Interested in5" ><i class="icon-check"> </i>Acquaintance</label>-->
+<!--            </div>-->
+          </div>
+          <sdate-select label="Interested In" [options]="interestedList" formControlName="interestedIn"></sdate-select>
+          <sdate-select label="Kids" [options]="kidsList" formControlName="kids"></sdate-select>
+          <sdate-select label="Profession" [options]="professionList" formControlName="profession"></sdate-select>
+        </div>
+        <div class="w-25 mr-10" *ngIf="!isEditFact">
+          <h4>RelationShip Status</h4><h3>{{customerInfo && customerInfo.relationshipStatus || 'No Answer'}}</h3>
+          <br>
+          <h4>Smoker</h4><h3>{{customerInfo && customerInfo.smoker || 'No Answer'}}</h3>
+          <br>
+          <h4>Language</h4><h3>{{customerInfo && customerInfo.language || 'No Answer'}}</h3>
+        </div>
+        <div class="w-25 mr-10" *ngIf="isEditFact">
+          <sdate-select label="RelationShip Status" [options]="relationshipList" formControlName="relationshipStatus"></sdate-select>
+          <sdate-select label="Smoker" [options]="smokerList" formControlName="smoker"></sdate-select>
+          <sdate-select label="Language" [options]="languageList" formControlName="language"></sdate-select>
+          <div>
+<!--          <label for="factFormField-Language">Language</label>-->
+<!--          <div class="selectButtons d-flex flex-wrap">-->
+<!--            <input type="checkbox" id="factFormField-Languagear" name="language" value="ar" formControlName="language">-->
+<!--            <label for="factFormField-Languagear"><i class="icon-check"> </i>Arabic</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagezh" name="language" value="zh" formControlName="language">-->
+<!--            <label for="factFormField-Languagezh"><i class="icon-check"> </i>Chinese</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagecs" name="language" value="cs" formControlName="language">-->
+<!--            <label for="factFormField-Languagecs"><i class="icon-check"> </i>Czech</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagenl" name="language" value="nl" formControlName="language">-->
+<!--            <label for="factFormField-Languagenl"><i class="icon-check"> </i>Dutch</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagede" name="language" value="de" formControlName="language">-->
+<!--            <label for="factFormField-Languagede"><i class="icon-check"> </i>German</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageen" name="language" value="en" formControlName="language">-->
+<!--            <label for="factFormField-Languageen"><i class="icon-check"> </i>English</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagefr" name="language" value="fr" formControlName="language">-->
+<!--            <label for="factFormField-Languagefr"><i class="icon-check"> </i>French</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageel" name="language" value="el" formControlName="language">-->
+<!--            <label for="factFormField-Languageel"><i class="icon-check"> </i>Greek</label>-->
+<!--            <input type="checkbox" id="factFormField-Languagehe" name="language" value="he" formControlName="language">-->
+<!--            <label for="factFormField-Languagehe"><i class="icon-check"> </i>Hebrew</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageid" name="language" value="id" formControlName="language">-->
+<!--            <label for="factFormField-Languageid"><i class="icon-check"> </i>Indonesian</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageit" name="language" value="it" formControlName="language">-->
+<!--            <label for="factFormField-Languageit"><i class="icon-check"> </i>Italian</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageja" name="language" value="ja" formControlName="language">-->
+<!--            <label for="factFormField-Languageja"><i class="icon-check"> </i>Japanese</label>-->
+<!--            <input type="checkbox" id="factFormField-Languageko" name="language" value="ko" formControlName="language">-->
+<!--            <label for="factFormField-Languageko"><i class="icon-check"> </i>Korean</label>-->
+<!--          </div>-->
+          </div>
+        </div>
+        <div class="w-25 mr-10" *ngIf="!isEditFact">
+          <h4>Height</h4><h3>{{customerInfo && customerInfo.height || 'No Answer'}}cm</h3>
+          <br>
+          <h4>Alcohol</h4><h3>{{customerInfo && customerInfo.alcohol || 'No Answer'}}</h3>
+        </div>
+        <div class="w-25 mr-10" *ngIf="isEditFact">
+          <sdate-select label="Height" [options]="heightList" formControlName="height"></sdate-select>
+          <sdate-select label="Alcohol" [options]="alcoholicList" formControlName="alcohol"></sdate-select>
+        </div>
       </div>
-      <div class="w-25">
-        <h4>RelationShip Status</h4><h3>{{customerInfo && customerInfo.relationshipStatus || 'No Answer'}}</h3>
-        <br>
-        <h4>Smoker</h4><h3>{{customerInfo && customerInfo.smoker || 'No Answer'}}</h3>
-        <br>
-        <h4>Language</h4><h3>{{customerInfo && customerInfo.language || 'No Answer'}}</h3>
+      <div class="d-flex justify-content-end" *ngIf="isEditFact">
+        <button class="btn btn-info rounded-0 mr-5" (click)="onEditFactsToggle()">Abort</button>
+        <button class="btn btn-primary rounded-0">Save</button>
       </div>
-      <div class="w-25">
-        <h4>Height</h4><h3>{{customerInfo && customerInfo.height || 'No Answer'}}</h3>
-        <br>
-        <h4>Alcohol</h4><h3>{{customerInfo && customerInfo.alcohol || 'No Answer'}}</h3>
-      </div>
-    </div>
+    </form>
   </div>
 </div>

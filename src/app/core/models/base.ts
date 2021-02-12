@@ -5,6 +5,10 @@ export interface Entity {
   updatedAt?: string;
 }
 
+export enum Signal {
+  UserListchanged = 'USERLISTCHANGED',
+}
+
 export enum Opinion {
   Yes = 'YES',
   No = 'NO',

@@ -4,7 +4,7 @@ import { Chat, SendMessagePayload } from '../models/chat';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { LimitCount, User } from '../models/user';
+import { LimitCount, User, UserBasic, UserFact, UserInfo, UserLike } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,37 @@ export class UserService {
   }
 
   getById(customerId): Observable<User> {
-    const url = `${environment.api}/sdate/user/${customerId}`;
+    const url = `${environment.api}/sdate/user/getById/${customerId}`;
     return this.http.get<User>(url);
+  }
+
+  updateUserFact(payload: UserFact, userId: string): Observable<User> {
+    const url = `${environment.api}/sdate/user/updateFact/${userId}`;
+    return this.http.put<User>(url, payload);
+  }
+
+  updateUserBasic(payload: UserBasic, userId: string): Observable<User> {
+    const url = `${environment.api}/sdate/user/updateBasic/${userId}`;
+    return this.http.put<User>(url, payload);
+  }
+
+  updateUserInfo(payload: UserInfo, userId: string): Observable<User> {
+    const url = `${environment.api}/sdate/user/updateInfo/${userId}`;
+    return this.http.put<User>(url, payload);
+  }
+
+  likeUser(payload: UserLike): Observable<User> {
+    const url = `${environment.api}/sdate/user/likeUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  removeLikeUser(payload: UserLike): Observable<User> {
+    const url = `${environment.api}/sdate/user/removeLikeUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  getLikedUser(): Observable<User[]> {
+    const url = `${environment.api}/sdate/user/getLikedUser`;
+    return this.http.get<User[]>(url);
   }
 }
