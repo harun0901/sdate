@@ -12,6 +12,8 @@ import { ChatService } from '../../core/services/chat.service';
 import { IsMinePipe } from '../../ui-kit/pipes/is-mine.pipe';
 import { Chat } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
+import { NotificationEntity } from '../../core/models/notificationEntity';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'sdate-header',
@@ -33,11 +35,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private chatService: ChatService,
     private isMinePipe: IsMinePipe,
     private chatStoreService: ChatStoreService,
+    private notificationService: NotificationService
     ) { }
 
   ngOnInit(): void {
     this.userName = this.auth.user.fullName;
     this.subscribeMessages();
+    this.subscribeEvent();
     this.chatService.totalUnreadChanged$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(() => {
@@ -64,6 +68,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
             this.chatStoreService.addChat(message.sender.id, message);
           }
         }
+      }
+    );
+  }
+
+  private async subscribeEvent(): Promise<void> {
+    this.socketService.subscribeEvents().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe(
+      (notification: NotificationEntity) => {
+          this.notificationService.addNotificationOnPanel(notification);
       }
     );
   }

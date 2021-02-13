@@ -27,8 +27,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       birthday: [ new Date(), [Validators.required]],
-      gender: ['male', [Validators.required]],
-      lookingFor: ['female', [Validators.required]],
+      gender: ['Man', [Validators.required]],
+      lookingFor: ['Women', [Validators.required]],
       agreePrivacy: ['true', [Validators.required]]
     });
   }

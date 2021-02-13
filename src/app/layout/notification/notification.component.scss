@@ -11,6 +11,7 @@ div#notification_bar::after {
   text-shadow: 1px 1px #bb324c, 2px 2px #bb334c, 3px 3px #bc334d, 4px 4px #bc344d;
   right: -100px;
   box-shadow: 0 0 6px rgb(0 0 0 / 40%);
+  z-index: 1;
 }
 
 div#notification_bar:hover::after {
@@ -19,4 +20,5 @@ div#notification_bar:hover::after {
 }
 div#notification_bar:hover {
   border: 1px solid #D05068;
+  cursor: pointer;
 }

@@ -24,6 +24,8 @@ import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
 import { AuthService } from '../../core/services/auth.service';
 import { UserRole } from '../../core/models/auth';
+import { NotificationService } from '../../core/services/notification.service';
+import { NotificationType } from '../../core/models/notificationEntity';
 
 @Component({
   selector: 'sdate-profile',
@@ -62,6 +64,7 @@ export class ProfileComponent implements OnInit {
     private toastr: ToastrService,
     private routerNavigate: Router,
     private scrollToService: ScrollToService,
+    private notificationService: NotificationService,
   ) {
     this.factFG = this.factFB.group({
       lookingFor: [''],
@@ -93,6 +96,7 @@ export class ProfileComponent implements OnInit {
       if (this.authService.user.role === UserRole.Admin) {
         this.isEditable = true;
       }
+      this.addNotification();
     } else {
       this.customerId = this.customerInfo.id;
       this.isEditable = true;
@@ -100,7 +104,12 @@ export class ProfileComponent implements OnInit {
     this.getCustomEditInfo();
     this.openPageSv.send('profile');
   }
-
+  async addNotification(): Promise<void> {
+    const res = await this.notificationService.addNotification({
+      receiver_id: this.customerId,
+      pattern: NotificationType.Visit
+    }).toPromise();
+  }
   async getCustomerInfo(customerId): Promise<void> {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
   }

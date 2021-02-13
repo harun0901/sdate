@@ -10,6 +10,8 @@ import { UserService } from '../../core/services/user.service';
 import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
 import { Signal } from '../../core/models/base';
+import { NotificationType } from '../../core/models/notificationEntity';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'sdate-personcard',
@@ -28,6 +30,7 @@ export class PersoncardComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private signalService: SignalService,
+    private notificationService: NotificationService,
     ) { }
 
   ngOnInit(): void {
@@ -53,6 +56,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.removeLikeUser({id: this.customerInfo.id}).toPromise();
     } else {
       user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
+      this.addNotification(NotificationType.Like);
     }
     this.toastr.success(`You've successfully changed.`);
     this.signalService.sendSignal(Signal.UserListchanged);
@@ -64,9 +68,17 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.removeFavoriteUser({id: this.customerInfo.id}).toPromise();
     } else {
       user = await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
+      this.addNotification(NotificationType.Favorite);
     }
     this.toastr.success(`You've successfully changed.`);
     this.signalService.sendSignal(Signal.UserListchanged);
+  }
+
+  async addNotification(message: string): Promise<void> {
+    const res = await this.notificationService.addNotification({
+      receiver_id: this.customerInfo.id,
+      pattern: message,
+    }).toPromise();
   }
 
 }

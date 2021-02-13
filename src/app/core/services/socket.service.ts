@@ -15,15 +15,15 @@ export class SocketService {
     private authService: AuthService
   ) { }
 
-  join(id: string) {
+  join(id: string): any {
     this.socket.emit(environment.socket.join, id);
   }
 
-  subscribeEvents() {
+  subscribeEvents(): Observable<any> {
     return this.socket.fromEvent(`${this.authService.user.id}_${environment.socket.events}`);
   }
 
-  subscribeMessages() {
+  subscribeMessages(): Observable<any> {
     return this.socket.fromEvent(`${this.authService.user.id}_${environment.socket.messages}`);
   }
 }

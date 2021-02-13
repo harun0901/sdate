@@ -11,6 +11,8 @@ import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/models/user';
+import { NotificationType } from '../../core/models/notificationEntity';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'sdate-chatroom',
@@ -34,6 +36,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: ActivatedRoute,
     private userService: UserService,
+    private notificationService: NotificationService
   ) {
     this.chatForm = this.formBuilder.group({
       message_content: ['', [Validators.required]],
@@ -73,6 +76,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
         this.chatStore.push(res);
         this.chatForm.reset();
         this.cRef.detectChanges();
+        this.addNotification();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
         } catch (err) { }
@@ -82,6 +86,13 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
       }
     }
+  }
+
+  async addNotification(): Promise<void> {
+    const res = await this.notificationService.addNotification({
+      receiver_id: this.customerId,
+      pattern: NotificationType.Message,
+    }).toPromise();
   }
 
   ngOnDestroy(): void {
