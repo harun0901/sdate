@@ -7,6 +7,7 @@ import { SignalService } from '../../core/services/signal.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Signal } from '../../core/models/base';
+import { SearchService } from '../../core/services/search.service';
 
 @Component({
   selector: 'sdate-userlist',
@@ -21,6 +22,7 @@ export class UserlistComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private openPageSv: OpenPageService,
     private signalService: SignalService,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
@@ -32,12 +34,21 @@ export class UserlistComponent implements OnInit, OnDestroy {
     ).subscribe(pattern => {
       if (pattern === Signal.UserListchanged) {
         this.getRandomUserByLimit();
+      } else if (pattern === Signal.SearchAgain) {
+        this.getRandomUserByLimit();
       }
     });
   }
 
   async getRandomUserByLimit(): Promise<void> {
-    this.userList = await this.userService.getRandomUserByLimit({limit_count: '9'}).toPromise();
+    this.userList = await this.userService.getRandomUserByLimit({
+      limit_count: '9',
+      searchKey: {
+        lookingFor: this.searchService.searchKey.lookingFor,
+        startAge: this.searchService.searchKey.startAge,
+        endAge: this.searchService.searchKey.endAge,
+        location: this.searchService.searchKey.location
+      }}).toPromise();
   }
 
   ngOnDestroy(): void {

@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Chat, SendMessagePayload } from '../models/chat';
 import { Observable } from 'rxjs';
 
+import { SearchService } from './search.service';
 import { environment } from '../../../environments/environment';
-import { LimitCount, User, UserBasic, UserFact, UserInfo, UserId } from '../models/user';
+import { LimitCount, User, UserBasic, UserFact, UserInfo, UserId, SearchKey } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private searchService: SearchService,
+  ) { }
 
   getAll(): Observable<User[]> {
     const url = `${environment.api}/sdate/user/getAll`;
     return this.http.get<User[]>(url);
   }
 
-  getRandomUserByLimit(payload: LimitCount): Observable<User[]> {
+  getRandomUserByLimit(payload: SearchKey): Observable<User[]> {
     const url = `${environment.api}/sdate/user/getRandomUserByLimit`;
     return this.http.post<User[]>(url, payload);
   }
@@ -55,12 +58,17 @@ export class UserService {
 
   getLikedUser(): Observable<User[]> {
     const url = `${environment.api}/sdate/user/getLikedUser`;
-    return this.http.get<User[]>(url);
+    return this.http.post<User[]>(url, this.searchService.searchKey);
   }
 
   getVisitUser(): Observable<User[]> {
     const url = `${environment.api}/sdate/user/getVisitUser`;
-    return this.http.get<User[]>(url);
+    return this.http.post<User[]>(url, this.searchService.searchKey);
+  }
+
+  getFavoriteUser(): Observable<User[]> {
+    const url = `${environment.api}/sdate/user/getFavoriteUser`;
+    return this.http.post<User[]>(url, this.searchService.searchKey);
   }
 
   favoriteUser(payload: UserId): Observable<User> {
@@ -71,10 +79,5 @@ export class UserService {
   removeFavoriteUser(payload: UserId): Observable<User> {
     const url = `${environment.api}/sdate/user/removeFavoriteUser`;
     return this.http.put<User>(url, payload);
-  }
-
-  getFavoriteUser(): Observable<User[]> {
-    const url = `${environment.api}/sdate/user/getFavoriteUser`;
-    return this.http.get<User[]>(url);
   }
 }

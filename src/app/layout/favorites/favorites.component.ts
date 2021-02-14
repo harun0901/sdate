@@ -33,6 +33,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     ).subscribe(pattern => {
       if (pattern === Signal.UserListchanged) {
         this.getFavoriteUser();
+      } else if (pattern === Signal.SearchAgain) {
+        this.getFavoriteUser();
       }
     });
   }

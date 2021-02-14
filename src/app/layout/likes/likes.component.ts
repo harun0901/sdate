@@ -33,6 +33,8 @@ export class LikesComponent implements OnInit, OnDestroy {
     ).subscribe(pattern => {
       if (pattern === Signal.UserListchanged) {
         this.getLikedUser();
+      } else if (pattern === Signal.SearchAgain) {
+        this.getLikedUser();
       }
     });
   }

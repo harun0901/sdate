@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NpnSliderModule } from 'npn-slider';
 import { A11yModule } from '@angular/cdk/a11y';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import { LayoutComponent } from './layout.component';
@@ -27,7 +28,6 @@ import { InboxComponent } from './inbox/inbox.component';
 import { PersoncardComponent } from './personcard/personcard.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserlistComponent } from './userlist/userlist.component';
 import { CommonUiKitModule } from '../ui-kit/common-ui-kit/common-ui-kit.module';
 import { ChatboxComponent } from './chatbox/chatbox.component';
@@ -67,6 +67,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     IconModule,
     A11yModule,
     ReactiveFormsModule,
+    FormsModule,
     CommonUiKitModule,
   ],
 })

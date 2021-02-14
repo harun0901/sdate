@@ -5,9 +5,17 @@ export interface Entity {
   updatedAt?: string;
 }
 
+export interface SearchInfo {
+  lookingFor: string;
+  startAge: number;
+  endAge: number;
+  location: string;
+}
+
 export enum Signal {
   UserListchanged = 'USERLISTCHANGED',
   VisitorListChanged = 'VISITORLISTCHANGED',
+  SearchAgain = 'SEARCHAGAIN',
 }
 
 export enum Opinion {

@@ -33,6 +33,8 @@ export class VisitorsComponent implements OnInit, OnDestroy {
     ).subscribe(pattern => {
       if (pattern === Signal.VisitorListChanged) {
         this.getVisitUser();
+      } else if (pattern === Signal.SearchAgain) {
+        this.getVisitUser();
       }
     });
   }

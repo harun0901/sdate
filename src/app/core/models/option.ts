@@ -1,3 +1,5 @@
+import { LookingFor } from './user';
+
 export interface Option<T> {
   value: T;
   label: string;
@@ -9,8 +11,8 @@ export interface MultiOption<T> extends Option<T> {
 
 export const lookingForList: Option<string>[] = [
   {value: '', label: 'No Answer'},
-  {value: 'Women', label: 'Women'},
-  {value: 'Men', label: 'Men'},
+  {value: LookingFor.WOMAN, label: 'Women'},
+  {value: LookingFor.MAN, label: 'Men'},
   {value: 'Any', label: 'Any'}
 ];
 

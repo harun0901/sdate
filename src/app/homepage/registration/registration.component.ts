@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from '../../core/services/toastr.service';
+import { Gender, LookingFor } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-registration',
@@ -12,6 +13,8 @@ import { ToastrService } from '../../core/services/toastr.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  Gender = Gender;
+  LookingFor = LookingFor;
   isLoading: boolean;
   registrationForm: FormGroup;
 
@@ -27,8 +30,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
       birthday: [ new Date(), [Validators.required]],
-      gender: ['Man', [Validators.required]],
-      lookingFor: ['Women', [Validators.required]],
+      gender: [Gender.MAN, [Validators.required]],
+      lookingFor: [LookingFor.WOMAN, [Validators.required]],
       agreePrivacy: ['true', [Validators.required]]
     });
   }

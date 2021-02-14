@@ -1,4 +1,4 @@
-import { Entity } from './base';
+import { Entity, SearchInfo } from './base';
 
 export interface User extends Entity {
   email: string;
@@ -58,9 +58,29 @@ export interface LimitCount {
   limit_count: string;
 }
 
+export interface SearchKey {
+  limit_count: string;
+  searchKey: SearchInfo;
+}
+
 export enum UserShowType {
   RANDOM = 'RANDOMUSERLIST',
   VISITOR = 'VISITORUSERLIST',
   LIKE = 'LIKEUSERLIST',
   FAVORITE = 'FAVORITELIST'
+}
+
+export enum Gender {
+  WOMAN = 'Woman',
+  MAN = 'Man',
+}
+
+export enum LookingFor {
+  WOMAN = 'Woman',
+  MAN = 'Man',
+}
+
+export enum AgeLimit {
+  START = 18,
+  END = 100,
 }

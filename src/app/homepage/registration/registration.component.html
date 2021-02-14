@@ -32,15 +32,15 @@
           <label class="mt-10 mb-1 text-black-50">I am</label>
           <br>
           <mat-radio-group aria-label="Select an option" formControlName="gender">
-            <mat-radio-button value="Woman" class="mr-15 text-black-50">a Woman</mat-radio-button>
-            <mat-radio-button value="Man" class="text-black-50">a Man</mat-radio-button>
+            <mat-radio-button value="{{LookingFor.WOMAN}}" class="mr-15 text-black-50">a Woman</mat-radio-button>
+            <mat-radio-button value="{{LookingFor.MAN}}" class="text-black-50">a Man</mat-radio-button>
           </mat-radio-group>
           <br>
           <label class="mt-10 mb-1 text-black-50">I'm looking for</label>
           <br>
           <mat-radio-group aria-label="Select an option" formControlName="lookingFor">
-            <mat-radio-button value="Women" class="mr-15 text-black-50">Women</mat-radio-button>
-            <mat-radio-button value="Men" class="text-black-50">Men</mat-radio-button>
+            <mat-radio-button value="{{LookingFor.WOMAN}}" class="mr-15 text-black-50">Women</mat-radio-button>
+            <mat-radio-button value="{{LookingFor.MAN}}" class="text-black-50">Men</mat-radio-button>
           </mat-radio-group>
         </div>
       </div>
