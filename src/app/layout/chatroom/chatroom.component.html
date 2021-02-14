@@ -23,11 +23,13 @@
         <p class="bg-warning text-center text-info font-weight-bold m-0 py-5">Trust yourself and take the first step!</p>
       </div>
       <div class="chat-history p-10 overflow-auto max-height-350" #scrollMe>
+        <p class="btn w-100 bg-dark text-center text-black-50 font-weight-bold m-5 py-5 shadow-sm" (click)="onAllChatHistoryClicked()">Show all chat history.</p>
         <div *ngFor="let chat of chatStore" [ngClass]="chat.sender.id === customerId ? 'message_box d-flex align-items-end justify-content-start mb-10' : 'message_box d-flex align-items-end justify-content-end mb-10'">
           <div class="message_content position-relative p-10 text-white rounded-sm mw-75">
             <p class="p-0 m-0">
               {{chat.text}}
             </p>
+            <p [ngClass]="chat.sender.id === customerId ? 'd-flex justify-content-start font-10 p-0 m-0 pt-5' : 'd-flex justify-content-end font-10 p-0 m-0 pt-5'">{{chat.createdAt.toString() | timeAgo}}</p>
           </div>
           <div class="message_avatar border-2 d-flex justify-content-center align-items-center rounded-sm text-black-50 width-35 height-35 mx-10">
             <img class="width-30 height-30" src="../../../assets/images/uploaded/1.png" alt="#"/>

@@ -7,6 +7,7 @@ export interface Entity {
 
 export enum Signal {
   UserListchanged = 'USERLISTCHANGED',
+  VisitorListChanged = 'VISITORLISTCHANGED',
 }
 
 export enum Opinion {

@@ -13,6 +13,8 @@ import { UserService } from '../../core/services/user.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
 import { User } from '../../core/models/user';
+import { NotificationType } from '../../core/models/notificationEntity';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'sdate-chatbox',
@@ -27,17 +29,18 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   @Input() customerId: string;
   customerInfo: User;
   chatForm: FormGroup;
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('scrollBox') private myScrollContainer: ElementRef;
 
   constructor(
+    private notificationService: NotificationService,
     private chatStoreService: ChatStoreService,
+    private scrollToService: ScrollToService,
     private cRef: ChangeDetectorRef,
     private chatService: ChatService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private scrollToService: ScrollToService,
   ) {
     this.chatForm = this.formBuilder.group({
       message_content: ['', [Validators.required]],
@@ -45,8 +48,9 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getCustomerInfo(this.customerId);
     this.chatStore = [];
+    this.getCustomerInfo(this.customerId);
+    this.getPartChatList(this.customerId);
     this.show = true;
 
     this.chatStoreService.chatStore$.asObservable().pipe(
@@ -63,6 +67,16 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     );
   }
 
+  async getPartChatList(customerId): Promise<void> {
+    this.chatStore = await this.chatService.getPartChatList({id: customerId}).toPromise();
+    this.chatStoreService.setChatStore(this.customerId, this.chatStore);
+  }
+
+  async onAllChatHistoryClicked(): Promise<void> {
+    this.chatStore = await this.chatService.getAllChatList({id: this.customerId}).toPromise();
+    this.chatStoreService.setChatStore(this.customerId, this.chatStore);
+  }
+
   async getCustomerInfo(customerId): Promise<void> {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
   }
@@ -75,6 +89,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         this.chatStore.push(res);
         this.chatForm.reset();
         this.cRef.detectChanges();
+        this.addNotification();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
         } catch (err) { }
@@ -103,6 +118,13 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
       this.scrollToService.scrollTo({ target: ScrollPosition.Root });
     });
+  }
+
+  async addNotification(): Promise<void> {
+    const res = await this.notificationService.addNotification({
+      receiver_id: this.customerId,
+      pattern: NotificationType.Message,
+    }).toPromise();
   }
 
   ngOnDestroy(): void {

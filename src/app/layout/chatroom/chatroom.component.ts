@@ -44,17 +44,18 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.chatStore = [];
     this.openPageSv.send('chatroom');
     this.customerId = this.router.snapshot.paramMap.get('userId');
     this.getCustomerInfo(this.customerId);
     this.chatStoreService.setChatroomUserId(this.customerId);
-    this.chatStore = [];
-
+    this.getPartChatList(this.customerId);
     this.chatStoreService.chatroomStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
         if (this.customerId === chatEmmitInfo.id) {
-          this.chatStore.push(chatEmmitInfo.chat);
+          // this.chatStore.push(chatEmmitInfo.chat);
+          this.chatStore = this.chatStoreService.chatroomStore;
           this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -62,6 +63,16 @@ export class ChatroomComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  async getPartChatList(customerId): Promise<void> {
+    this.chatStore = await this.chatService.getPartChatList({id: customerId}).toPromise();
+    this.chatStoreService.setChatroomStore(this.chatStore);
+  }
+
+  async onAllChatHistoryClicked(): Promise<void> {
+    this.chatStore = await this.chatService.getAllChatList({id: this.customerId}).toPromise();
+    this.chatStoreService.setChatroomStore(this.chatStore);
   }
 
   async getCustomerInfo(customerId): Promise<void> {

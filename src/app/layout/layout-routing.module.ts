@@ -28,7 +28,7 @@ const routes: Routes = [
     children: [
       {
         path: ROUTES.root,
-        redirectTo: ROUTES.home.chats,
+        redirectTo: ROUTES.home.myprofile,
       },
       {
         path: ROUTES.home.chats,

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { Chat, SendMessagePayload } from '../models/chat';
 import { SuccessResponse } from '../models/success-response';
+import { UserId } from '../models/user';
 // import { Paginator } from '../models/paginator';
 
 @Injectable({
@@ -25,6 +26,16 @@ export class ChatService {
   sendMessage(payload: SendMessagePayload): Observable<Chat> {
     const url = `${environment.api}/sdate/chat/send-message`;
     return this.http.post<Chat>(url, payload);
+  }
+
+  getPartChatList(payload: UserId): Observable<Chat[]> {
+    const url = `${environment.api}/sdate/chat/getPartChatList`;
+    return this.http.put<Chat[]>(url, payload);
+  }
+
+  getAllChatList(payload: UserId): Observable<Chat[]> {
+    const url = `${environment.api}/sdate/chat/getAllChatList`;
+    return this.http.put<Chat[]>(url, payload);
   }
 
   initProjectConsultationChat(projectId: string): Observable<Chat> {

@@ -4,7 +4,7 @@ import { Chat, SendMessagePayload } from '../models/chat';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { LimitCount, User, UserBasic, UserFact, UserInfo, UserLike } from '../models/user';
+import { LimitCount, User, UserBasic, UserFact, UserInfo, UserId } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +43,12 @@ export class UserService {
     return this.http.put<User>(url, payload);
   }
 
-  likeUser(payload: UserLike): Observable<User> {
+  likeUser(payload: UserId): Observable<User> {
     const url = `${environment.api}/sdate/user/likeUser`;
     return this.http.put<User>(url, payload);
   }
 
-  removeLikeUser(payload: UserLike): Observable<User> {
+  removeLikeUser(payload: UserId): Observable<User> {
     const url = `${environment.api}/sdate/user/removeLikeUser`;
     return this.http.put<User>(url, payload);
   }
@@ -58,12 +58,17 @@ export class UserService {
     return this.http.get<User[]>(url);
   }
 
-  favoriteUser(payload: UserLike): Observable<User> {
+  getVisitUser(): Observable<User[]> {
+    const url = `${environment.api}/sdate/user/getVisitUser`;
+    return this.http.get<User[]>(url);
+  }
+
+  favoriteUser(payload: UserId): Observable<User> {
     const url = `${environment.api}/sdate/user/favoriteUser`;
     return this.http.put<User>(url, payload);
   }
 
-  removeFavoriteUser(payload: UserLike): Observable<User> {
+  removeFavoriteUser(payload: UserId): Observable<User> {
     const url = `${environment.api}/sdate/user/removeFavoriteUser`;
     return this.http.put<User>(url, payload);
   }

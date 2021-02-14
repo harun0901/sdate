@@ -12,8 +12,10 @@ import { ChatService } from '../../core/services/chat.service';
 import { IsMinePipe } from '../../ui-kit/pipes/is-mine.pipe';
 import { Chat } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
-import { NotificationEntity } from '../../core/models/notificationEntity';
+import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
+import { Signal } from '../../core/models/base';
+import { SignalService } from '../../core/services/signal.service';
 
 @Component({
   selector: 'sdate-header',
@@ -35,7 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private chatService: ChatService,
     private isMinePipe: IsMinePipe,
     private chatStoreService: ChatStoreService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private signalService: SignalService,
     ) { }
 
   ngOnInit(): void {
@@ -78,6 +81,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ).subscribe(
       (notification: NotificationEntity) => {
           this.notificationService.addNotificationOnPanel(notification);
+          if (notification.pattern === NotificationType.Visit) {
+            this.signalService.sendSignal(Signal.VisitorListChanged);
+          }
       }
     );
   }

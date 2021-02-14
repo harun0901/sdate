@@ -50,7 +50,7 @@ export interface UserInfo {
   email: string;
 }
 
-export interface UserLike {
+export interface UserId {
   id: string;
 }
 
@@ -60,6 +60,7 @@ export interface LimitCount {
 
 export enum UserShowType {
   RANDOM = 'RANDOMUSERLIST',
+  VISITOR = 'VISITORUSERLIST',
   LIKE = 'LIKEUSERLIST',
   FAVORITE = 'FAVORITELIST'
 }

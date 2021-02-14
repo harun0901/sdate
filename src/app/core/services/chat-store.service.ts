@@ -28,6 +28,14 @@ export class ChatStoreService {
     this.chatroomStore = [];
   }
 
+  setChatroomStore(store: Chat[]): void {
+    this.chatroomStore = store;
+  }
+
+  setChatStore(idStr: string, store: Chat[]): void {
+    this.chatStore.set(idStr, store);
+  }
+
   addRoomChat(chatItem: Chat): void {
     this.chatroomStore.push(chatItem);
     this.chatroomStore$.next({id: this.chatroomUserId, chat: chatItem});
