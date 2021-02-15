@@ -11,11 +11,16 @@ export class SearchService {
     lookingFor: LookingFor.MAN,
     startAge: AgeLimit.START,
     endAge: AgeLimit.END,
-    location: ''
+    location: '',
+    ignoreFlag: true
   };
   constructor() {}
 
   setSearchKey(item: SearchInfo): void {
     this.searchKey = item;
+  }
+
+  setIgnoreFlag(flagItem: boolean): void {
+    this.searchKey.ignoreFlag = flagItem;
   }
 }

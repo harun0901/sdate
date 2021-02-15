@@ -51,7 +51,8 @@ export class LeftpanelComponent implements OnInit {
       lookingFor: this.lookingForVal,
       startAge: this.startAge,
       endAge: this.endAge,
-      location: this.location
+      location: this.location,
+      ignoreFlag: false,
     };
     this.searchService.setSearchKey(item);
     this.signalService.sendSignal(Signal.SearchAgain);

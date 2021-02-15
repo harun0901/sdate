@@ -7,6 +7,7 @@ import { User, UserShowType } from '../../core/models/user';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Signal } from '../../core/models/base';
+import { SearchService } from '../../core/services/search.service';
 
 @Component({
   selector: 'sdate-visitors',
@@ -22,9 +23,11 @@ export class VisitorsComponent implements OnInit, OnDestroy {
     private openPageSv: OpenPageService,
     private userService: UserService,
     private signalService: SignalService,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
+    this.searchService.setIgnoreFlag(true);
     this.openPageSv.send('visitors');
     this.userState = UserShowType.VISITOR;
     this.getVisitUser();

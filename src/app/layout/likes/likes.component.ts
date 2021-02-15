@@ -7,6 +7,7 @@ import { SignalService } from '../../core/services/signal.service';
 import { takeUntil } from 'rxjs/operators';
 import { Signal } from '../../core/models/base';
 import { Subject } from 'rxjs';
+import { SearchService } from '../../core/services/search.service';
 
 @Component({
   selector: 'sdate-likes',
@@ -22,9 +23,11 @@ export class LikesComponent implements OnInit, OnDestroy {
     private openPageSv: OpenPageService,
     private userService: UserService,
     private signalService: SignalService,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
+    this.searchService.setIgnoreFlag(true);
     this.openPageSv.send('likes');
     this.userState = UserShowType.LIKE;
     this.getLikedUser();

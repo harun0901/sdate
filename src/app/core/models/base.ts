@@ -10,6 +10,7 @@ export interface SearchInfo {
   startAge: number;
   endAge: number;
   location: string;
+  ignoreFlag: boolean;
 }
 
 export enum Signal {

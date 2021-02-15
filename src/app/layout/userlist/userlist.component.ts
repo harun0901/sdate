@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { UserService } from '../../core/services/user.service';
-import { User, UserShowType } from '../../core/models/user';
+import { ShowLimitCount, User, UserShowType } from '../../core/models/user';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { SignalService } from '../../core/services/signal.service';
 import { takeUntil } from 'rxjs/operators';
@@ -26,6 +26,7 @@ export class UserlistComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.searchService.setIgnoreFlag(true);
     this.openPageSv.send('chats');
     this.userState = UserShowType.RANDOM;
     this.getRandomUserByLimit();
@@ -42,12 +43,13 @@ export class UserlistComponent implements OnInit, OnDestroy {
 
   async getRandomUserByLimit(): Promise<void> {
     this.userList = await this.userService.getRandomUserByLimit({
-      limit_count: '9',
+      limit_count: ShowLimitCount.UserShowCount.toString(),
       searchKey: {
         lookingFor: this.searchService.searchKey.lookingFor,
         startAge: this.searchService.searchKey.startAge,
         endAge: this.searchService.searchKey.endAge,
-        location: this.searchService.searchKey.location
+        location: this.searchService.searchKey.location,
+        ignoreFlag: this.searchService.searchKey.ignoreFlag,
       }}).toPromise();
   }
 

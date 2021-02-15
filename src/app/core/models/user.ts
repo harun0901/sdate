@@ -84,3 +84,7 @@ export enum AgeLimit {
   START = 18,
   END = 100,
 }
+
+export enum ShowLimitCount {
+  UserShowCount = 9,
+}
