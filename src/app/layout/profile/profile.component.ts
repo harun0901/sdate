@@ -94,17 +94,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isEditFact = false;
     this.isEditBasic = false;
     this.isEditable = false;
-    if (typeof this.isOwner === 'undefined') {
-      this.customerId = this.router.snapshot.paramMap.get('userId');
-      this.getCustomerInfo(this.customerId);
-      if (this.authService.user.role === UserRole.Admin) {
+    this.router.params.subscribe(params => {
+      if (typeof this.isOwner === 'undefined') {
+        this.customerId = this.router.snapshot.paramMap.get('userId');
+        this.getCustomerInfo(this.customerId);
+        if (this.authService.user.role === UserRole.Admin) {
+          this.isEditable = true;
+        }
+        this.addNotification();
+      } else {
+        this.customerId = this.customerInfo.id;
         this.isEditable = true;
       }
-      this.addNotification();
-    } else {
-      this.customerId = this.customerInfo.id;
-      this.isEditable = true;
-    }
+    });
     this.getCustomEditInfo();
     this.openPageSv.send('profile');
     this.authService.user$.asObservable().pipe(

@@ -2,10 +2,34 @@
   <div class="col col-lg-3 d-none d-lg-block">
     <div class="bg-white shadow-sm width-200 min-height-400">
       <div class="width-200 height-200 p-1">
-        <img class="width-200 height-200" src="../../../assets/images/uploaded/2.png" alt="#"/>
+        <img class="width-200 height-200 rounded-sm border-2 border-secondary" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl" alt="#"/>
       </div>
-      <h2 class="text-primary text-center">{{ customerInfo && customerInfo.fullName }}</h2>
-      <h3 class="text-black-50 text-center">{{ customerInfo && customerInfo.email }}</h3>
+      <div class="w-90 m-auto">
+        <h2 class="text-primary text-center">{{ customerInfo && customerInfo.fullName }}</h2>
+        <p class="text-black-50 text-center">{{ customerInfo && (customerInfo.birthday.toString() | timeAgo) }} from {{customerInfo && customerInfo.location}}</p>
+        <p class="text-black-50 p-0 m-0">Looking for</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.lookingFor || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Interested in</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.interestedIn || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Relationship status</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.relationshipStatus || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Height</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.height || 'No Answer' }} cm</p>
+        <p class="text-black-50 p-0 m-0">Body</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.body || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Kids</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.kids || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Smoker</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.smoker || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Alcohol</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.alcohol || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Education</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.education || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Profession</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.profession || 'No Answer' }}</p>
+        <p class="text-black-50 p-0 m-0">Language</p>
+        <p class="text-black-50 p-0">{{ customerInfo && customerInfo.language || 'No Answer' }}</p>
+      </div>
     </div>
   </div>
   <div class="col col-12 col-lg-9">

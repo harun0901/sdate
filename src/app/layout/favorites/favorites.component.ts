@@ -17,6 +17,7 @@ import { SearchService } from '../../core/services/search.service';
 export class FavoritesComponent implements OnInit, OnDestroy {
   userList: User[];
   userState: string;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(

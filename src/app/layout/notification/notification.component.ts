@@ -15,6 +15,7 @@ export class NotificationComponent implements OnInit {
   ROUTES = ROUTES;
   description: string;
   dataLabel: string;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
   @Input() notification: NotificationEntity;
   constructor(
     private notificationService: NotificationService,

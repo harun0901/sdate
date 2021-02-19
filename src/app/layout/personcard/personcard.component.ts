@@ -21,6 +21,7 @@ import { NotificationService } from '../../core/services/notification.service';
 export class PersoncardComponent implements OnInit {
   ROUTES = ROUTES;
   UserShowType = UserShowType;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
   @Input() customerInfo: User;
   @Input() customerState: string;
   constructor(
