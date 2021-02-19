@@ -31,6 +31,11 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
+  updateAvatar(payload: UserId): Observable<User> {
+    const url = `${environment.api}/sdate/user/updateAvatar`;
+    return this.http.put<User>(url, payload);
+  }
+
   updateUserFact(payload: UserFact, userId: string): Observable<User> {
     const url = `${environment.api}/sdate/user/updateFact/${userId}`;
     return this.http.put<User>(url, payload);

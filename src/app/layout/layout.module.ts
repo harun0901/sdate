@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -31,6 +32,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { CommonUiKitModule } from '../ui-kit/common-ui-kit/common-ui-kit.module';
 import { ChatboxComponent } from './chatbox/chatbox.component';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
@@ -51,6 +53,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     ProfileComponent,
     UserlistComponent,
     ChatboxComponent,
+    PaymentComponent,
   ],
   imports: [
     CommonModule,
@@ -62,6 +65,7 @@ import { ChatboxComponent } from './chatbox/chatbox.component';
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    NgxPayPalModule,
     LayoutRoutingModule,
     PipesModule,
     IconModule,

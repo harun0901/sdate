@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -26,14 +26,17 @@ import { AuthService } from '../../core/services/auth.service';
 import { UserRole } from '../../core/models/auth';
 import { NotificationService } from '../../core/services/notification.service';
 import { NotificationType } from '../../core/models/notificationEntity';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sdate-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
+  private unsubscribeAll: Subject<any> = new Subject<any>();
   @Input() customerInfo: User;
   @Input() isOwner: boolean;
   isEditFact: boolean;
@@ -53,6 +56,7 @@ export class ProfileComponent implements OnInit {
   smokerList = smokerList;
   languageList = languageList;
   interestedList = interestedList;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
 
   constructor(
     private openPageSv: OpenPageService,
@@ -103,6 +107,16 @@ export class ProfileComponent implements OnInit {
     }
     this.getCustomEditInfo();
     this.openPageSv.send('profile');
+    this.authService.user$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((item) => {
+      if (typeof this.isOwner === 'undefined') {
+        this.customerId = this.router.snapshot.paramMap.get('userId');
+        this.getCustomerInfo(this.customerId);
+      } else {
+        this.customerInfo = item;
+      }
+    });
   }
   async addNotification(): Promise<void> {
     const res = await this.notificationService.addNotification({
@@ -163,6 +177,11 @@ export class ProfileComponent implements OnInit {
     this.routerNavigate.navigateByUrl(toAbsolutePath(path)).then(() => {
       this.scrollToService.scrollTo({ target: ScrollPosition.Root });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 
 }

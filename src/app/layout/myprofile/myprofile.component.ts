@@ -43,7 +43,8 @@ export class MyprofileComponent implements OnInit {
   onAvatarClicked(): void {
     window.scroll(0, 0);
     this.uploadImgDialog.open(ImageCropperComponent, {
-      width: '350px',
+      width: '450px',
+      height: '500px',
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop'
     });

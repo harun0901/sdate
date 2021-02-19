@@ -1,0 +1,17 @@
+<div>
+  <div class="w-95 height-150 bg-dark m-auto">
+    <img class="height-150 w-100" src="../../../assets/images/payment.png" alt="#"/>
+  </div>
+  <div class="w-95 m-auto">
+    <div *ngFor="let item of PaymentItems" class="payment-item bg-danger p-2 my-5 w-100" (click)="onPaymentItemClicked(item.amount)">
+      <div class="d-flex justify-content-around bg-danger text-white align-items-center w-100 border-4 m-auto">
+        <h3>{{item.balance}} $</h3>
+        <h3>{{item.coins}} Coins</h3>
+        <h4 class="text-center">incl <br>{{item.bonus}} Bonus</h4>
+      </div>
+    </div>
+  </div>
+  <div class="h-25 w-95 m-auto" *ngIf="isPay">
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  </div>
+</div>
