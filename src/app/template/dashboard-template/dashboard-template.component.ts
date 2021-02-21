@@ -10,16 +10,56 @@ import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 export class DashboardTemplateComponent implements OnInit {
   ROUTES = ROUTES;
   menus = [
-    { icon: 'dashboard', label: 'Dashboard', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'calendar', label: 'UserSetting', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'projects', label: 'Projects', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'leads', label: 'Leads', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'customers', label: 'Customers', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'contractors', label: 'Contractors', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'ideaboard', label: 'Idea Board', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'hiring', label: 'Hiring', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'marketing', label: 'Marketing', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
-    { icon: 'reviews', label: 'Reviews', route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard]) },
+    {
+      icon: 'dashboard',
+      label: 'Dashboard',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'calendar',
+      label: 'UserManage',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageUser])
+    },
+    {
+      icon: 'projects',
+      label: 'Payment',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.payment])
+    },
+    {
+      icon: 'leads',
+      label: 'GiftManage',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'customers',
+      label: 'Contact',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'contractors',
+      label: 'Guideline',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'ideaboard',
+      label: 'Faq',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'hiring',
+      label: 'Privacy & Terms',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'marketing',
+      label: 'Faker',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
+    {
+      icon: 'reviews',
+      label: 'Language',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.dashboard])
+    },
   ];
   constructor() { }
 

@@ -45,6 +45,7 @@ export const ROUTES = {
     root: 'dashboard',
     dashboard: 'dashboard',
     manageUser: 'manage-user',
+    payment: 'payment',
   }
 };
 

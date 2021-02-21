@@ -17,6 +17,14 @@ const routes: Routes = [
       {
         path: ROUTES.dashboard.dashboard,
         component: DashboardComponent,
+      },
+      {
+        path: ROUTES.dashboard.manageUser,
+        loadChildren: () => import('./dash-user/dash-user.module').then(m => m.DashUserModule),
+      },
+      {
+        path: ROUTES.dashboard.payment,
+        loadChildren: () => import('./dash-payment/dash-payment.module').then(m => m.DashPaymentModule),
       }
     ]
   }

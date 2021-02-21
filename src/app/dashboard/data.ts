@@ -4,7 +4,7 @@ export let single = [
     value: 8940000
   },
   {
-    name: 'USA',
+    name: 'American',
     value: 5000000
   },
   {
