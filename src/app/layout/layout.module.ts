@@ -33,6 +33,7 @@ import { UserlistComponent } from './userlist/userlist.component';
 import { CommonUiKitModule } from '../ui-kit/common-ui-kit/common-ui-kit.module';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import { PaymentComponent } from './payment/payment.component';
+import { AvatarModule } from '../ui-kit/avatar/avatar.module';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { PaymentComponent } from './payment/payment.component';
     ReactiveFormsModule,
     FormsModule,
     CommonUiKitModule,
+    AvatarModule,
   ],
 })
 export class LayoutModule { }

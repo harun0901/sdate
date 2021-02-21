@@ -186,13 +186,13 @@ export class AuthService {
       role = token.role;
     }
     if (role === UserRole.Customer) {
-      await this.router.navigate([ROUTES.admin.root]);
+      await this.router.navigate([ROUTES.home.root]);
     } else if (role === UserRole.Moderator) {
-      await this.router.navigate([ROUTES.admin.root]);
+      await this.router.navigate([ROUTES.home.root]);
     } else if (role === UserRole.Admin) {
-      await this.router.navigate([ROUTES.admin.root]);
+      await this.router.navigate([ROUTES.dashboard.root]);
     } else if (role === UserRole.SuperAdmin) {
-      await this.router.navigate([ROUTES.admin.root]);
+      await this.router.navigate([ROUTES.dashboard.root]);
     } else {
       this.logout();
     }

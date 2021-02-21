@@ -14,6 +14,7 @@ import { CheckMarkCircleComponent } from './check-mark-circle/check-mark-circle.
 import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { SelectComponent } from './select/select.component';
+import { DashTotalComponent } from './dash-total/dash-total.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SelectComponent } from './select/select.component';
     ImageCropperComponent,
     TextInputComponent,
     SelectComponent,
+    DashTotalComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import { SelectComponent } from './select/select.component';
     ImageCropperComponent,
     TextInputComponent,
     SelectComponent,
+    DashTotalComponent,
   ],
 })
 export class CommonUiKitModule {

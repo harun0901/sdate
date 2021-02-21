@@ -6,10 +6,10 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from './ui-kit/toastr/toastr.module';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { environment } from '../environments/environment';

@@ -17,7 +17,7 @@
       <div class="mr-10">
         <button class="btn btn-info p-5">Buy Coins</button>
       </div>
-      <a class="btn text-decoration-none text-white m-0 max-width-80 p-0 m-0 text-overflow d-none d-lg-block" (click)="navigate([ROUTES.home.root, ROUTES.home.myprofile])">{{userName && userName}}</a>
+      <a class="btn text-decoration-none text-white m-0 max-width-80 p-0 m-0 text-overflow d-none d-lg-block" (click)="navigate([ROUTES.home.root, ROUTES.home.myprofile])">{{userInfo && userInfo.fullName}}</a>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10 d-none d-lg-block" aria-label="Main Menu">
         <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
       </button>
@@ -44,7 +44,7 @@
         </button>
       </mat-menu>
       <div class="d-none d-lg-block">
-        <img class="width-45 height-45" src="../../../assets/images/uploaded/1.png" alt="#"/>
+        <sdate-avatar [size]="45" [src]="userInfo && userInfo.avatar"></sdate-avatar>
       </div>
     </div>
   </div>

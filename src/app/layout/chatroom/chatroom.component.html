@@ -47,7 +47,7 @@
         <p class="bg-warning text-center text-info font-weight-bold m-0 py-5">Trust yourself and take the first step!</p>
       </div>
       <div class="chat-history p-10 overflow-auto max-height-350" #scrollMe>
-        <p class="btn w-100 bg-dark text-center text-black-50 font-weight-bold m-5 py-5 shadow-sm" (click)="onAllChatHistoryClicked()">Show all chat history.</p>
+        <p class="show-all-history btn w-90 bg-dark text-center text-black-50 font-weight-bold m-5 py-5 shadow-sm" (click)="onAllChatHistoryClicked()">Show all chat history.</p>
         <div *ngFor="let chat of chatStore" [ngClass]="chat.sender.id === customerId ? 'message_box d-flex align-items-end justify-content-start mb-10' : 'message_box d-flex align-items-end justify-content-end mb-10'">
           <div class="message_content position-relative p-10 text-white rounded-sm mw-75">
             <p class="p-0 m-0">

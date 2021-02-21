@@ -1,6 +1,31 @@
 div.payment-item:hover {
-  background: #D05068 !important;
+  //background: #D05068 !important;
   div {
-    background: #D05068 !important;
+    border-color: #D05068 !important;
+    color: #D05068 !important;
+    //background: #27AE60 !important;
+    .hover-view {
+      display: block !important;
+      background: #d05068 !important;
+    }
   }
+}
+
+.bestOfferHint {
+  position: absolute;
+  right: 30%;
+  padding: .125rem;
+  background: #0099e4;
+  color: #fff;
+  text-align: center;
+  -webkit-transform: rotate(
+      -45deg
+  ) translateZ(0);
+  transform: rotate(
+      -45deg
+  ) translateZ(0);
+  font-size: .75em;
+  width: 100px;
+  -webkit-box-shadow: 0 0 5px rgb(0 0 0);
+  box-shadow: 0 0 5px rgb(0 0 0);
 }

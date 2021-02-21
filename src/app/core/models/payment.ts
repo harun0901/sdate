@@ -10,17 +10,17 @@ export interface Transaction extends Entity {
 
 export const PaymentItems = [
   {
-    amount: 200,
+    amount: 2,
     coins: 200,
     bonus: 20
   },
   {
-    amount: 400,
+    amount: 4,
     coins: 400,
     bonus: 40
   },
   {
-    amount: 1000,
+    amount: 10,
     coins: 1000,
     bonus: 100
   }

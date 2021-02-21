@@ -40,6 +40,11 @@ export const ROUTES = {
       privacy: 'privacy',
       imprint: 'imprint',
     }
+  },
+  dashboard: {
+    root: 'dashboard',
+    dashboard: 'dashboard',
+    manageUser: 'manage-user',
   }
 };
 

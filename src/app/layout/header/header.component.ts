@@ -16,6 +16,7 @@ import { NotificationEntity, NotificationType } from '../../core/models/notifica
 import { NotificationService } from '../../core/services/notification.service';
 import { Signal } from '../../core/models/base';
 import { SignalService } from '../../core/services/signal.service';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-header',
@@ -25,8 +26,9 @@ import { SignalService } from '../../core/services/signal.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
-  userName: string;
+  userInfo: User;
   total = 0;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -42,16 +44,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
-    this.userName = this.auth.user.fullName;
+    this.userInfo = this.auth.user;
     this.subscribeMessages();
     this.subscribeEvent();
+    this.auth.user$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((item) => {
+      this.userInfo = item;
+    });
     this.chatService.totalUnreadChanged$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(() => {
       this.loadUnreadMessages();
     });
     this.loadUnreadMessages();
-
   }
 
   ngOnDestroy(): void {

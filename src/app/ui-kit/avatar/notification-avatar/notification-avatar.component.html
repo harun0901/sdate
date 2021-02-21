@@ -1,0 +1,6 @@
+<ng-container [ngSwitch]="event.type">
+  <sdate-avatar [size]="size" *ngSwitchCase="EventType.UserRegisteredEvent"></sdate-avatar>
+  <ng-container *ngSwitchDefault>
+    <sdate-avatar [size]="size" [type]="event.meta.projectType || (event.meta.project && event.meta.project.projectType)"></sdate-avatar>
+  </ng-container>
+</ng-container>

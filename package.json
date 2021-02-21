@@ -24,6 +24,7 @@
     "@angular/router": "~11.0.3",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
+    "@swimlane/ngx-charts": "^17.0.0",
     "angular-2-local-storage": "^3.0.2",
     "angular-material-expansion-panel": "^0.7.2",
     "bootstrap": "^4.6.0",
