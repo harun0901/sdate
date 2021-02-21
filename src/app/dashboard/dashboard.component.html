@@ -1,0 +1,35 @@
+<div class="bg-dark">
+  <div class="p-50">
+    <h2 class="text-black-50">DASHBOARD</h2>
+    <div class="d-flex flex-wrap justify-content-around align-items-center">
+      <sdate-dash-total title="Online Now1" description="0" color="cornflower-blue" icon="female"></sdate-dash-total>
+      <sdate-dash-total title="Online Now2" description="1" color="riptide" icon="male"></sdate-dash-total>
+      <sdate-dash-total title="Online Now3" description="2" color="geraldine" icon="message"></sdate-dash-total>
+      <sdate-dash-total title="Online Now4" description="3" color="Cabaret" icon="heart"></sdate-dash-total>
+      <sdate-dash-total title="Online Now5" description="4" color="cream-can" icon="star"></sdate-dash-total>
+      <sdate-dash-total title="Online Now6" description="5" color="waterloo" icon="kiss"></sdate-dash-total>
+      <sdate-dash-total title="Online Now7" description="6" color="jacksons-purple" icon="gift"></sdate-dash-total>
+      <sdate-dash-total title="Online Now8" description="7" color="color-purple" icon="eye"></sdate-dash-total>
+    </div>
+  </div>
+  <div class="p-50">
+    <h2 class="text-black-50">Analyze Charts</h2>
+    <div class="d-flex flex-wrap justify-content-around align-items-center">
+      <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+      </ngx-charts-bar-vertical>
+    </div>
+  </div>
+
+</div>

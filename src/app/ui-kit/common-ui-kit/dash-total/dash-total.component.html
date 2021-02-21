@@ -1,0 +1,11 @@
+<ng-container>
+  <div class="dash-detail-info shadow-xl" [ngStyle]="{'background-color': color| color}">
+    <div class="width-80 h-100 bg-halftransparent d-flex justify-content-center align-items-center">
+      <sdate-icon [width]="40" icon="{{icon}}" color="white"></sdate-icon>
+    </div>
+    <div class="dash-detail-info-body text-white d-flex flex-column justify-content-around align-items-start p-20">
+      <h3>{{title}}</h3>
+      <h1>{{description}}</h1>
+    </div>
+  </div>
+</ng-container>

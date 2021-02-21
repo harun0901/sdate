@@ -1,0 +1,24 @@
+.dash-detail-info {
+  position: relative;
+  //background: #9B51E0 !important;
+  min-width: 300px;
+  height: 80px;
+  display: flex;
+  margin: 5px;
+}
+
+.dash-detail-info::after {
+  content: "";
+  left:80px;
+  min-width: 1px;
+  height: 80px;
+  background: rgb(0,0,0,0.05);
+  position: absolute;
+}
+
+.dash-detail-info:hover::after {
+  transform: scaleX(220);
+  transform-origin: left;
+  //transform: translate3d(100px,0px,0);
+  transition: transform .5s ease, background .5s ease;
+}
