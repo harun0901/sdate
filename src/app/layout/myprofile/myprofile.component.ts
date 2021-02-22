@@ -10,6 +10,7 @@ import { User } from '../../core/models/user';
 import { ToastrService } from '../../core/services/toastr.service';
 import { ScrollPosition } from '../../core/data/scroll-pos';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { UploadType } from '../../core/models/upload';
 
 @Component({
   selector: 'sdate-myprofile',
@@ -46,7 +47,8 @@ export class MyprofileComponent implements OnInit {
       width: '450px',
       height: '500px',
       panelClass: 'full-panel',
-      backdropClass: 'custom-backdrop'
+      backdropClass: 'custom-backdrop',
+      data: { type: UploadType.AvatarUploading, detailInfo: '' }
     });
   }
 

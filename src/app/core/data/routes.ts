@@ -46,6 +46,13 @@ export const ROUTES = {
     dashboard: 'dashboard',
     manageUser: 'manage-user',
     payment: 'payment',
+    manageGift: 'manage-gift',
+    manageContact: 'manage-contact',
+    manageGuideline: 'manage-guideline',
+    manageFaq: 'manage-faq',
+    manageTerms: 'manage-terms',
+    managePrivacy: 'manage-privacy',
+    manageLanguage: 'manage-language',
   }
 };
 

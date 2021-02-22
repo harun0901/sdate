@@ -1,5 +1,4 @@
 import { Entity } from './base';
-import { User } from './user';
 
 export interface Upload extends Entity {
   fileName: string;
@@ -18,3 +17,15 @@ export interface UploadUrl {
 export enum UploadStatus {
   SUCCESS = 200,
 }
+
+export enum UploadType {
+  AvatarUploading = 'AVATAR_UPLOADING',
+  GiftUploading = 'GIFT_UPLOADING',
+}
+
+export interface UploadDialogData {
+  type: string;
+  detailInfo: string;
+}
+
+

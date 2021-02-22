@@ -1,0 +1,70 @@
+<div class="bg-white shadow-sm p-30">
+  <h1 class="text-black-50">Help/Support</h1>
+  <div class="row my-20">
+    <div class="col col-sm-2">
+      <button class="btn btn-primary rounded-0 w-100 mb-20">FAQ</button>
+    </div>
+    <div class="col col-sm-8">
+      <div>
+        <h1 class="text-black-50 mb-20">FAQ</h1>
+
+        <mat-accordion [ngClass]="['mb-20']">
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                1. Buying Coins
+              </mat-panel-title>
+              <mat-panel-description>
+                <!--                Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="d-flex justify-content-end">
+              <a class="btn font-15 text-primary" (click)="onEditBasicToggle()" *ngIf="!isEditBasic"><i class="icon-edit"></i></a>
+              <a class="btn font-15 text-info" (click)="onEditBasicToggle()" *ngIf="isEditBasic"><i class="icon-check"></i></a>
+            </div>
+            <p>The virtual currency on our portal is called 'coins'. You pay for everything subject to charges with your coins. Those are purchasable within different packages. You can see how many coins you have left in your profile settings in the app; on the web browser version, you can see your balance on your virtual account.
+
+              You can only buy Coins inside the App through your App Store account. However, you must link a credit card or bank account with the App Store. Alternatively, you can access our services through a web browser and log in with your credentials. We offer further payment methods there.
+
+              We offer all the standard payment methods available in your country.
+
+              Did you know that you'll get bonus coins if you purchase your coin packages through the web browser? With every purchase through a web browser, you'll get 10% of your bought coin package for free on top. Just give it a try!
+
+              !!! Buy coins here now !!!</p>
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel (opened)="panelOpenState = true"
+                               (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                2. Start Dating
+              </mat-panel-title>
+              <mat-panel-description>
+                <!--                Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="d-flex justify-content-end">
+              <a class="btn font-15 text-primary" (click)="onEditBasicToggle()" *ngIf="!isEditBasic"><i class="icon-edit"></i></a>
+              <a class="btn font-15 text-info" (click)="onEditBasicToggle()" *ngIf="isEditBasic"><i class="icon-check"></i></a>
+            </div>
+            <p>The virtual currency on our portal is called 'coins'. You pay for everything subject to charges with your coins. Those are purchasable within different packages. You can see how many coins you have left in your profile settings in the app; on the web browser version, you can see your balance on your virtual account.
+
+              You can only buy Coins inside the App through your App Store account. However, you must link a credit card or bank account with the App Store. Alternatively, you can access our services through a web browser and log in with your credentials. We offer further payment methods there.
+
+              We offer all the standard payment methods available in your country.
+
+              Did you know that you'll get bonus coins if you purchase your coin packages through the web browser? With every purchase through a web browser, you'll get 10% of your bought coin package for free on top. Just give it a try!
+
+              !!! Buy coins here now !!!</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <div class="my-20 text-center py-10 px-5 bg-info">
+        <p class="text-white">Do you want to add new FAQ?</p>
+        <button class="btn bg-white text-info w-100 rounded-0">ADD NEW FAQ</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -56,7 +56,12 @@
             <p [ngClass]="chat.sender.id === customerId ? 'd-flex justify-content-start font-10 p-0 m-0 pt-5' : 'd-flex justify-content-end font-10 p-0 m-0 pt-5'">{{chat.createdAt.toString() | timeAgo}}</p>
           </div>
           <div class="message_avatar border-2 d-flex justify-content-center align-items-center rounded-sm text-black-50 width-35 height-35 mx-10">
-            <img class="width-30 height-30" src="../../../assets/images/uploaded/1.png" alt="#"/>
+            <ng-container *ngIf="chat.sender.id === customerId">
+              <img class="width-30 height-30" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl" alt="#"/>
+            </ng-container>
+            <ng-container *ngIf="chat.sender.id !== customerId">
+              <img class="width-30 height-30" [src]="(chat.sender && chat.sender.avatar) || sampleImageUrl" alt="#"/>
+            </ng-container>
           </div>
         </div>
       </div>

@@ -1,21 +1,9 @@
-<ng-container class="">
-  <div class="p-50">
-    <h2 class="text-black-50">DASHBOARD</h2>
-    <div class="d-flex flex-wrap justify-content-around align-items-center">
-      <sdate-dash-total title="Online Now3" description="2" color="geraldine" icon="star"></sdate-dash-total>
-      <sdate-dash-total title="Online Now1" description="0" color="cornflower-blue" icon="female"></sdate-dash-total>
-      <sdate-dash-total title="Online Now4" description="3" color="Cabaret" icon="heart"></sdate-dash-total>
-      <sdate-dash-total title="Online Now2" description="1" color="riptide" icon="male"></sdate-dash-total>
-    </div>
+<ng-container>
+  <div class="px-50 pt-50">
+    <button class="btn btn-primary" (click)="onAddWordClicked()">ADD NEW WORD</button>
   </div>
-
-  <div class="pl-50 d-flex align-items-center text-black-50">
-    <sdate-text-input label="Faker Count" value="10"></sdate-text-input>
-    <button class="btn btn-success ml-30">Faker Generate</button>
-  </div>
-
   <div class="p-50">
-    <h2 class="text-black-50">USER LIST</h2>
+    <h2 class="text-black-50">Words List</h2>
     <div class="">
       <mat-form-field>
         <mat-label>Filter</mat-label>

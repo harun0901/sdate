@@ -29,6 +29,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   @Input() customerId: string;
   customerInfo: User;
   chatForm: FormGroup;
+  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
   @ViewChild('scrollBox') private myScrollContainer: ElementRef;
 
   constructor(

@@ -1,7 +1,7 @@
 <div class="width-300 bg-white shadow-lg m-5 dark-border">
   <div class="height-40 bg-primary w-100 d-flex align-items-center justify-content-between">
     <div class="shadow-lg">
-      <img class="width-40 height-40" src="../../../assets/images/uploaded/1.png" alt="#"/>
+      <sdate-avatar [size]="40" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl"></sdate-avatar>
     </div>
     <h3 class="text-white">{{customerInfo && customerInfo.fullName}}</h3>
     <div class="d-flex align-items-center justify-content-around">
@@ -22,7 +22,12 @@
             <p [ngClass]="chat.sender.id === customerId ? 'd-flex justify-content-start font-10 p-0 m-0 pt-5' : 'd-flex justify-content-end font-10 p-0 m-0 pt-5'">{{chat.createdAt.toString() | timeAgo}}</p>
           </div>
           <div class="message_avatar border-2 d-flex justify-content-center align-items-center rounded-sm text-black-50 width-35 height-35 mx-10">
-            <img class="width-30 height-30" src="../../../assets/images/uploaded/1.png" alt="#"/>
+            <ng-container *ngIf="chat.sender.id === customerId">
+              <img class="width-30 height-30" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl" alt="#"/>
+            </ng-container>
+            <ng-container *ngIf="chat.sender.id !== customerId">
+              <img class="width-30 height-30" [src]="(chat.sender && chat.sender.avatar) || sampleImageUrl" alt="#"/>
+            </ng-container>
           </div>
         </div>
       </div>

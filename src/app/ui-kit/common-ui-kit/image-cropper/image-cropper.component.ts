@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { ImageService } from '../../../core/services/image.service';
 import { ToastrService } from '../../../core/services/toastr.service';
-import { UploadStatus } from '../../../core/models/upload';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { GiftService } from '../../../core/services/gift.service';
+import { GiftState } from '../../../core/models/gift';
+import { UploadStatus, UploadType, UploadDialogData } from '../../../core/models/upload';
 
 @Component({
   selector: 'sdate-image-cropper',
@@ -22,7 +25,9 @@ export class ImageCropperComponent implements OnInit {
     private toastrService: ToastrService,
     private userService: UserService,
     private authService: AuthService,
+    private giftService: GiftService,
     private dialogRef: MatDialogRef<ImageCropperComponent>,
+    @Inject(MAT_DIALOG_DATA) public dataInfo: UploadDialogData,
   ) { }
 
   ngOnInit(): void {
@@ -62,8 +67,13 @@ export class ImageCropperComponent implements OnInit {
     if (result.status === UploadStatus.SUCCESS) {
       this.toastrService.success('Image successfully uploaded.');
       const tmpImagePath = response.uploadURL.split('?')[0];
-      await this.userService.updateAvatar({ id: tmpImagePath }).toPromise();
-      await this.authService.getAuth().toPromise();
+      if (this.dataInfo.type === UploadType.AvatarUploading) {
+        await this.userService.updateAvatar({ id: tmpImagePath }).toPromise();
+        await this.authService.getAuth().toPromise();
+      } else if (this.dataInfo.type === UploadType.GiftUploading) {
+        const res = await this.giftService.register({path: tmpImagePath, state: GiftState.Accept}).toPromise();
+        this.giftService.setGifts(res);
+      }
       this.isLoading = true;
       this.dialogRef.close();
     } else {

@@ -1,0 +1,11 @@
+<div class="p-30 min-vh-100">
+  <div class="pb-50 px-50 d-flex justify-content-start align-items-center">
+    <label class="text-black-50 m-0 mr-20"><h2>Add a New Gift</h2></label>
+    <a class="btn btn-outline-success shadow-lg" (click)="onGiftAddClicked()"><sdate-icon icon="circle-plus" width="20" color="riptide"></sdate-icon></a>
+  </div>
+  <div class="w-80 m-auto d-flex justify-content-start align-items-center flex-wrap">
+    <div *ngFor="let item of (gift$ | async) as items">
+      <a class="btn" (click)="onGiftClicked(item.id)"><img class="width-100 height-100 rounded-lg border-4 border-secondary" [src]="item && item.path" /></a>
+    </div>
+  </div>
+</div>
