@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatCarousel, MatCarouselComponent } from '@ngmodule/material-carousel';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
 import { ImageSlider } from '../../../core/models/upload';
 
 @Component({
@@ -10,14 +11,32 @@ import { ImageSlider } from '../../../core/models/upload';
 })
 export class ImageSliderComponent implements OnInit {
 
-  slides: ((image) => string)[][];
+  images: string[] = [];
+
+  config: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 1,
+    centeredSlides: true,
+    autoplay: {
+      delay: 6000,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+      hideOnClick: false,
+    },
+    threshold: 50,
+  };
+
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public dataInfo: ImageSlider,
+    @Inject(MAT_DIALOG_DATA) public dataInfo: ImageSlider,
   ) { }
 
   ngOnInit(): void {
-    // console.log(this.dataInfo);
-    // this.slides = this.dataInfo.images.map((item) => [image => item]);
+    console.log(this.dataInfo);
+    this.images = this.dataInfo.images.map((item) => item);
   }
 
 }

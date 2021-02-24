@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SwiperModule as NgxSwiperModule } from 'ngx-swiper-wrapper';
 
 import { IconModule } from '../icon/icon.module';
 import { PipesModule } from '../pipes/pipes.module';
@@ -40,7 +40,7 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     ImageCropperModule,
     FormsModule,
     MatDialogModule,
-    MatCarouselModule.forRoot(),
+    NgxSwiperModule,
   ],
   exports: [
     SpinnerComponent,
