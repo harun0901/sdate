@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { Chat, SendMessagePayload } from '../../core/models/chat';
+import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -15,6 +15,9 @@ import { ScrollPosition } from '../../core/data/scroll-pos';
 import { User } from '../../core/models/user';
 import { NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
+import { GiftPanelComponent } from '../gift/gift-panel/gift-panel.component';
+import { MatDialog } from '@angular/material/dialog';
+import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 
 @Component({
   selector: 'sdate-chatbox',
@@ -41,6 +44,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
+    private giftListDialog: MatDialog,
     private router: Router,
   ) {
     this.chatForm = this.formBuilder.group({
@@ -58,7 +62,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
         if (this.customerId === chatEmmitInfo.id) {
-          this.chatStore.push(chatEmmitInfo.chat);
+          // this.chatStore.push(chatEmmitInfo.chat);
+          this.chatStore = this.chatStoreService.getChat(this.customerId);
           this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -100,6 +105,26 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
       }
     }
+  }
+
+  onGiftClicked(): void {
+    this.giftListDialog.open(GiftPanelComponent, {
+      width: '300px',
+      maxHeight: '400px',
+      panelClass: 'word-panel',
+      backdropClass: 'custom-backdrop',
+      data: { type: ChatType.BoxChat, customerId: this.customerId }
+    });
+  }
+
+  onKissClicked(): void {
+    this.giftListDialog.open(KissChatComponent, {
+      width: '300px',
+      maxHeight: '400px',
+      panelClass: 'full-panel',
+      backdropClass: 'custom-backdrop',
+      data: { type: ChatType.BoxChat, customerId: this.customerId, path: '' }
+    });
   }
 
   onCloseClicked(): void {

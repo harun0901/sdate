@@ -22,6 +22,11 @@ export enum ChatRoomEventType {
   DeleteOneChatBox = 'DELETEONECHATBOX'
 }
 
+export enum ChatType {
+  RoomChat = 'ROOMCHAT',
+  BoxChat = 'BOXCHAT'
+}
+
 
 export interface Chat extends Entity {
   id: string;

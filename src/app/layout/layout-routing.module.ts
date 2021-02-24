@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from './layout.component';
-import { InboxComponent } from './inbox/inbox.component';
 import { VisitorsComponent } from './visitors/visitors.component';
 import { LikesComponent } from './likes/likes.component';
 import { FavoritesComponent } from './favorites/favorites.component';
@@ -52,7 +51,7 @@ const routes: Routes = [
       },
       {
         path: ROUTES.home.inbox,
-        component: InboxComponent,
+        loadChildren: () => import('./inbox/inbox.module').then(m => m.InboxModule),
       },
       {
         path: ROUTES.home.visitors,

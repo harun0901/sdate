@@ -19,6 +19,7 @@ export class LeftpanelComponent implements OnInit {
   lookingForVal: string;
   location: string;
   currentValues: number[];
+  user = this.authService.user;
   constructor(
     private searchService: SearchService,
     private signalService: SignalService,

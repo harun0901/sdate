@@ -33,5 +33,4 @@ export class RightpanelComponent implements OnInit {
     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
     this.notificationService.setNotificationStore(this.notificationStore);
   }
-
 }

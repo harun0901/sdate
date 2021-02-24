@@ -25,3 +25,14 @@ export interface UpdateGiftPayload{
 export interface StateGiftPayload{
   state: number;
 }
+
+export interface GiftPanelPayload{
+  type: string;
+  customerId: string;
+}
+
+export interface GiftChatPayload{
+  type: string;
+  customerId: string;
+  path: string;
+}

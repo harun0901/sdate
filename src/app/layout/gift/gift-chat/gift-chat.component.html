@@ -1,0 +1,19 @@
+<div>
+  <div class="d-flex justify-content-center align-items-center">
+    <img class="width-100 height-100 rounded-sm border-4 border-secondary m-1" [src]="data.path" alt="#"/>
+  </div>
+  <div>
+    <form [formGroup]="chatForm"  (ngSubmit)="onTransferClicked()" (keydown.control.enter)="onTransferClicked()">
+      <div class="w-100 height-70 bg-white shadow-sm d-flex align-items-center">
+        <div class="w-100 height-70">
+          <textarea class="w-100 h-100 m-0 border-0" rows="3" cols="50" formControlName="message_content"></textarea>
+        </div>
+        <div class="d-flex align-items-center width-70">
+          <div class="height-70 width-70 d-flex align-items-center justify-content-center dark-border">
+            <button class="m-0 p-2 height-70 width-70 bg-primary btn m-0 rounded-0" type="submit"><sdate-icon [width]="50" icon="sent" color="white"></sdate-icon></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

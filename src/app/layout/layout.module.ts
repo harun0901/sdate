@@ -25,7 +25,6 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
 import { LikesComponent } from './likes/likes.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { VisitorsComponent } from './visitors/visitors.component';
-import { InboxComponent } from './inbox/inbox.component';
 import { PersoncardComponent } from './personcard/personcard.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -34,6 +33,9 @@ import { CommonUiKitModule } from '../ui-kit/common-ui-kit/common-ui-kit.module'
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import { PaymentComponent } from './payment/payment.component';
 import { AvatarModule } from '../ui-kit/avatar/avatar.module';
+import { GiftModule } from './gift/gift.module';
+import { KissModule } from './kiss/kiss.module';
+import { InboxModule } from './inbox/inbox.module';
 
 
 @NgModule({
@@ -48,7 +50,6 @@ import { AvatarModule } from '../ui-kit/avatar/avatar.module';
     LikesComponent,
     FavoritesComponent,
     VisitorsComponent,
-    InboxComponent,
     PersoncardComponent,
     MyprofileComponent,
     ProfileComponent,
@@ -75,6 +76,9 @@ import { AvatarModule } from '../ui-kit/avatar/avatar.module';
     FormsModule,
     CommonUiKitModule,
     AvatarModule,
+    GiftModule,
+    KissModule,
+    InboxModule,
   ],
 })
 export class LayoutModule { }

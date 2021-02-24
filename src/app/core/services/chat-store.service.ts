@@ -41,6 +41,10 @@ export class ChatStoreService {
     this.chatroomStore$.next({id: this.chatroomUserId, chat: chatItem});
   }
 
+  getChat(idStr: string): Chat[] {
+    return this.chatStore.get(idStr);
+  }
+
   addChat(idStr: string, chatItem: Chat): void {
     if (this.chatStore.has(idStr)) {
       this.chatStore.get(idStr).push(chatItem);
