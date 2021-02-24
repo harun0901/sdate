@@ -157,16 +157,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
         state: GState.Accept
       }).toPromise();
       const imageList = this.uploadData.map((item) => item.data);
-      imageList.push(this.customerInfo.avatar);
-      this.uploadImgDialog.open(ImageSliderComponent, {
-        // width: '1200px',
-        maxWidth: '600px',
-        maxHeight: '700px',
-        // height: '600px',
-        panelClass: 'word-panel',
-        backdropClass: 'custom-backdrop',
-        data: { images: imageList }
-      });
+      if (this.customerInfo.avatar) {
+        imageList.push(this.customerInfo.avatar);
+      }
+      if (imageList.length !== 0) {
+        this.uploadImgDialog.open(ImageSliderComponent, {
+          // width: '1200px',
+          maxWidth: '600px',
+          maxHeight: '700px',
+          // height: '600px',
+          panelClass: 'word-panel',
+          backdropClass: 'custom-backdrop',
+          data: { images: imageList }
+        });
+      } else {
+        this.toastr.danger(`There's no images to present.`);
+      }
     }
   }
 
