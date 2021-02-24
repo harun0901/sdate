@@ -48,7 +48,7 @@
     <h2 class="mb-20">My Profile</h2>
     <sdate-profile [customerInfo] = "user" [isOwner] = "true"></sdate-profile>
   </div>
-  <div class="d-flex">
+  <div class="d-flex flex-wrap">
     <div class="p-15 bg-white w-25 mr-5">
       <form [formGroup]="infoFG" (ngSubmit)="onInfoFGSubmitted()">
         <h2>Personal Information</h2>
@@ -82,5 +82,10 @@
         <a class="btn text-primary">Guidelines</a>
       </a>
     </div>
+    <ng-container *ngIf="(uploadData$ | async) as uploadDataList">
+      <div class="btn m-1 p-0" *ngFor="let uploadData of (uploadData$ | async) as uploadDataList" (click)="onUploadDataClicked(uploadData.id, uploadData.data)">
+        <img class="width-300 height-300 border-4 border-secondary" [src]="uploadData.data" alt="#" />
+      </div>
+    </ng-container>
   </div>
 </div>

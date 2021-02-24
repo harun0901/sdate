@@ -1,8 +1,11 @@
 import { Entity } from './base';
+import { User } from './user';
 
 export interface Upload extends Entity {
-  fileName: string;
-  url: string;
+  uploader: User;
+  type: number;
+  data: string;
+  state: number;
 }
 
 export interface UploadFileName {
@@ -19,13 +22,36 @@ export enum UploadStatus {
 }
 
 export enum UploadType {
-  AvatarUploading = 'AVATAR_UPLOADING',
-  GiftUploading = 'GIFT_UPLOADING',
+  AvatarUploading = 0,
+  GiftUploading = 1,
+  PersonImageUploading = 4,
 }
 
 export interface UploadDialogData {
-  type: string;
+  type: number;
   detailInfo: string;
+}
+
+export interface ImageSlider {
+  images: string[];
+}
+
+export interface SendUpload {
+  uploaderId: string;
+  type: number;
+  data: string;
+  state: number;
+}
+
+export interface UpdateUpload {
+  uploadId: string;
+  data: string;
+  state: number;
+}
+
+export interface GetUploadByIdState {
+  uploaderId: string;
+  state: number;
 }
 
 

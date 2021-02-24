@@ -6,7 +6,7 @@ import { UserService } from '../../core/services/user.service';
 import { UploadType } from '../../core/models/upload';
 import { ImageCropperComponent } from '../../ui-kit/common-ui-kit/image-cropper/image-cropper.component';
 import { GiftService } from '../../core/services/gift.service';
-import { GiftState } from '../../core/models/gift';
+import { GState } from '../../core/models/base';
 
 @Component({
   selector: 'sdate-dash-gift',
@@ -23,7 +23,7 @@ export class DashGiftComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.giftService.getGiftByState({ state: GiftState.Accept });
+    this.giftService.getGiftByState({ state: GState.Accept });
   }
 
   onGiftAddClicked(): void {
@@ -38,7 +38,7 @@ export class DashGiftComponent implements OnInit {
 
   async onGiftClicked(itemId): Promise<void> {
     if (confirm('Are you sure to delete this item?')) {
-      const res = await this.giftService.updateGift({ giftId: itemId, state: GiftState.Decline }).toPromise();
+      const res = await this.giftService.updateGift({ giftId: itemId, state: GState.Decline }).toPromise();
       this.giftService.setGifts(res);
     }
   }

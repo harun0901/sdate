@@ -28,6 +28,12 @@ import { NotificationService } from '../../core/services/notification.service';
 import { NotificationType } from '../../core/models/notificationEntity';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ImageCropperComponent } from '../../ui-kit/common-ui-kit/image-cropper/image-cropper.component';
+import { Upload, UploadType } from '../../core/models/upload';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageSliderComponent } from '../../ui-kit/common-ui-kit/image-slider/image-slider.component';
+import { UploadService } from '../../core/services/upload.service';
+import { GState } from '../../core/models/base';
 
 @Component({
   selector: 'sdate-profile',
@@ -56,6 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   smokerList = smokerList;
   languageList = languageList;
   interestedList = interestedList;
+  uploadData: Upload[];
   sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
 
   constructor(
@@ -67,7 +74,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private basicFB: FormBuilder,
     private toastr: ToastrService,
     private routerNavigate: Router,
+    private uploadImgDialog: MatDialog,
     private scrollToService: ScrollToService,
+    private uploadService: UploadService,
     private notificationService: NotificationService,
   ) {
     this.factFG = this.factFB.group({
@@ -88,6 +97,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       location: [''],
       about: ['']
     });
+    this.uploadData = [];
   }
 
   ngOnInit(): void {
@@ -126,8 +136,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
       pattern: NotificationType.Visit
     }).toPromise();
   }
+
   async getCustomerInfo(customerId): Promise<void> {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
+  }
+
+  async onAvatarClicked(): Promise<void> {
+    if (this.isEditable) {
+      window.scroll(0, 0);
+      this.uploadImgDialog.open(ImageCropperComponent, {
+        width: '450px',
+        height: '500px',
+        panelClass: 'full-panel',
+        backdropClass: 'custom-backdrop',
+        data: {type: UploadType.AvatarUploading, detailInfo: ''}
+      });
+    } else {
+      // this.uploadData = await this.uploadService.getCustomerUploadByIdState({
+      //   uploaderId: this.customerId,
+      //   state: GState.Accept
+      // }).toPromise();
+      // const imageList = this.uploadData.map((item) => item.data);
+      // imageList.push(this.customerInfo.avatar);
+      // this.uploadImgDialog.open(ImageSliderComponent, {
+      //   width: '1200px',
+      //   maxHeight: '600px',
+      //   panelClass: 'word-panel',
+      //   backdropClass: 'custom-backdrop',
+      //   // data: { images: imageList }
+      // });
+    }
   }
 
   getCustomEditInfo(): void {

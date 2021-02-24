@@ -11,6 +11,8 @@ import { ToastrService } from '../../core/services/toastr.service';
 import { ScrollPosition } from '../../core/data/scroll-pos';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { UploadType } from '../../core/models/upload';
+import { UploadService } from '../../core/services/upload.service';
+import { GState } from '../../core/models/base';
 
 @Component({
   selector: 'sdate-myprofile',
@@ -20,12 +22,14 @@ import { UploadType } from '../../core/models/upload';
 export class MyprofileComponent implements OnInit {
   user: User;
   infoFG: FormGroup;
+  uploadData$ = this.uploadService.uploadData$;
   constructor(
     private openPageSv: OpenPageService,
     private authService: AuthService,
     private infoFB: FormBuilder,
     private userService: UserService,
     private toastr: ToastrService,
+    private uploadService: UploadService,
     private scrollToService: ScrollToService,
     public uploadImgDialog: MatDialog,
   ) {
@@ -39,6 +43,7 @@ export class MyprofileComponent implements OnInit {
   ngOnInit(): void {
     this.openPageSv.send('my-profile');
     this.setInfoFGData();
+    this.uploadService.getByIdState({uploaderId: this.authService.user.id, state: GState.Accept});
   }
 
   onAvatarClicked(): void {
@@ -48,8 +53,19 @@ export class MyprofileComponent implements OnInit {
       height: '500px',
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop',
-      data: { type: UploadType.AvatarUploading, detailInfo: '' }
+      data: { type: UploadType.PersonImageUploading, detailInfo: '' }
     });
+  }
+
+  async onUploadDataClicked(uploadIdInfo: string, dataInfo: string): Promise<void> {
+    if (confirm('Are you sure to delete this item?')) {
+      const res = await this.uploadService.updateUpload({
+        uploadId: uploadIdInfo,
+        data: dataInfo,
+        state: GState.Decline
+      }).toPromise();
+      this.uploadService.getByIdState({uploaderId: this.authService.user.id, state: GState.Accept});
+    }
   }
 
   setInfoFGData(): void {

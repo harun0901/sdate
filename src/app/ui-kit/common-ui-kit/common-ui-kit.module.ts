@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { IconModule } from '../icon/icon.module';
 import { PipesModule } from '../pipes/pipes.module';
@@ -15,6 +17,7 @@ import { ImageCropperComponent } from './image-cropper/image-cropper.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import { SelectComponent } from './select/select.component';
 import { DashTotalComponent } from './dash-total/dash-total.component';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { DashTotalComponent } from './dash-total/dash-total.component';
     TextInputComponent,
     SelectComponent,
     DashTotalComponent,
+    ImageSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +39,8 @@ import { DashTotalComponent } from './dash-total/dash-total.component';
     PipesModule,
     ImageCropperModule,
     FormsModule,
+    MatDialogModule,
+    MatCarouselModule.forRoot(),
   ],
   exports: [
     SpinnerComponent,
@@ -45,6 +51,7 @@ import { DashTotalComponent } from './dash-total/dash-total.component';
     TextInputComponent,
     SelectComponent,
     DashTotalComponent,
+    ImageSliderComponent,
   ],
 })
 export class CommonUiKitModule {

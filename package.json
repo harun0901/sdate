@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~11.0.3",
     "@angular/router": "~11.0.3",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
+    "@ngmodule/material-carousel": "^0.6.0",
     "@nicky-lenaers/ngx-scroll-to": "^9.0.0",
     "@swimlane/ngx-charts": "^17.0.0",
     "angular-2-local-storage": "^3.0.2",

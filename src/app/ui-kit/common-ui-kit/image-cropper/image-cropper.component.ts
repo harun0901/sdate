@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { ImageService } from '../../../core/services/image.service';
+import { UploadService } from '../../../core/services/upload.service';
 import { ToastrService } from '../../../core/services/toastr.service';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { GiftService } from '../../../core/services/gift.service';
-import { GiftState } from '../../../core/models/gift';
+import { GState } from '../../../core/models/base';
 import { UploadStatus, UploadType, UploadDialogData } from '../../../core/models/upload';
 
 @Component({
@@ -21,7 +21,7 @@ export class ImageCropperComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private imageService: ImageService,
+    private uploadService: UploadService,
     private toastrService: ToastrService,
     private userService: UserService,
     private authService: AuthService,
@@ -52,7 +52,7 @@ export class ImageCropperComponent implements OnInit {
 
   async uploadImg(): Promise<void> {
     this.isLoading = true;
-    const response = await this.imageService.getUploadURL({fileName: this.imageChangedEvent.target.files[0].name}).toPromise();
+    const response = await this.uploadService.getUploadURL({fileName: this.imageChangedEvent.target.files[0].name}).toPromise();
     const binary = atob(this.croppedImage.split(',')[1]);
     const array = [];
     for (let i = 0; i < binary.length; i++) {
@@ -71,8 +71,16 @@ export class ImageCropperComponent implements OnInit {
         await this.userService.updateAvatar({ id: tmpImagePath }).toPromise();
         await this.authService.getAuth().toPromise();
       } else if (this.dataInfo.type === UploadType.GiftUploading) {
-        const res = await this.giftService.register({path: tmpImagePath, state: GiftState.Accept}).toPromise();
+        const res = await this.giftService.register({path: tmpImagePath, state: GState.Accept}).toPromise();
         this.giftService.setGifts(res);
+      } else if (this.dataInfo.type === UploadType.PersonImageUploading) {
+        const res = await this.uploadService.register({
+          uploaderId: this.authService.user.id,
+          type: this.dataInfo.type,
+          data: tmpImagePath,
+          state: GState.Accept,
+        }).toPromise();
+        this.uploadService.getByIdState({ uploaderId: this.authService.user.id, state: GState.Accept });
       }
       this.isLoading = true;
       this.dialogRef.close();

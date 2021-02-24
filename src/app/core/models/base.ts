@@ -19,6 +19,12 @@ export enum Signal {
   SearchAgain = 'SEARCHAGAIN',
 }
 
+export enum GState {
+  Pending = 0,
+  Accept = 1,
+  Decline = 2
+}
+
 export enum Opinion {
   Yes = 'YES',
   No = 'NO',

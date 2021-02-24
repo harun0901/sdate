@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GiftChatComponent } from '../gift-chat/gift-chat.component';
-import { GiftPanelPayload, GiftState } from '../../../core/models/gift';
+import { GiftPanelPayload } from '../../../core/models/gift';
 import { GiftService } from '../../../core/services/gift.service';
+import { GState } from '../../../core/models/base';
 
 @Component({
   selector: 'sdate-gift-panel',
@@ -21,7 +22,7 @@ export class GiftPanelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.giftService.getGiftByState({ state: GiftState.Accept });
+    this.giftService.getGiftByState({ state: GState.Accept });
   }
 
   onGiftClicked(pathInfo: string): void {

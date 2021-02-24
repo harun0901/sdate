@@ -1,12 +1,5 @@
 import { Entity } from './base';
 
-export enum GiftState {
-  Pending = 0,
-  Accept = 1,
-  Decline = 2
-}
-
-
 export interface Gift extends Entity {
   path: string;
   state: number;
