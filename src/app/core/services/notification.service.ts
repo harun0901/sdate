@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { AddNotification, NotificationEntity, NotificationId } from '../models/notificationEntity';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,19 @@ export class NotificationService {
   notificationStore: NotificationEntity[];
   notificationStore$: Subject<NotificationEntity>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {
     this.notificationStore = [];
     this.notificationStore$ = new Subject<NotificationEntity>();
   }
 
   addNotification(payload: AddNotification): Observable<NotificationEntity> {
-    const url = `${environment.api}/sdate/notification/addNotification`;
-    return this.http.post<NotificationEntity>(url, payload);
+    if (this.authService.user.id !== payload.receiver_id) {
+      const url = `${environment.api}/sdate/notification/addNotification`;
+      return this.http.post<NotificationEntity>(url, payload);
+    }
   }
 
   updateNotification(payload: NotificationId): Observable<NotificationEntity[]> {
