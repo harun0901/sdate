@@ -82,6 +82,7 @@ export class AuthService {
   }
 
   logout(): void {
+    // this.socketService.disconnect(this.user.id);
     this.accessToken = null;
     this.isLoggedIn$.next(this.isLoggedIn);
     this.user = null;

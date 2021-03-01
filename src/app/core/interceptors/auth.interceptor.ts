@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AuthService } from '../services/auth.service';
+import { SocketService } from '../services/socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
+    private socketService: SocketService,
     private authService: AuthService
   ) { }
 
@@ -21,6 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(duplicate).pipe(
       catchError(err => {
         if (err.status === 401) {
+          this.socketService.disconnect(this.authService.user.id);
           this.authService.logout();
         }
         return throwError(err);

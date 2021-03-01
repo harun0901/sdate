@@ -58,5 +58,6 @@ export class ChatStoreService {
   deleteChat(idStr: string): void {
     this.chatStore.delete(idStr);
     this.chatStoreEvent$.next(ChatRoomEventType.DeleteOneChatBox);
+    console.log('deleteChat = ', this.chatStore);
   }
 }

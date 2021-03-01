@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 import { UserRole } from '../models/auth';
+import { SocketService } from '../services/socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { UserRole } from '../models/auth';
 export class RoleGuard implements CanActivate {
 
   constructor(
+    private socketService: SocketService,
     private authService: AuthService,
   ) {
   }
@@ -31,6 +33,7 @@ export class RoleGuard implements CanActivate {
           if (isAllowed) {
             resolve(true);
           } else {
+            this.socketService.disconnect(this.authService.user.id);
             this.authService.navigateByUserRole(role);
             resolve(false);
           }
@@ -38,6 +41,7 @@ export class RoleGuard implements CanActivate {
           resolve(true);
         }
       } catch (e) {
+        this.socketService.disconnect(this.authService.user.id);
         this.authService.logout();
       }
     });

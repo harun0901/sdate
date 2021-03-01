@@ -107,6 +107,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
   logOut(): void {
+    this.socketService.disconnect(this.auth.user.id);
     this.auth.logout();
   }
 

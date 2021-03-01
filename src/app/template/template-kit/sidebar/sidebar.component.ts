@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { ROUTES } from '../../../core/data/routes';
 import { AuthService } from '../../../core/services/auth.service';
+import { SocketService } from '../../../core/services/socket.service';
 
 @Component({
   selector: 'sdate-sidebar',
@@ -17,6 +18,7 @@ export class SidebarComponent implements OnInit {
   user$ = this.authService.user$;
 
   constructor(
+    private socketService: SocketService,
     private authService: AuthService
   ) { }
 
@@ -28,6 +30,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(): void {
+    this.socketService.disconnect(this.authService.user.id);
     this.authService.logout();
   }
 }

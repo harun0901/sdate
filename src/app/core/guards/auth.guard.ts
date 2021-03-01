@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
+import { SocketService } from '../services/socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
+    private socketService: SocketService,
     private authService: AuthService,
   ) {
   }
@@ -20,6 +22,7 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isLoggedIn) {
       return true;
     } else {
+      this.socketService.disconnect(this.authService.user.id);
       this.authService.logout();
       return false;
     }
