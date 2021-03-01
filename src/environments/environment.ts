@@ -13,6 +13,7 @@ export const environment = {
   socket: {
     url: 'https://sdate-api.herokuapp.com',
     join: 'join',
+    disconnect: 'endjoin',
     events: 'events',
     messages: 'messages',
   },
