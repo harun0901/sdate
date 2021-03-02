@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
+import { Chat, ChatRoomEventType, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';

@@ -15,6 +15,6 @@
   </div>
 </div>
 <div class="position-sticky bottom-10 right-0 max-height-400 mr-400 float-right z-index-10 d-flex justify-content-end flex-wrap">
-  <sdate-chatbox class="d-flex align-items-end" *ngFor="let chatId of chatIdStore" [customerId]="chatId"></sdate-chatbox>
+  <sdate-chatbox class="d-flex align-items-end" *ngFor="let chatId of chatIdStore | slice:0:3; let i=index" [customerId]="chatId"></sdate-chatbox>
 </div>
 <sdate-footer></sdate-footer>
