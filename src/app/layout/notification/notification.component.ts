@@ -1,10 +1,12 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { NotificationEntity, NotificationDescription, NotificationType } from '../../core/models/notificationEntity';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+
+import { DEFAULT_IMAGE } from '../../core/models/base';
 import { NotificationService } from '../../core/services/notification.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
-import { Router } from '@angular/router';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { NotificationEntity, NotificationDescription, NotificationType } from '../../core/models/notificationEntity';
 
 @Component({
   selector: 'sdate-notification',
@@ -15,7 +17,7 @@ export class NotificationComponent implements OnInit {
   ROUTES = ROUTES;
   description: string;
   dataLabel: string;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   @Input() notification: NotificationEntity;
   constructor(
     private notificationService: NotificationService,

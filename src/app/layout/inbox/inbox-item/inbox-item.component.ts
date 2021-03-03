@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ROUTES, toAbsolutePath } from 'src/app/core/data/routes';
-import { NotificationDescription, NotificationEntity, NotificationType } from '../../../core/models/notificationEntity';
-import { NotificationService } from '../../../core/services/notification.service';
-import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
+import { ROUTES, toAbsolutePath } from 'src/app/core/data/routes';
+
+import { DEFAULT_IMAGE } from '../../../core/models/base';
 import { ScrollPosition } from '../../../core/data/scroll-pos';
+import { NotificationService } from '../../../core/services/notification.service';
+import { NotificationDescription, NotificationEntity, NotificationType } from '../../../core/models/notificationEntity';
 
 @Component({
   selector: 'sdate-inbox-item',
@@ -15,7 +17,7 @@ export class InboxItemComponent implements OnInit {
   ROUTES = ROUTES;
   description: string;
   dataLabel: string;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   @Input() notification: NotificationEntity;
   constructor(
     private notificationService: NotificationService,

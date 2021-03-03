@@ -86,3 +86,4 @@ export enum SeparatorType {
 
 export const DEFAULT_FILTER_FROM_DATE = new Date('Jan 1, 1900').toISOString();
 export const DEFAULT_FILTER_TO_DATE = new Date('Jan 1, 2100').toISOString();
+export const DEFAULT_IMAGE = '../../../assets/images/uploaded/avatar.png';

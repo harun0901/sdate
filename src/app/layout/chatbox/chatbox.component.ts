@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { DEFAULT_IMAGE } from '../../core/models/base';
 import { Chat, ChatRoomEventType, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
@@ -32,7 +33,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   @Input() customerId: string;
   customerInfo: User;
   chatForm: FormGroup;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   @ViewChild('scrollBox') private myScrollContainer: ElementRef;
 
   constructor(

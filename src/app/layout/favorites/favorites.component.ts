@@ -1,12 +1,13 @@
+import { Subject } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { DEFAULT_IMAGE } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { UserService } from '../../core/services/user.service';
 import { SignalService } from '../../core/services/signal.service';
 import { User, UserShowType } from '../../core/models/user';
 import { takeUntil } from 'rxjs/operators';
 import { Signal } from '../../core/models/base';
-import { Subject } from 'rxjs';
 import { SearchService } from '../../core/services/search.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { SearchService } from '../../core/services/search.service';
 export class FavoritesComponent implements OnInit, OnDestroy {
   userList: User[];
   userState: string;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(

@@ -2,7 +2,7 @@
   <div id="notification_bar" [attr.data-label] = "dataLabel" (click)="onNotificationClicked()"
        class="position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100">
     <div class="pr-1">
-      <img class="width-100 height-100 rounded-sm" [src]="notification.sender.avatar || sampleImageUrl" alt="#"/>
+      <img class="width-100 height-100 rounded-sm" [src]="notification.sender.avatar || DEFAULT_IMAGE" alt="#"/>
     </div>
     <div>
       <div class="d-flex w-75 align-items-center justify-content-between">

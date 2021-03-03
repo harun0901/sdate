@@ -4,6 +4,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { DEFAULT_IMAGE } from '../../core/models/base';
 import { AuthService } from '../../core/services/auth.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
@@ -28,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
   userInfo: User;
   total = 0;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(

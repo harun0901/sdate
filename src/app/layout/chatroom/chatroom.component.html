@@ -2,7 +2,7 @@
   <div class="col col-lg-3 d-none d-lg-block">
     <div class="bg-white shadow-sm width-200 min-height-400 btn p-0 m-0" (click)="onCustomerClicked()">
       <div class="width-200 height-200 p-1">
-        <img class="width-200 height-200 rounded-sm border-2 border-secondary" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl" alt="#"/>
+        <img class="width-200 height-200 rounded-sm border-2 border-secondary" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/>
       </div>
       <div class="w-90 m-auto">
         <h2 class="text-primary text-center">{{ customerInfo && customerInfo.fullName }}</h2>
@@ -66,10 +66,10 @@
           </div>
           <div class="message_avatar border-2 d-flex justify-content-center align-items-center rounded-sm text-black-50 width-35 height-35 mx-10">
             <ng-container *ngIf="chat.sender.id === customerId">
-              <a class="btn m-0 p-0" (click)="onCustomerClicked()"><img class="width-30 height-30" [src]="(customerInfo && customerInfo.avatar) || sampleImageUrl" alt="#"/></a>
+              <a class="btn m-0 p-0" (click)="onCustomerClicked()"><img class="width-30 height-30" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/></a>
             </ng-container>
             <ng-container *ngIf="chat.sender.id !== customerId">
-              <a class="btn m-0 p-0" (click)="onOwnerClicked()"><img class="width-30 height-30" [src]="(chat.sender && chat.sender.avatar) || sampleImageUrl" alt="#"/></a>
+              <a class="btn m-0 p-0" (click)="onOwnerClicked()"><img class="width-30 height-30" [src]="(chat.sender && chat.sender.avatar) || DEFAULT_IMAGE" alt="#"/></a>
             </ng-container>
           </div>
         </div>

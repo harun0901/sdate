@@ -2,9 +2,6 @@ import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { OpenPageService } from '../../core/services/open-page.service';
-import { User } from '../../core/models/user';
-import { UserService } from '../../core/services/user.service';
 import {
   bodyList,
   lookingForList,
@@ -18,6 +15,10 @@ import {
   languageList,
   interestedList,
 } from '../../core/models/option';
+import { DEFAULT_IMAGE } from '../../core/models/base';
+import { OpenPageService } from '../../core/services/open-page.service';
+import { User } from '../../core/models/user';
+import { UserService } from '../../core/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from '../../core/services/toastr.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
@@ -63,7 +64,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   languageList = languageList;
   interestedList = interestedList;
   uploadData: Upload[];
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
 
   constructor(
     private openPageSv: OpenPageService,

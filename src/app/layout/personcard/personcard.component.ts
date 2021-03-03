@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
+import { Signal, DEFAULT_IMAGE } from '../../core/models/base';
 import { User, UserShowType } from '../../core/models/user';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
@@ -9,7 +10,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
 import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
-import { Signal } from '../../core/models/base';
 import { NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
 
@@ -21,7 +21,7 @@ import { NotificationService } from '../../core/services/notification.service';
 export class PersoncardComponent implements OnInit {
   ROUTES = ROUTES;
   UserShowType = UserShowType;
-  sampleImageUrl = '../../../assets/images/uploaded/avatar.png';
+  DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   @Input() customerInfo: User;
   @Input() customerState: string;
   constructor(
