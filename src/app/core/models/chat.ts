@@ -19,7 +19,8 @@ export enum MessageStatusType {
 
 export enum ChatRoomEventType {
   AddChatBox = 'ADDNEWCHATBOX',
-  DeleteOneChatBox = 'DELETEONECHATBOX'
+  DeleteOneChatBox = 'DELETEONECHATBOX',
+  ChangeOrderChatBox = 'CHANGEORDERCHATBOX',
 }
 
 export enum ChatType {

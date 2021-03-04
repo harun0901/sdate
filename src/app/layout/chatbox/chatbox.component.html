@@ -3,7 +3,7 @@
     <div class="shadow-lg">
       <sdate-avatar [size]="40" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE"></sdate-avatar>
     </div>
-    <h3 class="text-white">{{customerInfo && customerInfo.fullName}}</h3>
+    <a class="btn btn-primary m-0 p-0 w-100" (click)="onTitleClicked()"><h3 class="text-white">{{customerInfo && customerInfo.fullName}}</h3></a>
     <div class="d-flex align-items-center justify-content-around">
       <a class="btn btn-primary text-white p-1 font-15 mr-0" (click)="onExpandClicked()"><i class="icon-expand"></i></a>
       <a class="btn btn-primary text-white p-1 font-15 mr-0" (click)="onToggle()"><i class="icon-minimize"></i></a>

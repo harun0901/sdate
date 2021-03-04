@@ -7,6 +7,7 @@ import { Chat, ChatEmit, ChatRoomEventType } from '../models/chat';
   providedIn: 'root'
 })
 export class ChatStoreService {
+  chatStoreIds: string[];
   chatStore: Map<string, Chat[]>;
   chatStore$: Subject<ChatEmit>;
   chatStoreEvent$: Subject<string>;
@@ -16,6 +17,7 @@ export class ChatStoreService {
 
   constructor() {
     this.chatroomUserId = '';
+    this.chatStoreIds = [];
     this.chatStore = new Map<string, Chat[]>();
     this.chatStore$ = new Subject<ChatEmit>();
     this.chatStoreEvent$ = new Subject<string>();
@@ -50,6 +52,7 @@ export class ChatStoreService {
       this.chatStore.get(idStr).push(chatItem);
     } else {
       this.chatStore.set(idStr, [chatItem]);
+      this.chatStoreIds.push(idStr);
       this.chatStoreEvent$.next(ChatRoomEventType.AddChatBox);
     }
     this.chatStore$.next({id: idStr, chat: chatItem});
@@ -57,7 +60,17 @@ export class ChatStoreService {
 
   deleteChat(idStr: string): void {
     this.chatStore.delete(idStr);
+    if (this.chatStoreIds.indexOf(idStr) > -1) {
+      this.chatStoreIds.splice(this.chatStoreIds.indexOf(idStr), 1);
+    }
     this.chatStoreEvent$.next(ChatRoomEventType.DeleteOneChatBox);
-    console.log('deleteChat = ', this.chatStore);
+  }
+
+  moveFirst(idStr: string): void {
+    if (this.chatStoreIds.indexOf(idStr) > -1) {
+      this.chatStoreIds.splice(this.chatStoreIds.indexOf(idStr), 1);
+      this.chatStoreIds.unshift(idStr);
+    }
+    this.chatStoreEvent$.next(ChatRoomEventType.ChangeOrderChatBox);
   }
 }

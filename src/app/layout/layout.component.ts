@@ -37,7 +37,8 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.chatStoreService.chatStoreEvent$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(event => {
-      this.chatIdStore = Array.from(this.chatStoreService.chatStore.keys());
+      // this.chatIdStore = Array.from(this.chatStoreService.chatStore.keys());
+      this.chatIdStore = this.chatStoreService.chatStoreIds;
       // this.cRef.detectChanges(); --this is making erros
     });
   }

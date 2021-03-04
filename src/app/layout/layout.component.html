@@ -15,6 +15,24 @@
   </div>
 </div>
 <div class="position-sticky bottom-10 right-0 max-height-400 mr-400 float-right z-index-10 d-flex justify-content-end flex-wrap">
-  <sdate-chatbox class="d-flex align-items-end" *ngFor="let chatId of chatIdStore | slice:0:3; let i=index" [customerId]="chatId"></sdate-chatbox>
+  <ng-container *ngIf="chatIdStore.length > 3">
+    <div class="d-flex justify-content-center align-items-end pb-10">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10 bg-primary rounded-0" aria-label="Main Menu" matBadge="{{chatIdStore.length-3}}" matBadgePosition="before" matBadgeColor="primary">
+        <sdate-icon [width]="30" icon="list" color="white"></sdate-icon>
+      </button>
+      <mat-menu #menu="matMenu" yPosition="above" xPosition ="before" class="bg-transparent shadow-none border-0 p-0">
+        <div *ngFor="let chatId of chatIdStore; let index=index">
+          <ng-container *ngIf="index >= 3">
+            <sdate-chatbox class="d-flex align-items-end" [showFlag]="false" [customerId]="chatId"></sdate-chatbox>
+          </ng-container>
+        </div>
+      </mat-menu>
+    </div>
+  </ng-container>
+  <div *ngFor="let chatId of chatIdStore; let index=index">
+    <ng-container *ngIf="index < 3">
+      <sdate-chatbox class="d-flex align-items-end" [customerId]="chatId"></sdate-chatbox>
+    </ng-container>
+  </div>
 </div>
 <sdate-footer></sdate-footer>

@@ -23,6 +23,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Signal } from '../../core/models/base';
 import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
+import { UserRole } from '../../core/models/auth';
 
 @Component({
   selector: 'sdate-chatroom',
@@ -61,11 +62,13 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chatStore = [];
-    this.openPageSv.send('chatroom');
-    this.customerId = this.router.snapshot.paramMap.get('userId');
-    this.getCustomerInfo(this.customerId);
-    this.chatStoreService.setChatroomUserId(this.customerId);
-    this.getPartChatList(this.customerId);
+    this.router.params.subscribe(params => {
+      this.openPageSv.send('chatroom');
+      this.customerId = this.router.snapshot.paramMap.get('userId');
+      this.getCustomerInfo(this.customerId);
+      this.chatStoreService.setChatroomUserId(this.customerId);
+      this.getPartChatList(this.customerId);
+    });
     this.chatStoreService.chatroomStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {

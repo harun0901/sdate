@@ -27,6 +27,7 @@ import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 })
 export class ChatboxComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
+  @Input() showFlag: boolean;
   show: boolean;
   ROUTES = ROUTES;
   chatStore: Chat[];
@@ -55,9 +56,13 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chatStore = [];
+    if (this.showFlag === undefined) {
+      this.show = true;
+    } else {
+      this.show = this.showFlag;
+    }
     this.getCustomerInfo(this.customerId);
     this.getPartChatList(this.customerId);
-    this.show = true;
 
     this.chatStoreService.chatStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
@@ -65,7 +70,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         if (this.customerId === chatEmmitInfo.id) {
           // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.getChat(this.customerId);
-          this.cRef.detectChanges();
+          // this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
           } catch (err) { }
@@ -128,12 +133,18 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     });
   }
 
+  onTitleClicked(): void {
+    this.chatStoreService.moveFirst(this.customerId);
+  }
+
   onCloseClicked(): void {
     this.chatStoreService.deleteChat(this.customerId);
   }
 
   onToggle(): void {
-    this.show = !this.show;
+    if (this.showFlag === undefined) {
+      this.show = !this.show;
+    }
   }
 
   onExpandClicked(): void {
@@ -155,7 +166,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.chatStoreService.deleteChat(this.customerId);
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();
   }
