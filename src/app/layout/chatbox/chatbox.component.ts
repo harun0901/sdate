@@ -134,7 +134,9 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   onTitleClicked(): void {
-    this.chatStoreService.moveFirst(this.customerId);
+    if (this.showFlag !== undefined) {
+      this.chatStoreService.moveFirst(this.customerId);
+    }
   }
 
   onCloseClicked(): void {
