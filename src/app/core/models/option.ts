@@ -106,6 +106,7 @@ export const interestedList: Option<string>[] = [
 export const languageList: Option<string>[] = [
   {value: '', label: 'No Answer'},
   {value: 'English', label: 'english'},
+  {value: 'Arabic', label: 'arabic'},
   {value: 'Dutch', label: 'dutch'},
   {value: 'French', label: 'french'},
   {value: 'German', label: 'german'},
@@ -113,6 +114,6 @@ export const languageList: Option<string>[] = [
   {value: 'Portuguese', label: 'portuguese'},
   {value: 'Russian', label: 'russian'},
   {value: 'Spanish', label: 'spanish'},
-  {value: 'Hebrew', label: 'hebrew'},
   {value: 'Turkish', label: 'turkish'},
+  {value: 'Hebrew', label: 'hebrew'},
 ];
