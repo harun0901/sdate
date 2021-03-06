@@ -1,3 +1,15 @@
-<div class="d-flex flex-wrap justify-content-between align-items-center">
-  <sdate-personcard *ngFor="let user of userList" [customerInfo]="user" [customerState]="userState"></sdate-personcard>
+<div class="row flex-wrap">
+  <div class="col-10 col-md-6 col-lg-6 col-xl-4" *ngFor="let user of userList" >
+    <sdate-personcard [customerInfo]="user" [customerState]="UserShowType.LIKE"></sdate-personcard>
+  </div>
+</div>
+
+<p class="bg-primary text-white p-10 w-100 m-auto text-center">Here are some suggestions you might like:</p>
+
+<div class="row flex-wrap mt-20">
+  <div class="col-10 col-md-6 col-lg-6 col-xl-4" *ngFor="let notification of notificationStore" >
+    <ng-container *ngIf="notification.pattern === NotificationType.Like">
+      <sdate-personcard [customerInfo]="notification.sender" [customerState]="UserShowType.RANDOM"></sdate-personcard>
+    </ng-container>
+  </div>
 </div>

@@ -57,7 +57,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.removeLikeUser({id: this.customerInfo.id}).toPromise();
     } else {
       user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
-      this.addNotification(NotificationType.Like);
+      await this.addNotification(NotificationType.Like);
     }
     this.toastr.success(`You've successfully changed.`);
     this.signalService.sendSignal(Signal.UserListchanged);

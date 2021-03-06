@@ -5,6 +5,8 @@ import { AgeLimit, LookingFor } from '../../core/models/user';
 import { SearchService } from '../../core/services/search.service';
 import { SignalService } from '../../core/services/signal.service';
 import { AuthService } from '../../core/services/auth.service';
+import { PaymentComponent } from '../payment/payment.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'sdate-leftpanel',
@@ -12,6 +14,7 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrls: ['./leftpanel.component.scss']
 })
 export class LeftpanelComponent implements OnInit {
+
   LookingFor = LookingFor;
   AgeLimit = AgeLimit;
   startAge: number;
@@ -20,11 +23,21 @@ export class LeftpanelComponent implements OnInit {
   location: string;
   currentValues: number[];
   user = this.authService.user;
+
   constructor(
+    private paymentDialog: MatDialog,
     private searchService: SearchService,
     private signalService: SignalService,
     private authService: AuthService,
   ) {}
+
+  onPaymentClicked(): void {
+    this.paymentDialog.open(PaymentComponent, {
+      width: '300px',
+      panelClass: 'word-panel',
+      backdropClass: 'custom-backdrop'
+    });
+  }
 
   ngOnInit(): void {
     this.startAge = AgeLimit.START;

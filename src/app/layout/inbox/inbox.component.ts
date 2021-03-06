@@ -2,8 +2,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 
-import { NotificationEntity } from '../../core/models/notificationEntity';
+import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
+import { OpenPageService } from '../../core/services/open-page.service';
 
 @Component({
   selector: 'sdate-inbox',
@@ -12,15 +13,16 @@ import { NotificationService } from '../../core/services/notification.service';
 })
 export class InboxComponent implements OnInit {
   private unsubscribeAll: Subject<any> = new Subject<any>();
-  notificationStore: NotificationEntity[];
+  notificationStore: NotificationEntity[] = [];
+  NotificationType = NotificationType;
 
   constructor(
     private notificationService: NotificationService,
-  ) {
-    this.notificationStore = [];
-  }
+    private openPageSv: OpenPageService,
+  ) {}
 
   ngOnInit(): void {
+    this.openPageSv.send('inbox');
     this.getAllNotification();
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
@@ -31,6 +33,5 @@ export class InboxComponent implements OnInit {
 
   async getAllNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
-    this.notificationService.setNotificationStore(this.notificationStore);
   }
 }

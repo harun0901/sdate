@@ -75,7 +75,9 @@ export class ChatroomComponent implements OnInit, OnDestroy {
         if (this.customerId === chatEmmitInfo.id) {
           // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.chatroomStore;
-          this.cRef.detectChanges();
+          this.getPartChatList(this.customerId);
+          console.log(this.chatStore);
+          // this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
           } catch (err) { }
@@ -98,6 +100,10 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
   }
 
+  async onTextareaFocused(): Promise<void> {
+    const res = await this.chatService.seenMessage({senderId: this.authService.user.id, receiverId: this.customerId}).toPromise();
+  }
+
   async onTransferClicked(): Promise<void> {
     if (this.chatForm.valid) {
       try {
@@ -105,8 +111,8 @@ export class ChatroomComponent implements OnInit, OnDestroy {
         const res = await this.chatService.sendMessage(payload).toPromise();
         this.chatStore.push(res);
         this.chatForm.reset();
-        this.cRef.detectChanges();
-        this.addNotification(NotificationType.Message);
+        // this.cRef.detectChanges();
+        await this.addNotification(NotificationType.Message);
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
         } catch (err) { }

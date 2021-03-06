@@ -10,36 +10,36 @@
       <div class="w-25 bg-primary m-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-chat text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
-          <h1 class="text-white text-center font-35">64</h1>
+          <h1 class="text-white text-center font-35">{{newMsgCount}}</h1>
           <h3 class="text-white text-center">new Messages</h3>
           <span
-            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.inbox])">read</span>
         </a>
       </div>
       <div class="w-25 bg-primary m-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-eye text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
-          <h1 class="text-white text-center font-35">11</h1>
+          <h1 class="text-white text-center font-35">{{newVisitorCount}}</h1>
           <h3 class="text-white text-center">new Visitors</h3>
           <span
-            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.visitors])">read</span>
         </a>
       </div>
       <div class="w-25 bg-primary m-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-heart text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
-          <h1 class="text-white text-center font-35">6</h1>
+          <h1 class="text-white text-center font-35">{{newLikeCount}}</h1>
           <h3 class="text-white text-center">new Likes</h3>
           <span
-            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center">read</span>
+            class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.likes])">read</span>
         </a>
       </div>
       <div class="w-25 bg-primary m-5">
         <a class="btn btn-info text-decoration-none w-100">
           <i class="icon-personalMail text-white font-40 d-flex justify-content-center big-shadow-info"></i>
-          <h1 class="text-white text-center font-35">6</h1>
-          <h3 class="text-white text-center">new Likes</h3>
-          <span class="m-10 bg-white text-info height-25 d-flex align-items-center justify-content-center">To your mailbox</span>
+          <h1 class="text-white text-center font-35">!</h1>
+          <h3 class="text-white text-center">Verify your Email Address</h3>
+          <a href="//outlook.com" class="text-decoration-none"><span class="m-10 bg-white text-info height-25 d-flex align-items-center justify-content-center">To your mailbox</span></a>
         </a>
       </div>
     </div>

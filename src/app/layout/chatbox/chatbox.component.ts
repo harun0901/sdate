@@ -70,6 +70,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         if (this.customerId === chatEmmitInfo.id) {
           // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.getChat(this.customerId);
+          this.getPartChatList(this.customerId);
           // this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -93,6 +94,18 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
   }
 
+  async onTextareaFocused(): Promise<void> {
+    const res = await this.chatService.seenMessage({senderId: this.authService.user.id, receiverId: this.customerId}).toPromise();
+  }
+
+  onCustomerClicked(): void {
+    this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.customerInfo.id]);
+  }
+
+  onOwnerClicked(): void {
+    this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.authService.user.id]);
+  }
+
   async onTransferClicked(): Promise<void> {
     if (this.chatForm.valid) {
       try {
@@ -100,7 +113,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         const res = await this.chatService.sendMessage(payload).toPromise();
         this.chatStore.push(res);
         this.chatForm.reset();
-        this.cRef.detectChanges();
+        // this.cRef.detectChanges();
         this.addNotification();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;

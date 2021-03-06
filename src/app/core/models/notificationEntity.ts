@@ -21,7 +21,8 @@ export enum NotificationType {
   Visit = 'visit',
   Like = 'like',
   Favorite = 'favorite',
-  Message = 'message'
+  Message = 'message',
+  Any = 'any',
 }
 
 export enum NotificationDescription {

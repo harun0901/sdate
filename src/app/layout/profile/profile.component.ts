@@ -15,7 +15,7 @@ import {
   languageList,
   interestedList,
 } from '../../core/models/option';
-import { DEFAULT_IMAGE } from '../../core/models/base';
+import { DEFAULT_IMAGE, Signal } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { User } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
@@ -35,6 +35,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ImageSliderComponent } from '../../ui-kit/common-ui-kit/image-slider/image-slider.component';
 import { UploadService } from '../../core/services/upload.service';
 import { GState } from '../../core/models/base';
+import { GiftPanelComponent } from '../gift/gift-panel/gift-panel.component';
+import { ChatType } from '../../core/models/chat';
+import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 
 @Component({
   selector: 'sdate-profile',
@@ -67,8 +70,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
 
   constructor(
-    private openPageSv: OpenPageService,
     private router: ActivatedRoute,
+    private messageDialog: MatDialog,
+    private openPageSv: OpenPageService,
     private userService: UserService,
     private authService: AuthService,
     private factFB: FormBuilder,
@@ -112,7 +116,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (this.authService.user.role === UserRole.Admin) {
           this.isEditable = true;
         }
-        this.addNotification();
+        this.addNotification(NotificationType.Visit);
       } else {
         this.customerId = this.customerInfo.id;
         this.isEditable = true;
@@ -131,10 +135,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-  async addNotification(): Promise<void> {
+  async addNotification(patternStr: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
-      pattern: NotificationType.Visit
+      pattern: patternStr
     }).toPromise();
   }
 
@@ -196,6 +200,52 @@ export class ProfileComponent implements OnInit, OnDestroy {
         fullName: this.customerInfo.fullName,
         location: this.customerInfo.location,
         about: this.customerInfo.about
+      });
+    }
+  }
+
+  async onFavoriteClicked(): Promise<void> {
+    if (!this.isEditable) {
+      await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
+      await this.addNotification(NotificationType.Favorite);
+      this.toastr.success(`You've successfully changed.`);
+    }
+  }
+
+  async onLikeClicked(): Promise<void> {
+    if (!this.isEditable) {
+      await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
+      await this.addNotification(NotificationType.Like);
+      this.toastr.success(`You've successfully changed.`);
+    }
+  }
+
+  onMessageClick(): void {
+    if (!this.isEditable) {
+      this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.customerInfo.id]);
+    }
+  }
+
+  onGiftClicked(): void {
+    if (!this.isEditable) {
+      this.messageDialog.open(GiftPanelComponent, {
+        width: '300px',
+        maxHeight: '400px',
+        panelClass: 'word-panel',
+        backdropClass: 'custom-backdrop',
+        data: {type: ChatType.RoomChat, customerId: this.customerId}
+      });
+    }
+  }
+
+  onKissClicked(): void {
+    if (!this.isEditable) {
+      this.messageDialog.open(KissChatComponent, {
+        width: '300px',
+        maxHeight: '400px',
+        panelClass: 'full-panel',
+        backdropClass: 'custom-backdrop',
+        data: {type: ChatType.RoomChat, customerId: this.customerId, path: ''}
       });
     }
   }

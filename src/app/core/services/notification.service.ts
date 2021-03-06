@@ -38,6 +38,11 @@ export class NotificationService {
     return this.http.get<NotificationEntity[]>(url);
   }
 
+  getNotSeenNotification(): Observable<NotificationEntity[]> {
+    const url = `${environment.api}/sdate/notification/getNotSeenNotification`;
+    return this.http.get<NotificationEntity[]>(url);
+  }
+
   addNotificationOnPanel(notification: NotificationEntity): void {
     this.notificationStore.push(notification);
     this.notificationStore$.next(notification);

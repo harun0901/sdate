@@ -14,6 +14,7 @@ import { NotificationEntity, NotificationDescription, NotificationType } from '.
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
+
   ROUTES = ROUTES;
   description: string;
   dataLabel: string;

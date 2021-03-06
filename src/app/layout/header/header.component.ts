@@ -11,13 +11,15 @@ import { ScrollPosition } from '../../core/data/scroll-pos';
 import { SocketService } from '../../core/services/socket.service';
 import { ChatService } from '../../core/services/chat.service';
 import { IsMinePipe } from '../../ui-kit/pipes/is-mine.pipe';
-import { Chat } from '../../core/models/chat';
+import { Chat, ChatType } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
 import { Signal } from '../../core/models/base';
 import { SignalService } from '../../core/services/signal.service';
 import { User } from '../../core/models/user';
+import { MatDialog } from '@angular/material/dialog';
+import { PaymentComponent } from '../payment/payment.component';
 
 @Component({
   selector: 'sdate-header',
@@ -30,9 +32,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userInfo: User;
   total = 0;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  newMsgCount = 0;
+  newVisitorCount = 0;
+  newLikeCount = 0;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
+    private paymentDialog: MatDialog,
     private auth: AuthService,
     private router: Router,
     private scrollToService: ScrollToService,
@@ -56,11 +62,34 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.chatService.totalUnreadChanged$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(() => {
-      this.loadUnreadMessages();
     });
-    this.loadUnreadMessages();
+    this.calcInfoCenter();
+    this.notificationService.notificationStore$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((notification) => {
+      this.calcInfoCenter();
+    });
   }
 
+  calcInfoCenter(): void {
+    this.newVisitorCount = 0;
+    this.newLikeCount = 0;
+    this.newMsgCount = 0;
+    const tmpNotificationStore = this.notificationService.notificationStore;
+    const res = tmpNotificationStore.map((item) => {
+      switch (item.pattern) {
+        case NotificationType.Visit:
+          this.newVisitorCount ++;
+          break;
+        case NotificationType.Like:
+          this.newLikeCount ++;
+          break;
+        case NotificationType.Message:
+          this.newMsgCount ++;
+          break;
+      }
+    });
+  }
   ngOnDestroy(): void {
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();
@@ -95,17 +124,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-
-
-  private async loadUnreadMessages(): Promise<void> {
-    // try {
-    //   this.total = await this.chatService.totalUnreadCount().toPromise();
-    // } catch (e) {
-    //   console.log(e);
-    // }
+  onPaymentClicked(): void {
+    this.paymentDialog.open(PaymentComponent, {
+      width: '300px',
+      panelClass: 'word-panel',
+      backdropClass: 'custom-backdrop'
+    });
   }
-
-
 
   logOut(): void {
     this.socketService.disconnect(this.auth.user.id);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -13,17 +13,32 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { UploadType } from '../../core/models/upload';
 import { UploadService } from '../../core/services/upload.service';
 import { GState } from '../../core/models/base';
+import { NotificationService } from '../../core/services/notification.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { NotificationType } from '../../core/models/notificationEntity';
+import { ROUTES, toAbsolutePath } from '../../core/data/routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sdate-myprofile',
   templateUrl: './myprofile.component.html',
   styleUrls: ['./myprofile.component.scss']
 })
-export class MyprofileComponent implements OnInit {
+export class MyprofileComponent implements OnInit, OnDestroy {
+
+  private unsubscribeAll: Subject<any> = new Subject<any>();
+  ROUTES = ROUTES;
   user: User;
   infoFG: FormGroup;
   uploadData$ = this.uploadService.uploadData$;
+  newMsgCount = 0;
+  newVisitorCount = 0;
+  newLikeCount = 0;
+
   constructor(
+    private router: Router,
+    private notificationService: NotificationService,
     private openPageSv: OpenPageService,
     private authService: AuthService,
     private infoFB: FormBuilder,
@@ -44,8 +59,33 @@ export class MyprofileComponent implements OnInit {
     this.openPageSv.send('my-profile');
     this.setInfoFGData();
     this.uploadService.getByIdState({uploaderId: this.authService.user.id, state: GState.Accept});
+    this.calcInfoCenter();
+    this.notificationService.notificationStore$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((notification) => {
+      this.calcInfoCenter();
+    });
   }
 
+  calcInfoCenter(): void {
+    this.newVisitorCount = 0;
+    this.newLikeCount = 0;
+    this.newMsgCount = 0;
+    const tmpNotificationStore = this.notificationService.notificationStore;
+    const res = tmpNotificationStore.map((item) => {
+      switch (item.pattern) {
+        case NotificationType.Visit:
+          this.newVisitorCount ++;
+          break;
+        case NotificationType.Like:
+          this.newLikeCount ++;
+          break;
+        case NotificationType.Message:
+          this.newMsgCount ++;
+          break;
+      }
+    });
+  }
   onAvatarClicked(): void {
     window.scroll(0, 0);
     this.uploadImgDialog.open(ImageCropperComponent, {
@@ -80,6 +120,17 @@ export class MyprofileComponent implements OnInit {
   async onInfoFGSubmitted(): Promise<void> {
     this.user = await this.userService.updateUserInfo(this.infoFG.value, this.user.id).toPromise();
     this.toastr.success(`You've successfully saved.`);
+  }
+
+  navigate(path: string | string[]): void {
+    this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 
 }

@@ -54,3 +54,10 @@ export interface SendMessagePayload {
   gift: string;
   kiss: string;
 }
+
+export interface SeenMessageDto {
+  receiverId: string;
+  senderId: string;
+}
+
+

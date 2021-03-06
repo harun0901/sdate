@@ -2,15 +2,17 @@
   <div class="right-panel width-250">
     <div class="bg-transparent mb-10">
       <div class="d-flex align-items-center justify-content-end">
-        <a class="menu-item m-0 p-2 shadow-sm"><sdate-icon [width]="16" icon="heart-active" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm"><sdate-icon [width]="16" icon="kiss" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm"><sdate-icon [width]="16" icon="gift" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm"><sdate-icon [width]="16" icon="message" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm"><sdate-icon [width]="16" icon="eye" color="mine-shaft"></sdate-icon></a>
+        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Like)"><sdate-icon [width]="16" icon="heart-active" color="mine-shaft"></sdate-icon></a>
+        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Any)"><sdate-icon [width]="16" icon="kiss" color="mine-shaft"></sdate-icon></a>
+        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Any)"><sdate-icon [width]="16" icon="gift" color="mine-shaft"></sdate-icon></a>
+        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Message)"><sdate-icon [width]="16" icon="message" color="mine-shaft"></sdate-icon></a>
+        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Visit)"><sdate-icon [width]="16" icon="eye" color="mine-shaft"></sdate-icon></a>
       </div>
     </div>
     <div class="bg-transparent overflow-auto vh-100 width-250 overflow-x">
-      <sdate-notification *ngFor="let notification of notificationStore" [notification]="notification"></sdate-notification>
+      <ng-container *ngFor="let notification of notificationStore">
+        <sdate-notification *ngIf="notification.pattern === selectedSearchKey || selectedSearchKey === NotificationType.Any" [notification]="notification"></sdate-notification>
+      </ng-container>
     </div>
   </div>
 </div>

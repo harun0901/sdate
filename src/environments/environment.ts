@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  api: 'https://sdate-api.herokuapp.com',
+  api: 'http://localhost:3000',
   localStorage: {
     prefix: 'sdate',
     accessToken: 'access_token',
     customerSignupWizard: 'customer_signup_wizard',
   },
   socket: {
-    url: 'https://sdate-api.herokuapp.com',
+    url: 'http://localhost:3000',
     join: 'join',
     disconnect: 'endjoin',
     events: 'events',

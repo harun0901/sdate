@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-import { Chat, SendMessagePayload } from '../models/chat';
+import { Chat, SeenMessageDto, SendMessagePayload } from '../models/chat';
 import { SuccessResponse } from '../models/success-response';
 import { UserId } from '../models/user';
 // import { Paginator } from '../models/paginator';
@@ -31,6 +31,11 @@ export class ChatService {
   getPartChatList(payload: UserId): Observable<Chat[]> {
     const url = `${environment.api}/sdate/chat/getPartChatList`;
     return this.http.put<Chat[]>(url, payload);
+  }
+
+  seenMessage(payload: SeenMessageDto): Observable<Chat> {
+    const url = `${environment.api}/sdate/chat/seen-message`;
+    return this.http.put<Chat>(url, payload);
   }
 
   getAllChatList(payload: UserId): Observable<Chat[]> {

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../core/services/notification.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NotificationEntity } from '../../core/models/notificationEntity';
+import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
 
 @Component({
   selector: 'sdate-rightpanel',
   templateUrl: './rightpanel.component.html',
   styleUrls: ['./rightpanel.component.scss']
 })
-export class RightpanelComponent implements OnInit {
+export class RightpanelComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
   notificationStore: NotificationEntity[];
+  selectedSearchKey = NotificationType.Any;
+  NotificationType = NotificationType;
 
   constructor(
     private notificationService: NotificationService,
@@ -20,17 +22,25 @@ export class RightpanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllNotification();
+    this.getNotSeenNotification();
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
-      // this.notificationStore.push(notification);
       this.notificationStore = this.notificationService.notificationStore;
     });
   }
 
-  async getAllNotification(): Promise<void> {
-    this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+  setSearchKey(keyword: NotificationType): void {
+    this.selectedSearchKey = keyword;
+  }
+
+  async getNotSeenNotification(): Promise<void> {
+    this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
     this.notificationService.setNotificationStore(this.notificationStore);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 }

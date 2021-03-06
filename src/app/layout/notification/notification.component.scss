@@ -18,7 +18,12 @@ div#notification_bar:hover::after {
   transform: translate3d(-100px,0px,0);
   transition: transform .3s ease, background .2s ease;
 }
+
 div#notification_bar:hover {
   border: 1px solid #D05068;
   cursor: pointer;
+}
+
+button.close-button:hover {
+  border: 1px solid #D05068;
 }

@@ -8,6 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Signal } from '../../core/models/base';
 import { Subject } from 'rxjs';
 import { SearchService } from '../../core/services/search.service';
+import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'sdate-likes',
@@ -16,7 +18,9 @@ import { SearchService } from '../../core/services/search.service';
 })
 export class LikesComponent implements OnInit, OnDestroy {
   userList: User[];
-  userState: string;
+  UserShowType = UserShowType;
+  notificationStore: NotificationEntity[] = [];
+  NotificationType = NotificationType;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -24,12 +28,12 @@ export class LikesComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private signalService: SignalService,
     private searchService: SearchService,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
     this.searchService.setIgnoreFlag(true);
     this.openPageSv.send('likes');
-    this.userState = UserShowType.LIKE;
     this.getLikedUser();
     this.signalService.signalEvent$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
@@ -40,6 +44,16 @@ export class LikesComponent implements OnInit, OnDestroy {
         this.getLikedUser();
       }
     });
+    this.getAllNotification();
+    this.notificationService.notificationStore$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((notification) => {
+      this.notificationStore = this.notificationService.notificationStore;
+    });
+  }
+
+  async getAllNotification(): Promise<void> {
+    this.notificationStore = await this.notificationService.getAllNotification().toPromise();
   }
 
   async getLikedUser(): Promise<void> {
