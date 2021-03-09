@@ -10,7 +10,7 @@ import {
   heightList,
   kidsList,
   professionList,
-  RelationshipList,
+  relationshipList,
   smokerList,
   languageList,
   interestedList,
@@ -62,7 +62,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   heightList = heightList;
   kidsList = kidsList;
   professionList = professionList;
-  relationshipList = RelationshipList;
+  relationshipList = relationshipList;
   smokerList = smokerList;
   languageList = languageList;
   interestedList = interestedList;

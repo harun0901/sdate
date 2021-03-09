@@ -23,6 +23,21 @@ export class ChatService {
     private http: HttpClient
   ) { }
 
+  messageCount(): Observable<number> {
+    const url = `${environment.api}/sdate/chat/messageCount`;
+    return this.http.get<number>(url);
+  }
+
+  kissCount(): Observable<number> {
+    const url = `${environment.api}/sdate/chat/kissCount`;
+    return this.http.get<number>(url);
+  }
+
+  giftCount(): Observable<number> {
+    const url = `${environment.api}/sdate/chat/giftCount`;
+    return this.http.get<number>(url);
+  }
+
   sendMessage(payload: SendMessagePayload): Observable<Chat> {
     const url = `${environment.api}/sdate/chat/send-message`;
     return this.http.post<Chat>(url, payload);

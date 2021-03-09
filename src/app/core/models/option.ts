@@ -1,4 +1,5 @@
-import { LookingFor } from './user';
+import { Gender, LookingFor } from './user';
+import { UserRole } from './auth';
 
 export interface Option<T> {
   value: T;
@@ -8,6 +9,20 @@ export interface Option<T> {
 export interface MultiOption<T> extends Option<T> {
   selected?: boolean;
 }
+
+export const roleList: Option<string>[] = [
+  {value: '', label: 'No Answer'},
+  {value: UserRole.Customer, label: UserRole.Customer},
+  {value: UserRole.Moderator, label: UserRole.Moderator},
+  {value: 'Any', label: 'Any'}
+];
+
+export const genderList: Option<string>[] = [
+  {value: '', label: 'No Answer'},
+  {value: Gender.WOMAN, label: Gender.WOMAN},
+  {value: Gender.MAN, label: Gender.MAN},
+  {value: 'Any', label: 'Any'}
+];
 
 export const lookingForList: Option<string>[] = [
   {value: '', label: 'No Answer'},
@@ -87,7 +102,7 @@ export const smokerList: Option<string>[] = [
   {value: 'Regular Smoker', label: 'Regular Smoker'}
 ];
 
-export const RelationshipList: Option<string>[] = [
+export const relationshipList: Option<string>[] = [
   {value: '', label: 'No Answer'},
   {value: 'Single', label: 'Single'},
   {value: 'Relationship', label: 'Relationship'},

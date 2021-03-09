@@ -1,0 +1,62 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
+<div class="">
+  <form [formGroup]="customerFG">
+    <div class="row mb-10">
+      <div class="col-12 col-md-4 justify-content-center align-items-center">
+        <div class="width-200 height-200 btn m-0 p-0 m-auto" (click)="onAvatarClicked()">
+          <a class=""><img class="width-200 height-200 rounded-lg border-secondary border-3" [src]="(customerDetail.detail && customerDetail.detail.avatar) || DEFAULT_IMAGE" alt="#"/></a>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <sdate-text-input label="Name" value="" placeholder="User Name" formControlName="fullName"></sdate-text-input>
+        <sdate-text-input label="Email" value="" placeholder="User Email" formControlName="email"></sdate-text-input>
+        <sdate-select label="Role" [options]="roleList" formControlName="role"></sdate-select>
+      </div>
+      <div class="col-12 col-md-4">
+        <sdate-select label="Gender" [options]="genderList" formControlName="gender"></sdate-select>
+        <mat-form-field appearance="fill" class="example-form-field w-100">
+          <mat-label>Choose your birthday</mat-label>
+          <input matInput [matDatepicker]="datepicker" formControlName="birthday">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <sdate-text-input label="Last Login" placeholder="User last login date" formControlName="lastLogin"></sdate-text-input>
+      </div>
+    </div>
+    <div class="row flex-wrap">
+      <div class="col-12 col-md-3">
+        <sdate-text-input type="number" label="Balance" value="" placeholder="User balance" formControlName="balance"></sdate-text-input>
+        <sdate-text-input label="IP Address" placeholder="User ipaddress" formControlName="ipAddress"></sdate-text-input>
+        <sdate-select label="LookingFor" [options]="lookingForList" formControlName="lookingFor"></sdate-select>
+        <sdate-select label="Kids" [options]="kidsList" formControlName="kids"></sdate-select>
+      </div>
+      <div class="col-12 col-md-3">
+        <sdate-select label="Body" [options]="bodyList" formControlName="body"></sdate-select>
+        <sdate-select label="Education" [options]="educationList" formControlName="education"></sdate-select>
+        <sdate-select label="InterestedIn" [options]="interestedList" formControlName="interestedIn"></sdate-select>
+        <sdate-text-input label="Location" value="" placeholder="User Location" formControlName="location"></sdate-text-input>
+      </div>
+      <div class="col-12 col-md-3">
+        <sdate-select label="Profession" [options]="professionList" formControlName="profession"></sdate-select>
+        <sdate-select label="RelationshipStatus" [options]="relationshipList" formControlName="relationshipStatus"></sdate-select>
+        <sdate-select label="Smoker" [options]="smokerList" formControlName="smoker"></sdate-select>
+      </div>
+      <div class="col-12 col-md-3">
+        <sdate-select label="Language" [options]="languageList" formControlName="language"></sdate-select>
+        <sdate-select label="Height" [options]="heightList" formControlName="height"></sdate-select>
+        <sdate-select label="Alcohol" [options]="alcoholicList" formControlName="alcohol"></sdate-select>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mx-20 mb-10">
+      <button class="btn btn-success mr-10" (click)="onUpdatePassword($event)">Update Password</button>
+      <button class="btn btn-success mr-10" (click)="onSubmitClicked($event)">Save</button>
+      <button class="btn btn-primary mr-10" (click)="onDeleteClicked($event)">Delete</button>
+      <button class="btn btn-info mr-10" (click)="onCloseClicked($event)">Close</button>
+    </div>
+  </form>
+</div>

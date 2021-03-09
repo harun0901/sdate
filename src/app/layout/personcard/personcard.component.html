@@ -13,8 +13,8 @@
         <div class="d-flex align-items-center justify-content-end">
           <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onFavoriteClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.FAVORITE ? 'star-active' : 'star'}}" color="geraldine"></sdate-icon></a>
           <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onLikeClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.LIKE ? 'heart-active' : 'heart'}}" color="geraldine"></sdate-icon></a>
-          <a class="btn btn-outline-primary m-0 p-1 mr-1"><sdate-icon [width]="14" icon="kiss" color="geraldine"></sdate-icon></a>
-          <a class="btn btn-outline-primary m-0 p-1 mr-1"><sdate-icon [width]="14" icon="gift" color="geraldine"></sdate-icon></a>
+          <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onKissClicked()"><sdate-icon [width]="14" icon="kiss" color="geraldine"></sdate-icon></a>
+          <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onGiftClicked()"><sdate-icon [width]="14" icon="gift" color="geraldine"></sdate-icon></a>
           <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onMessageClick()"><sdate-icon [width]="14" icon="message-active" color="geraldine"></sdate-icon></a>
         </div>
       </div>

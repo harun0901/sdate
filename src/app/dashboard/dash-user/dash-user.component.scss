@@ -8,5 +8,9 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 20%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
 }

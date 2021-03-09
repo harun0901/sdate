@@ -1,24 +1,15 @@
-import { AfterViewInit, Component, Directive, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Directive, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
+import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { Gender, User, UserTableForm } from '../../core/models/user';
+import { UserService } from '../../core/services/user.service';
+import { UserRole } from '../../core/models/auth';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { SignalService } from '../../core/services/signal.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'sdate-dash-user',
@@ -26,23 +17,27 @@ const NAMES: string[] = [
   styleUrls: ['./dash-user.component.scss']
 })
 
-export class DashUserComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
-  dataSource: MatTableDataSource<UserData>;
+export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  onlineUserCount = 0;
+  fakeUserCount = 0;
+  manCount = 0;
+  womanCount = 0;
+  displayedColumns: string[] = ['id', 'name', 'email', 'gender', 'balance'];
+  dataSource: MatTableDataSource<UserTableForm>;
+  userList: User[] = [];
+  private unsubscribeAll: Subject<any> = new Subject<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor() {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
-
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-  }
+  constructor(
+    private userService: UserService,
+    private signalService: SignalService,
+    private detailDialog: MatDialog,
+  ) {}
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event): void {
@@ -51,22 +46,69 @@ export class DashUserComponent implements OnInit, AfterViewInit {
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
   }
 
-  ngOnInit(): void {
+  onEditClicked(item: User): void {
+    this.detailDialog.open(UserDetailComponent, {
+      panelClass: 'full-panel',
+      backdropClass: 'custom-backdrop',
+      data: {detail: item}
+    });
   }
-}
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+  ngOnInit(): void {
+    this.getAllOperators();
+    this.initializeCount();
+    this.signalService.signalEvent$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe((next) => {
+      this.getAllOperators();
+      this.initializeCount();
+    });
+  }
 
-  return {
-    id: id.toString(),
-    name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
+  async initializeCount(): Promise<void> {
+    this.onlineUserCount = await this.userService.getOnlineUserCount().toPromise();
+    this.fakeUserCount = await this.userService.getFakeUserCount().toPromise();
+  }
+
+  async getAllOperators(): Promise<void> {
+    this.manCount = 0;
+    this.womanCount = 0;
+    this.userList = await this.userService.getAll().toPromise();
+    this.userList = this.userList.filter((item) => {
+      if (item.role === UserRole.SuperAdmin || item.role === UserRole.Admin) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+    const users = this.userList.map((item, index) => {
+      const order = index + 1;
+      if (item.role === UserRole.Customer && item.gender === Gender.MAN) {
+        this.manCount ++;
+      } else if (item.role === UserRole.Customer && item.gender === Gender.WOMAN) {
+        this.womanCount ++;
+      }
+      return {
+        id: order,
+        name: item.fullName,
+        email: item.email,
+        gender: item.gender,
+        balance: item.balance,
+        detail: item,
+      };
+    });
+    this.dataSource = new MatTableDataSource(users);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
+  }
 }

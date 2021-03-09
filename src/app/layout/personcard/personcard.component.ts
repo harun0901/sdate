@@ -12,6 +12,10 @@ import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
 import { NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
+import { GiftPanelComponent } from '../gift/gift-panel/gift-panel.component';
+import { ChatType } from '../../core/models/chat';
+import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'sdate-personcard',
@@ -26,6 +30,7 @@ export class PersoncardComponent implements OnInit {
   @Input() customerState: string;
   constructor(
     private router: Router,
+    private messageDialog: MatDialog,
     private scrollToService: ScrollToService,
     private authService: AuthService,
     private userService: UserService,
@@ -73,6 +78,26 @@ export class PersoncardComponent implements OnInit {
     }
     this.toastr.success(`You've successfully changed.`);
     this.signalService.sendSignal(Signal.UserListchanged);
+  }
+
+  onGiftClicked(): void {
+    this.messageDialog.open(GiftPanelComponent, {
+      width: '300px',
+      maxHeight: '400px',
+      panelClass: 'word-panel',
+      backdropClass: 'custom-backdrop',
+      data: { type: ChatType.RoomChat, customerId: this.customerInfo.id }
+    });
+  }
+
+  onKissClicked(): void {
+    this.messageDialog.open(KissChatComponent, {
+      width: '300px',
+      maxHeight: '400px',
+      panelClass: 'full-panel',
+      backdropClass: 'custom-backdrop',
+      data: { type: ChatType.RoomChat, customerId: this.customerInfo.id, path: '' }
+    });
   }
 
   async addNotification(message: string): Promise<void> {

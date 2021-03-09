@@ -23,6 +23,32 @@ export interface User extends Entity {
   paypal: string;
   balance: number;
   state: number;
+  lastLogin: Date;
+  ipAddress: string;
+}
+
+export interface UpdateUserPayload {
+  id: string;
+  email: string;
+  fullName: string;
+  role: string;
+  gender: string;
+  lookingFor: string;
+  body: string;
+  education: string;
+  interestedIn: string;
+  kids: string;
+  profession: string;
+  relationshipStatus: string;
+  smoker: string;
+  language: string;
+  height: string;
+  alcohol: string;
+  birthday: Date;
+  avatar: string;
+  about: string;
+  location: string;
+  balance: number;
 }
 
 export interface UserFact {
@@ -52,6 +78,11 @@ export interface UserInfo {
 
 export interface UserId {
   id: string;
+}
+
+export interface UpdatePasswordPayload {
+  id: string;
+  password: string;
 }
 
 export interface LimitCount {
@@ -87,4 +118,17 @@ export enum AgeLimit {
 
 export enum ShowLimitCount {
   UserShowCount = 9,
+}
+
+
+export interface UserTableForm {
+  id: number;
+  name: string;
+  email: string;
+  gender: string;
+  balance: number;
+}
+
+export interface UserDetailDialogForm {
+  detail: User;
 }

@@ -21,6 +21,21 @@ export class NotificationService {
     this.notificationStore$ = new Subject<NotificationEntity>();
   }
 
+  likeCount(): Observable<number> {
+    const url = `${environment.api}/sdate/notification/likeCount`;
+    return this.http.get<number>(url);
+  }
+
+  favoriteCount(): Observable<number> {
+    const url = `${environment.api}/sdate/notification/favoriteCount`;
+    return this.http.get<number>(url);
+  }
+
+  visitCount(): Observable<number> {
+    const url = `${environment.api}/sdate/notification/visitCount`;
+    return this.http.get<number>(url);
+  }
+
   addNotification(payload: AddNotification): Observable<NotificationEntity> {
     if (this.authService.user.id !== payload.receiver_id) {
       const url = `${environment.api}/sdate/notification/addNotification`;

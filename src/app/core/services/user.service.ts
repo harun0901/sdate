@@ -4,7 +4,17 @@ import { Observable } from 'rxjs';
 
 import { SearchService } from './search.service';
 import { environment } from '../../../environments/environment';
-import { LimitCount, User, UserBasic, UserFact, UserInfo, UserId, SearchKey } from '../models/user';
+import {
+  LimitCount,
+  User,
+  UserBasic,
+  UserFact,
+  UserInfo,
+  UserId,
+  SearchKey,
+  UpdatePasswordPayload,
+  UpdateUserPayload,
+} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +31,26 @@ export class UserService {
     return this.http.get<User[]>(url);
   }
 
+  userCreateAnalyze(): Observable<any> {
+    const url = `${environment.api}/sdate/user/userCreateAnalyze`;
+    return this.http.get<any>(url);
+  }
+
+  getOnlineUserCount(): Observable<number> {
+    const url = `${environment.api}/sdate/user/getOnlineUserCount`;
+    return this.http.get<number>(url);
+  }
+
+  getFakeUserCount(): Observable<number> {
+    const url = `${environment.api}/sdate/user/getFakeUserCount`;
+    return this.http.get<number>(url);
+  }
+
+  getCustomerCount(): Observable<number> {
+    const url = `${environment.api}/sdate/user/getCustomerCount`;
+    return this.http.get<number>(url);
+  }
+
   getRandomUserByLimit(payload: SearchKey): Observable<User[]> {
     const url = `${environment.api}/sdate/user/getRandomUserByLimit`;
     return this.http.post<User[]>(url, payload);
@@ -29,6 +59,21 @@ export class UserService {
   getById(customerId): Observable<User> {
     const url = `${environment.api}/sdate/user/getById/${customerId}`;
     return this.http.get<User>(url);
+  }
+
+  updateAll(payload: UpdateUserPayload): Observable<User> {
+    const url = `${environment.api}/sdate/user/updateAll`;
+    return this.http.put<User>(url, payload);
+  }
+
+  updatePassword(payload: UpdatePasswordPayload): Observable<User> {
+    const url = `${environment.api}/sdate/user/updatePassword`;
+    return this.http.put<User>(url, payload);
+  }
+
+  deleteUser(payload: UserId): Observable<User> {
+    const url = `${environment.api}/sdate/user/deleteUser`;
+    return this.http.post<User>(url, payload);
   }
 
   updateAvatar(payload: UserId): Observable<User> {

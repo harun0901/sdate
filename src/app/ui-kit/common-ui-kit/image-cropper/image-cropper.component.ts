@@ -85,7 +85,6 @@ export class ImageCropperComponent implements OnInit {
       this.isLoading = true;
       this.dialogRef.close();
     } else {
-      console.log('Result: ', result);
       this.isLoading = true;
       this.toastrService.danger('Image uploading failed. Try again.');
     }
