@@ -100,7 +100,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribeAll)
     ).subscribe(
       (message: Chat) => {
-        console.log('message = ', message);
         if (this.isMinePipe.transform(message)) {
           if (message.sender.id === this.chatStoreService.chatroomUserId) {
             this.chatStoreService.addRoomChat(message);
