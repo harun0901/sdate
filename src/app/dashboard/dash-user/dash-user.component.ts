@@ -10,6 +10,7 @@ import { UserRole } from '../../core/models/auth';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { SignalService } from '../../core/services/signal.service';
 import { takeUntil } from 'rxjs/operators';
+import { ToastrService } from '../../core/services/toastr.service';
 
 @Component({
   selector: 'sdate-dash-user',
@@ -19,6 +20,8 @@ import { takeUntil } from 'rxjs/operators';
 
 export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  isLoading = false;
+  genFakerCount = 10;
   onlineUserCount = 0;
   fakeUserCount = 0;
   manCount = 0;
@@ -33,6 +36,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
     private userService: UserService,
     private signalService: SignalService,
     private detailDialog: MatDialog,
+    private toastrService: ToastrService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -49,6 +53,15 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }
+  }
+
+  async onGenerateFakerClicked(): Promise<void> {
+    this.isLoading = true;
+    await this.userService.generateFaker({id: this.genFakerCount.toString()}).toPromise();
+    this.getAllOperators();
+    this.initializeCount();
+    this.isLoading = false;
+    this.toastrService.success('Generating Fakers successfully finished.');
   }
 
   onEditClicked(item: User): void {

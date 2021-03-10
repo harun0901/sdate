@@ -1,3 +1,4 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <ng-container class="">
   <div class="p-50">
     <h2 class="text-black-50">DASHBOARD</h2>
@@ -10,8 +11,8 @@
   </div>
 
   <div class="pl-50 d-flex align-items-center text-black-50">
-    <sdate-text-input label="Faker Count" value="10"></sdate-text-input>
-    <button class="btn btn-success ml-30">Faker Generate</button>
+    <sdate-text-input label="Faker Count" [(ngModel)]="genFakerCount"></sdate-text-input>
+    <button class="btn btn-success ml-30" (click)="onGenerateFakerClicked()">Faker Generate</button>
   </div>
 
   <div class="p-50">

@@ -45,6 +45,7 @@ export const ROUTES = {
     root: 'dashboard',
     dashboard: 'dashboard',
     manageUser: 'manage-user',
+    categoryManage: 'manage-category',
     payment: 'payment',
     manageGift: 'manage-gift',
     manageContact: 'manage-contact',

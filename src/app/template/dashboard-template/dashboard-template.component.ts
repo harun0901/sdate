@@ -21,6 +21,11 @@ export class DashboardTemplateComponent implements OnInit {
       route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageUser])
     },
     {
+      icon: 'calendar',
+      label: 'CategoryManage',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.categoryManage])
+    },
+    {
       icon: 'projects',
       label: 'Payment',
       route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.payment])

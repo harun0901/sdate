@@ -20,10 +20,11 @@ import { CommonUiKitModule } from '../../ui-kit/common-ui-kit/common-ui-kit.modu
 import { IconModule } from '../../ui-kit/icon/icon.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { PasswordUpdateComponent } from './password-update/password-update.component';
+import { CategoryComponent } from './category/category.component';
 
 
 @NgModule({
-  declarations: [DashUserComponent, UserDetailComponent, PasswordUpdateComponent],
+  declarations: [DashUserComponent, UserDetailComponent, PasswordUpdateComponent, CategoryComponent],
   imports: [
     CommonModule,
     FormsModule,

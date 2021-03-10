@@ -56,6 +56,11 @@ export class UserService {
     return this.http.post<User[]>(url, payload);
   }
 
+  generateFaker(payload: UserId): Observable<User> {
+    const url = `${environment.api}/sdate/user/generateFaker`;
+    return this.http.post<User>(url, payload);
+  }
+
   getById(customerId): Observable<User> {
     const url = `${environment.api}/sdate/user/getById/${customerId}`;
     return this.http.get<User>(url);
