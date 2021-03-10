@@ -47,6 +47,8 @@ import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 export class ProfileComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
   private unsubscribeAll: Subject<any> = new Subject<any>();
+  blockList: User[] = [];
+  isInBlockList = false;
   @Input() customerInfo: User;
   @Input() isOwner: boolean;
   isEditFact: boolean;
@@ -123,6 +125,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
     this.getCustomEditInfo();
+    this.getBlockedUser();
     this.openPageSv.send('profile');
     this.authService.user$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
@@ -135,6 +138,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  async getBlockedUser(): Promise<void> {
+    let res = await this.userService.getBlockedUser().toPromise();
+    this.blockList = res;
+    this.isInBlockList = false;
+    if (this.blockList != null && this.blockList.length > 0) {
+      res = this.blockList.map((item) => {
+        if (item.id === this.customerInfo.id) {
+          this.isInBlockList = true;
+        }
+        return item;
+      });
+    }
+  }
+
   async addNotification(patternStr: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
@@ -204,11 +222,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
+  async onRemoveBlockUserClicked(): Promise<void> {
+    if (!this.isEditable) {
+      await this.userService.removeBlockedUser({id: this.customerInfo.id}).toPromise();
+      this.getBlockedUser();
+      this.toastr.success(`You've successfully removed Block action.`);
+    }
+  }
+
+  async onBlockUserClicked(): Promise<void> {
+    if (!this.isEditable) {
+      await this.userService.blockUser({id: this.customerInfo.id}).toPromise();
+      await this.addNotification(NotificationType.Block);
+      this.getBlockedUser();
+      this.toastr.success(`You've successfully blocked this customer.`);
+    }
+  }
+
   async onFavoriteClicked(): Promise<void> {
     if (!this.isEditable) {
       await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
       await this.addNotification(NotificationType.Favorite);
-      this.toastr.success(`You've successfully changed.`);
+      this.toastr.success(`You've successfully sent a favorite signal.`);
     }
   }
 
@@ -216,7 +251,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.isEditable) {
       await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
       await this.addNotification(NotificationType.Like);
-      this.toastr.success(`You've successfully changed.`);
+      this.toastr.success(`You've successfully sent a like signal.`);
     }
   }
 

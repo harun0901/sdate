@@ -27,6 +27,7 @@ import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 })
 export class ChatboxComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
+  isBlocked = false;
   @Input() showFlag: boolean;
   show: boolean;
   ROUTES = ROUTES;
@@ -92,6 +93,14 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   async getCustomerInfo(customerId): Promise<void> {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
+    if (this.customerInfo.blockedList !== null && this.customerInfo.blockedList.length > 0) {
+      const temp = this.customerInfo.blockedList.map((item) => {
+        if (item.id === this.authService.user.id) {
+          this.isBlocked = true;
+        }
+        return item;
+      });
+    }
   }
 
   async onTextareaFocused(): Promise<void> {

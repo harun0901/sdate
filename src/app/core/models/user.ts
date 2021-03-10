@@ -25,6 +25,7 @@ export interface User extends Entity {
   state: number;
   lastLogin: Date;
   ipAddress: string;
+  blockedList?: User[];
 }
 
 export interface UpdateUserPayload {

@@ -9,6 +9,7 @@ import { NotificationService } from '../../../core/services/notification.service
 import { GiftChatPayload } from '../../../core/models/gift';
 import { ChatType, SendMessagePayload } from '../../../core/models/chat';
 import { NotificationType } from '../../../core/models/notificationEntity';
+import { ToastrService } from '../../../core/services/toastr.service';
 
 @Component({
   selector: 'sdate-kiss-chat',
@@ -23,6 +24,7 @@ export class KissChatComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private chatService: ChatService,
+    private toastrService: ToastrService,
     private chatStoreService: ChatStoreService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
@@ -54,6 +56,7 @@ export class KissChatComponent implements OnInit {
         }
         this.kissForm.reset();
         this.addNotification();
+        this.toastrService.success('You have just sent a kiss successfully.');
         this.dialogRef.close();
       } catch (e) {
         console.log(e);

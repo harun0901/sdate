@@ -130,4 +130,19 @@ export class UserService {
     const url = `${environment.api}/sdate/user/removeFavoriteUser`;
     return this.http.put<User>(url, payload);
   }
+
+  blockUser(payload: UserId): Observable<User> {
+    const url = `${environment.api}/sdate/user/blockUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  removeBlockedUser(payload: UserId): Observable<User> {
+    const url = `${environment.api}/sdate/user/removeBlockedUser`;
+    return this.http.put<User>(url, payload);
+  }
+
+  getBlockedUser(): Observable<User[]> {
+    const url = `${environment.api}/sdate/user/getBlockedUser`;
+    return this.http.post<User[]>(url, this.searchService.searchKey);
+  }
 }

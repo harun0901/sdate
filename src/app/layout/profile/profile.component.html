@@ -30,28 +30,36 @@
     <div>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onLikeClicked()">
         <i class="icon-heartOutline text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
-        <span class="text-white ml-15">LIKE HIM</span>
+        <span class="text-white ml-15">LIKE YOU</span>
       </a>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onMessageClick()">
         <i class="icon-chat text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
-        <span class="text-white ml-15">SEND HIM A MESSAGE</span>
+        <span class="text-white ml-15">SEND A MESSAGE</span>
       </a>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onKissClicked()">
         <i class="icon-kiss text-white font-12 d-flex justify-content-center big-shadow-primary"></i>
-        <span class="text-white ml-15">SEND HIM A KISS</span>
+        <span class="text-white ml-15">SEND A KISS</span>
       </a>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onGiftClicked()">
         <i class="icon-gift text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
-        <span class="text-white ml-15">SEND HIM A GIFT</span>
+        <span class="text-white ml-15">SEND A GIFT</span>
       </a>
       <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onFavoriteClicked()">
         <i class="icon-favoriteOutline text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">ADD AS FAVORITE</span>
       </a>
-<!--      <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5">-->
-<!--        <i class="icon-block text-white font-20 d-flex justify-content-center big-shadow-info"></i>-->
-<!--        <span class="text-white ml-15">BLOCK HIM</span>-->
-<!--      </a>-->
+      <ng-container *ngIf="isInBlockList">
+        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onRemoveBlockUserClicked()">
+          <i class="icon-block text-white font-20 d-flex justify-content-center big-shadow-info"></i>
+          <span class="text-white ml-15">REMOVE BLOCK</span>
+        </a>
+      </ng-container>
+      <ng-container *ngIf="!isInBlockList">
+        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onBlockUserClicked()">
+          <i class="icon-block text-white font-20 d-flex justify-content-center big-shadow-info"></i>
+          <span class="text-white ml-15">BLOCK HIM</span>
+        </a>
+      </ng-container>
     </div>
   </div>
   <div class="bg-white p-15">

@@ -45,6 +45,10 @@ export class NotificationComponent implements OnInit {
         this.description = NotificationDescription.Message;
         this.dataLabel = 'read';
         break;
+      case NotificationType.Block:
+        this.description = NotificationDescription.Block;
+        this.dataLabel = 'visit';
+        break;
       default:
         this.description = '';
     }
