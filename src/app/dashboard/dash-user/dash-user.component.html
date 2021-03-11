@@ -13,6 +13,9 @@
   <div class="pl-50 d-flex align-items-center text-black-50">
     <sdate-text-input label="Faker Count" [(ngModel)]="genFakerCount"></sdate-text-input>
     <button class="btn btn-success ml-30" (click)="onGenerateFakerClicked()">Faker Generate</button>
+    <button class="btn btn-primary mx-30" (click)="onEditCategoryClicked()">Edit Category</button>
+    <sdate-select label="Category List" #categoryObj [options]="categoryList" (change)="onCategoryChanged(categoryObj.value)"></sdate-select>
+    <button class="btn btn-success mx-30" (click)="onSaveClicked(categoryObj.value)">Save Settings</button>
   </div>
 
   <div class="p-50">
@@ -23,7 +26,17 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>SELECT</th>
+            <td mat-cell *matCellDef="let row">
+              <div class="d-flex justify-content-center align-items-center">
+                <mat-checkbox class="mr-20" [(ngModel)]="row.select" (click)="$event.stopPropagation()"></mat-checkbox>
+                <sdate-avatar [size]="40" [src]="(row && row.detail.avatar) || DEFAULT_IMAGE"></sdate-avatar>
+              </div>
+            </td>
+          </ng-container>
 
           <!-- ID Column -->
           <ng-container matColumnDef="id">

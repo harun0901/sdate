@@ -8,9 +8,17 @@ table {
 }
 
 td, th {
-  width: 20%;
+  width: 15%;
+  text-align: center !important;
+  vertical-align: middle;
 }
 
 th.mat-sort-header-sorted {
   color: black;
+}
+mat-header-cell, mat-cell {
+  //text-align: center !important;
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
 }

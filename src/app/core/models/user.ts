@@ -123,6 +123,8 @@ export enum ShowLimitCount {
 
 
 export interface UserTableForm {
+  select: boolean;
+  detail: User;
   id: number;
   name: string;
   email: string;

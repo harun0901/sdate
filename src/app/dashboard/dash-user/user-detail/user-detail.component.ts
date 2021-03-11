@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastrService } from '../../../core/services/toastr.service';
 import { SignalService } from '../../../core/services/signal.service';
-import { UpdateUserPayload, User, UserDetailDialogForm } from '../../../core/models/user';
+import { UpdateUserPayload, UserDetailDialogForm } from '../../../core/models/user';
 import * as option from '../../../core/models/option';
 import { PasswordUpdateComponent } from '../password-update/password-update.component';
 import { UserService } from '../../../core/services/user.service';

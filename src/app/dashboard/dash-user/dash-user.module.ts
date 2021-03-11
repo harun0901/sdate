@@ -13,6 +13,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { DashUserRoutingModule } from './dash-user-routing.module';
 import { DashUserComponent } from './dash-user.component';
@@ -21,6 +23,7 @@ import { IconModule } from '../../ui-kit/icon/icon.module';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { PasswordUpdateComponent } from './password-update/password-update.component';
 import { CategoryComponent } from './category/category.component';
+import { AvatarModule } from '../../ui-kit/avatar/avatar.module';
 
 
 @NgModule({
@@ -35,6 +38,7 @@ import { CategoryComponent } from './category/category.component';
     MatIconModule,
     MatMenuModule,
     MatSortModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     NpnSliderModule,
     A11yModule,
@@ -44,6 +48,8 @@ import { CategoryComponent } from './category/category.component';
     DashUserRoutingModule,
     CommonUiKitModule,
     IconModule,
+    MatListModule,
+    AvatarModule,
   ],
 })
 export class DashUserModule { }
