@@ -13,7 +13,7 @@ import {
   UserId,
   SearchKey,
   UpdatePasswordPayload,
-  UpdateUserPayload,
+  UpdateUserPayload, GenerateFaker,
 } from '../models/user';
 
 @Injectable({
@@ -56,7 +56,7 @@ export class UserService {
     return this.http.post<User[]>(url, payload);
   }
 
-  generateFaker(payload: UserId): Observable<User> {
+  generateFaker(payload: GenerateFaker): Observable<User> {
     const url = `${environment.api}/sdate/user/generateFaker`;
     return this.http.post<User>(url, payload);
   }

@@ -15,6 +15,7 @@ import { CategoryComponent } from './category/category.component';
 import { Option } from '../../core/models/option';
 import { CategoryService } from '../../core/services/category.service';
 import { DEFAULT_IMAGE } from '../../core/models/base';
+import { genderList } from '../../core/models/option';
 
 @Component({
   selector: 'sdate-dash-user',
@@ -25,12 +26,19 @@ import { DEFAULT_IMAGE } from '../../core/models/base';
 export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
 
   DEFAULT_IMAGE = DEFAULT_IMAGE;
+  genderList = genderList;
   isLoading = false;
   genFakerCount = 10;
   onlineUserCount = 0;
   fakeUserCount = 0;
   manCount = 0;
   womanCount = 0;
+  startAge = 18;
+  endAge = 60;
+  location = '';
+  nameList = '';
+  gender = '';
+  country = '';
   displayedColumns: string[] = ['select', 'id', 'name', 'email', 'gender', 'balance'];
   dataSource: MatTableDataSource<UserTableForm>;
   userList: User[] = [];
@@ -62,6 +70,11 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  onSliderChange(selectedValues: number[]): void {
+    this.startAge = selectedValues[0];
+    this.endAge = selectedValues[1];
+  }
+
   async getActiveCategories(): Promise<void> {
     try {
       this.isLoading = true;
@@ -78,7 +91,16 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
 
   async onGenerateFakerClicked(): Promise<void> {
     this.isLoading = true;
-    await this.userService.generateFaker({id: this.genFakerCount.toString()}).toPromise();
+    const item = {
+      count: this.genFakerCount,
+      startAge: this.startAge,
+      endAge: this.endAge,
+      nameList: this.nameList,
+      location: this.location,
+      gender: this.gender,
+      country: this.country,
+    };
+    await this.userService.generateFaker(item).toPromise();
     this.getAllOperators();
     this.initializeCount();
     this.isLoading = false;

@@ -18,6 +18,7 @@ import { TextInputComponent } from './text-input/text-input.component';
 import { SelectComponent } from './select/select.component';
 import { DashTotalComponent } from './dash-total/dash-total.component';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { TextareaComponent } from './textarea/textarea.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     SelectComponent,
     DashTotalComponent,
     ImageSliderComponent,
+    TextareaComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     SelectComponent,
     DashTotalComponent,
     ImageSliderComponent,
+    TextareaComponent,
   ],
 })
 export class CommonUiKitModule {

@@ -1,6 +1,6 @@
 <div class="position-relative text-black-50 rounded-sm">
   <div id="notification_bar" [attr.data-label] = "dataLabel" (click)="onNotificationClicked()"
-       class="position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100">
+       [ngClass]="notification.seen ? 'position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100' : 'content position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100'">
     <div class="pr-1">
       <img class="width-100 height-100 min-width-100 min-height-100 rounded-sm" [src]="notification.sender.avatar || DEFAULT_IMAGE" alt="#"/>
     </div>
@@ -16,6 +16,13 @@
       </div>
     </div>
   </div>
+  <ng-container *ngIf="!notification.seen">
+    <div class="position-absolute top-0 right-0 pt-5 pr-10">
+      <button class="btn btn-primary p-1 m-0 close-button" (click)="onCloseClicked()">
+        <i class="icon-check"></i> Read
+      </button>
+    </div>
+  </ng-container>
   <div class="position-absolute bottom-0 right-0 pb-10 pr-10">
     <div class="bg-light online-state"></div>
   </div>

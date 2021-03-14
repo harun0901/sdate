@@ -135,3 +135,13 @@ export interface UserTableForm {
 export interface UserDetailDialogForm {
   detail: User;
 }
+
+export interface GenerateFaker {
+  count: number;
+  startAge: number;
+  endAge: number;
+  nameList: string;
+  location: string;
+  gender: string;
+  country: string;
+}

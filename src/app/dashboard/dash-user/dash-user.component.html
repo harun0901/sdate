@@ -10,16 +10,40 @@
     </div>
   </div>
 
-  <div class="pl-50 d-flex align-items-center text-black-50">
-    <sdate-text-input label="Faker Count" [(ngModel)]="genFakerCount"></sdate-text-input>
-    <button class="btn btn-success ml-30" (click)="onGenerateFakerClicked()">Faker Generate</button>
-    <button class="btn btn-primary mx-30" (click)="onEditCategoryClicked()">Edit Category</button>
-    <sdate-select label="Category List" #categoryObj [options]="categoryList" (change)="onCategoryChanged(categoryObj.value)"></sdate-select>
-    <button class="btn btn-success mx-30" (click)="onSaveClicked(categoryObj.value)">Save Settings</button>
+  <div class="pl-50 row align-items-start text-black-50 flex-wrap">
+    <div class="col col-sm-6 col-md-3">
+      <sdate-text-input label="Faker Count" [(ngModel)]="genFakerCount"></sdate-text-input>
+      <sdate-text-input label="Country" [(ngModel)]="country"></sdate-text-input>
+      <label>Age Range</label>
+      <npn-slider [min]="18" [max]="60" (onChange)="onSliderChange($event)"></npn-slider>
+    </div>
+    <div class="col col-sm-6 col-md-3">
+      <sdate-textarea class="mr-2" label="Location" [(ngModel)]="location" placeholder="Type location of fakers."></sdate-textarea>
+    </div>
+    <div class="col col-sm-6 col-md-3">
+      <sdate-textarea class="mr-2" label="NameList" [(ngModel)]="nameList" placeholder="Type names using Enter Key."></sdate-textarea>
+    </div>
+    <div class="col col-sm-6 col-md-3">
+      <sdate-select label="Gender" [options]="genderList" [(ngModel)]="gender"></sdate-select>
+      <button class="btn btn-success ml-30" (click)="onGenerateFakerClicked()">Faker Generate</button>
+    </div>
   </div>
 
-  <div class="p-50">
-    <h2 class="text-black-50">USER LIST</h2>
+  <div class="pl-50 pr-50 pb-50">
+    <div class="row align-items-center text-black-50 flex-wrap">
+      <div class="col col-sm-4">
+        <h2 class="text-black-50">USER LIST</h2>
+      </div>
+      <div class="col col-sm-2">
+        <sdate-select label="Category List" #categoryObj [options]="categoryList" (change)="onCategoryChanged(categoryObj.value)"></sdate-select>
+      </div>
+      <div class="col col-sm-2">
+        <button class="btn btn-success mx-30" (click)="onSaveClicked(categoryObj.value)">Save Settings</button>
+      </div>
+      <div class="col col-sm-2">
+        <button class="btn btn-primary mx-30" (click)="onEditCategoryClicked()">Edit Category</button>
+      </div>
+    </div>
     <div class="">
       <mat-form-field>
         <mat-label>Filter</mat-label>
