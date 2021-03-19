@@ -1,4 +1,4 @@
-<div class="max-height-800 overflow-auto max-height-">
+<div class="max-height-800 overflow-auto overflow-x">
   <ng-container *ngFor="let notification of notificationStore">
     <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Message" [notification]="notification"></sdate-inbox-item>
   </ng-container>

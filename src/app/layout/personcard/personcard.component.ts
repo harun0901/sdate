@@ -28,6 +28,7 @@ export class PersoncardComponent implements OnInit {
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   @Input() customerInfo: User;
   @Input() customerState: string;
+  @Input() newVisitorFlag: number;
   constructor(
     private router: Router,
     private messageDialog: MatDialog,

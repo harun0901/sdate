@@ -1,3 +1,4 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <div class="position-relative text-black-50 rounded-sm">
   <div id="notification_bar" [attr.data-label] = "dataLabel" (click)="onNotificationClicked()"
        [ngClass]="notification.seen ? 'position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100' : 'content position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100'">
@@ -16,10 +17,10 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="!notification.seen">
+  <ng-container>
     <div class="position-absolute top-0 right-0 pt-5 pr-10">
-      <button class="btn btn-primary p-1 m-0 close-button" (click)="onCloseClicked()">
-        <i class="icon-check"></i> Read
+      <button class="btn btn-info p-1 m-0 close-button" (click)="onCloseClicked()">
+        <i class="icon-check"></i> Delete
       </button>
     </div>
   </ng-container>

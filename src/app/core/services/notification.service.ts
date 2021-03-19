@@ -48,6 +48,11 @@ export class NotificationService {
     return this.http.put<NotificationEntity[]>(url, payload);
   }
 
+  DeleteNotification(payload: NotificationId): Observable<NotificationEntity[]> {
+    const url = `${environment.api}/sdate/notification/deleteNotification`;
+    return this.http.put<NotificationEntity[]>(url, payload);
+  }
+
   getAllNotification(): Observable<NotificationEntity[]> {
     const url = `${environment.api}/sdate/notification/getAllNotification`;
     return this.http.get<NotificationEntity[]>(url);

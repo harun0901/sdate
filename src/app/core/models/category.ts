@@ -23,3 +23,12 @@ export interface AddUsersPayload{
   userIds: string[];
 }
 
+export interface CategoryPayload{
+  id: string;
+  name: string;
+  state: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+}
+

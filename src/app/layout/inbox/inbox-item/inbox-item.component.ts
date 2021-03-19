@@ -18,6 +18,7 @@ export class InboxItemComponent implements OnInit {
   description: string;
   dataLabel: string;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  isLoading = false;
   @Input() notification: NotificationEntity;
   constructor(
     private notificationService: NotificationService,
@@ -48,7 +49,9 @@ export class InboxItemComponent implements OnInit {
         this.description = '';
     }
   }
-  onNotificationClicked(): void {
+  async onNotificationClicked(): Promise<void> {
+    const res = await this.notificationService.updateNotification({id: this.notification.id}).toPromise();
+    this.notificationService.setNotificationStore(res);
     if (this.notification.pattern === NotificationType.Message) {
       this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.notification.sender.id]);
     } else {
@@ -57,8 +60,15 @@ export class InboxItemComponent implements OnInit {
   }
 
   async onCloseClicked(): Promise<void> {
-    const res = await this.notificationService.updateNotification({id: this.notification.id}).toPromise();
-    this.notificationService.setNotificationStore(res);
+    try {
+      this.isLoading = true;
+      const res = await this.notificationService.DeleteNotification({id: this.notification.id}).toPromise();
+      this.notificationService.setNotificationStore(res);
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   navigate(path: string | string[]): void {

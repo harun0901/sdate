@@ -1,4 +1,5 @@
 import { Entity, SearchInfo } from './base';
+import { Category } from './category';
 
 export interface User extends Entity {
   email: string;
@@ -26,6 +27,7 @@ export interface User extends Entity {
   lastLogin: Date;
   ipAddress: string;
   blockedList?: User[];
+  categoryList?: Category[];
 }
 
 export interface UpdateUserPayload {
@@ -129,7 +131,8 @@ export interface UserTableForm {
   name: string;
   email: string;
   gender: string;
-  balance: number;
+  category: string;
+  location: string;
 }
 
 export interface UserDetailDialogForm {

@@ -14,7 +14,7 @@ import { ToastrService } from '../../core/services/toastr.service';
 import { CategoryComponent } from './category/category.component';
 import { Option } from '../../core/models/option';
 import { CategoryService } from '../../core/services/category.service';
-import { DEFAULT_IMAGE } from '../../core/models/base';
+import { DEFAULT_IMAGE, Signal } from '../../core/models/base';
 import { genderList } from '../../core/models/option';
 
 @Component({
@@ -39,7 +39,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
   nameList = '';
   gender = '';
   country = '';
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'gender', 'balance'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'gender', 'category', 'location'];
   dataSource: MatTableDataSource<UserTableForm>;
   userList: User[] = [];
   categoryList: Option<string>[] = [];
@@ -112,6 +112,32 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop'
     });
+  }
+
+  async onDeleteUserClicked(): Promise<void> {
+    const filteredDataList = this.dataSource.data.filter((item) => {
+      if (item.select) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    const idList = filteredDataList.map((item) => item.detail.id);
+    const selUserLen = idList.length;
+    if (selUserLen > 0) {
+      try {
+        this.isLoading = true;
+        for (let index = 0; index < selUserLen; index ++) {
+          await this.userService.deleteUser({id: idList[index]}).toPromise();
+        }
+        this.toastrService.success('You have successfully deleted users.');
+        this.signalService.sendSignal(Signal.UserListchanged);
+      } catch (e) {
+        this.toastrService.danger(`Invalid Request. Fakers who had chat before can't delete.`);
+      } finally {
+        this.isLoading = false;
+      }
+    }
   }
 
   async onCategoryChanged(selId: string): Promise<void> {
@@ -200,12 +226,17 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
       } else if (item.role === UserRole.Customer && item.gender === Gender.WOMAN) {
         this.womanCount ++;
       }
+      let categoryNamesList = '';
+      if (item.categoryList.length > 0) {
+        categoryNamesList = item.categoryList.map((category) => category.name).join(',');
+      }
       return {
         id: order,
         name: item.fullName,
         email: item.email,
         gender: item.gender,
-        balance: item.balance,
+        category: categoryNamesList,
+        location: item.location,
         detail: item,
         select: false,
       };
