@@ -45,6 +45,14 @@ export class InboxItemComponent implements OnInit {
         this.description = NotificationDescription.Message;
         this.dataLabel = 'read';
         break;
+      case NotificationType.Gift:
+        this.description = NotificationDescription.Gift;
+        this.dataLabel = 'read';
+        break;
+      case NotificationType.Kiss:
+        this.description = NotificationDescription.Kiss;
+        this.dataLabel = 'read';
+        break;
       default:
         this.description = '';
     }

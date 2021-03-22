@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { PageEvent } from '@angular/material/paginator';
 
 import { UserService } from '../../core/services/user.service';
 import { ShowLimitCount, User, UserShowType } from '../../core/models/user';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { SignalService } from '../../core/services/signal.service';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 import { Signal } from '../../core/models/base';
 import { SearchService } from '../../core/services/search.service';
 
@@ -15,6 +16,13 @@ import { SearchService } from '../../core/services/search.service';
   styleUrls: ['./userlist.component.scss']
 })
 export class UserlistComponent implements OnInit, OnDestroy {
+  // MatPaginator Inputs
+  length = 9;
+  pageSize = 9;
+  pageSizeOptions: number[] = [9, 18, 36, 54];
+  startIndex = 0;
+  endIndex = 9;
+
   userList: User[];
   userState: string;
   private unsubscribeAll: Subject<any> = new Subject<any>();
@@ -23,7 +31,7 @@ export class UserlistComponent implements OnInit, OnDestroy {
     private openPageSv: OpenPageService,
     private signalService: SignalService,
     private searchService: SearchService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.searchService.setIgnoreFlag(true);
@@ -51,8 +59,13 @@ export class UserlistComponent implements OnInit, OnDestroy {
         location: this.searchService.searchKey.location,
         ignoreFlag: this.searchService.searchKey.ignoreFlag,
       }}).toPromise();
+    this.length = this.userList.length;
   }
 
+  onPaginationChangeEvent($event): void {
+    this.startIndex = $event.pageIndex * $event.pageSize;
+    this.endIndex = this.startIndex + $event.pageSize;
+  }
   ngOnDestroy(): void {
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();

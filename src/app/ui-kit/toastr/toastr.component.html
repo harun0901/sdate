@@ -10,7 +10,7 @@
         <p class="font-weight-bold mb-0" *ngIf="item.title">{{ item.title }}</p>
         <p class="mb-0" [innerHTML]="item.text"></p>
       </div>
-      <uh-landing-icon icon="close" [color]="item.type | toastrColor : 'icon'" class="cursor-pointer" (click)="close(item, i)"></uh-landing-icon>
+      <sdate-icon icon="close" [color]="item.type | toastrColor : 'icon'" class="cursor-pointer" (click)="close(item, i)"></sdate-icon>
     </div>
   </div>
 </div>

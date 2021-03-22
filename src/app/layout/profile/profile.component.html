@@ -1,9 +1,9 @@
 <div class="text-black-50">
-  <div class="p-20 bg-white shadow-sm d-flex justify-content-between align-items-center mb-5">
-    <div class="width-250 height-250 btn m-0 p-0" (click)="onAvatarClicked()">
-      <a class=""><img class="width-250 height-250 rounded-lg border-secondary border-3" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/></a>
+  <div class="p-20 bg-white shadow-sm row mb-10">
+    <div class="w-100 h-100 btn col-12 col-sm-12 col col-md-6 col-lg-4 mb-5" (click)="onAvatarClicked()">
+      <a class=""><img class="w-100 h-100 rounded-lg border-secondary border-3" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/></a>
     </div>
-    <div class="ml-20">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-5">
       <form [formGroup]="basicFG" (ngSubmit)="onBasicSubmitClicked()">
         <div class="d-flex justify-content-between align-items-center">
           <h1 *ngIf="!isEditBasic">{{customerInfo && customerInfo.fullName}}</h1>
@@ -16,8 +16,10 @@
         <sdate-text-input label="Location" placeholder="location" formControlName="location" *ngIf="isEditBasic"></sdate-text-input>
         <br>
         <h2>About me</h2>
-        <textarea *ngIf="!isEditBasic" class="cdk-textarea-autosize border-0 dark-border text-black-50" disabled rows="3" cols="50" placeholder="About me...">{{customerInfo && customerInfo.about}}</textarea>
-        <textarea *ngIf="isEditBasic" class="cdk-textarea-autosize border-0 dark-border text-black-50" rows="3" cols="50" placeholder="About me..." formControlName="about"></textarea>
+        <p *ngIf="!isEditBasic">{{customerInfo && customerInfo.about}}</p>
+        <ng-container *ngIf="isEditBasic">
+          <sdate-textarea placeholder="Type about your self." formControlName="about"></sdate-textarea>
+        </ng-container>
         <div class="d-flex justify-content-between">
           <a class="btn text-primary" (click)="navigate([ROUTES.home.root, ROUTES.home.support.root, ROUTES.home.support.guideline])">Guidelines</a>
           <div *ngIf="isEditBasic">
@@ -27,70 +29,69 @@
         </div>
       </form>
     </div>
-    <div>
-      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onLikeClicked()">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-5">
+      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onLikeClicked()">
         <i class="icon-heartOutline text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">LIKE YOU</span>
       </a>
-      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onMessageClick()">
+      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onMessageClick()">
         <i class="icon-chat text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">SEND A MESSAGE</span>
       </a>
-      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onKissClicked()">
+      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onKissClicked()">
         <i class="icon-kiss text-white font-12 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">SEND A KISS</span>
       </a>
-      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onGiftClicked()">
+      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onGiftClicked()">
         <i class="icon-gift text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">SEND A GIFT</span>
       </a>
-      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onFavoriteClicked()">
+      <a class="btn btn-primary text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onFavoriteClicked()">
         <i class="icon-favoriteOutline text-white font-20 d-flex justify-content-center big-shadow-primary"></i>
         <span class="text-white ml-15">ADD AS FAVORITE</span>
       </a>
       <ng-container *ngIf="isInBlockList">
-        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onRemoveBlockUserClicked()">
+        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onRemoveBlockUserClicked()">
           <i class="icon-block text-white font-20 d-flex justify-content-center big-shadow-info"></i>
           <span class="text-white ml-15">REMOVE BLOCK</span>
         </a>
       </ng-container>
       <ng-container *ngIf="!isInBlockList">
-        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 width-250 height-45 mb-5" (click)="onBlockUserClicked()">
+        <a class="btn btn-info text-decoration-none d-flex align-items-center rounded-0 w-100 height-45 mb-5" (click)="onBlockUserClicked()">
           <i class="icon-block text-white font-20 d-flex justify-content-center big-shadow-info"></i>
           <span class="text-white ml-15">BLOCK HIM</span>
         </a>
       </ng-container>
     </div>
   </div>
-  <div class="bg-white p-15">
-    <form [formGroup]="factFG" (ngSubmit)="onFactSubmitClicked()">
+  <div class="bg-white p-20 shadow-sm row mb-10">
+    <form [formGroup]="factFG" (ngSubmit)="onFactSubmitClicked()" class="w-100">
       <div class="py-15 d-flex justify-content-between">
         <h2>Facts</h2>
         <a class="btn font-15 text-primary" (click)="onEditFactsToggle()" *ngIf="!isEditFact && isEditable"><i class="icon-edit"></i></a>
         <a class="btn font-15 text-info" (click)="onEditFactsToggle()" *ngIf="isEditFact && isEditable"><i class="icon-check"></i></a>
       </div>
-      <div class="d-flex">
-
-        <div class="w-25 mr-10" *ngIf="!isEditFact">
+      <div class="row">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="!isEditFact">
           <h4>Looking for</h4><h3>{{customerInfo && customerInfo.lookingFor || 'No Answer'}}</h3>
           <br>
           <h4>Body</h4><h3>{{customerInfo && customerInfo.body || 'No Answer'}}</h3>
           <br>
           <h4>Education</h4><h3>{{customerInfo && customerInfo.education || 'No Answer'}}</h3>
         </div>
-        <div class="w-25 mr-10" *ngIf="isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="isEditFact">
           <sdate-select label="Looking for" [options]="lookingForList" formControlName="lookingFor"></sdate-select>
           <sdate-select label="Body" [options]="bodyList" formControlName="body"></sdate-select>
           <sdate-select label="Education" [options]="educationList" formControlName="education"></sdate-select>
         </div>
-        <div class="w-25 mr-10" *ngIf="!isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="!isEditFact">
           <h4>Interested In</h4><h3>{{customerInfo && customerInfo.interestedIn || 'No Answer'}}</h3>
           <br>
           <h4>Kids</h4><h3>{{customerInfo && customerInfo.kids || 'No Answer'}}</h3>
           <br>
           <h4>Profession</h4><h3>{{customerInfo && customerInfo.profession || 'No Answer'}}</h3>
         </div>
-        <div class="w-25 mr-10" *ngIf="isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="isEditFact">
           <div>
 <!--            <label for="factFormField-Interested in">Interested In</label>-->
 <!--            <div class="selectButtons d-flex flex-wrap">-->
@@ -110,14 +111,14 @@
           <sdate-select label="Kids" [options]="kidsList" formControlName="kids"></sdate-select>
           <sdate-select label="Profession" [options]="professionList" formControlName="profession"></sdate-select>
         </div>
-        <div class="w-25 mr-10" *ngIf="!isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="!isEditFact">
           <h4>RelationShip Status</h4><h3>{{customerInfo && customerInfo.relationshipStatus || 'No Answer'}}</h3>
           <br>
           <h4>Smoker</h4><h3>{{customerInfo && customerInfo.smoker || 'No Answer'}}</h3>
           <br>
           <h4>Language</h4><h3>{{customerInfo && customerInfo.language || 'No Answer'}}</h3>
         </div>
-        <div class="w-25 mr-10" *ngIf="isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="isEditFact">
           <sdate-select label="RelationShip Status" [options]="relationshipList" formControlName="relationshipStatus"></sdate-select>
           <sdate-select label="Smoker" [options]="smokerList" formControlName="smoker"></sdate-select>
           <sdate-select label="Language" [options]="languageList" formControlName="language"></sdate-select>
@@ -153,12 +154,12 @@
 <!--          </div>-->
           </div>
         </div>
-        <div class="w-25 mr-10" *ngIf="!isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="!isEditFact">
           <h4>Height</h4><h3>{{customerInfo && customerInfo.height || 'No Answer'}}cm</h3>
           <br>
           <h4>Alcohol</h4><h3>{{customerInfo && customerInfo.alcohol || 'No Answer'}}</h3>
         </div>
-        <div class="w-25 mr-10" *ngIf="isEditFact">
+        <div class="col-6 col-sm-6 col-md-3 mb-5" *ngIf="isEditFact">
           <sdate-select label="Height" [options]="heightList" formControlName="height"></sdate-select>
           <sdate-select label="Alcohol" [options]="alcoholicList" formControlName="alcohol"></sdate-select>
         </div>

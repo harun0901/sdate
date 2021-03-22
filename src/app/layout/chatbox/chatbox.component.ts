@@ -64,7 +64,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     }
     this.getCustomerInfo(this.customerId);
     this.getPartChatList(this.customerId);
-
     this.chatStoreService.chatStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
@@ -122,8 +121,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         const res = await this.chatService.sendMessage(payload).toPromise();
         this.chatStore.push(res);
         this.chatForm.reset();
-        // this.cRef.detectChanges();
-        this.addNotification();
+        await this.addNotification();
+        this.cRef.detectChanges();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
         } catch (err) { }

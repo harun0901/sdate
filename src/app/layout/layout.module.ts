@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -70,6 +71,7 @@ import { InboxModule } from './inbox/inbox.module';
     MatBadgeModule,
     MatFormFieldModule,
     NgxPayPalModule,
+    MatPaginatorModule,
     LayoutRoutingModule,
     PipesModule,
     IconModule,

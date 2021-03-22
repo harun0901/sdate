@@ -22,14 +22,18 @@ export enum NotificationType {
   Like = 'like',
   Favorite = 'favorite',
   Message = 'message',
+  Gift = 'gift',
+  Kiss = 'kiss',
   Block = 'block',
   Any = 'any',
 }
 
 export enum NotificationDescription {
   Visit = 'visited your profile.',
-  Like = 'Sent a like signal to you.',
+  Like = 'liked your profile.',
   Favorite = 'Sent a favorite signal to you',
   Message = 'sent a message to you',
+  Gift = 'sent a gift to you',
+  Kiss = 'sent a Kiss to you',
   Block = 'make you as a blocked Customer',
 }

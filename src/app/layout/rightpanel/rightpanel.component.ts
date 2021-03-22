@@ -31,7 +31,11 @@ export class RightpanelComponent implements OnInit, OnDestroy {
   }
 
   setSearchKey(keyword: NotificationType): void {
-    this.selectedSearchKey = keyword;
+    if (this.selectedSearchKey === keyword) {
+      this.selectedSearchKey = NotificationType.Any;
+    } else {
+      this.selectedSearchKey = keyword;
+    }
   }
 
   async getNotSeenNotification(): Promise<void> {

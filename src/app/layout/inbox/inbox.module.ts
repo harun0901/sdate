@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { InboxRoutingModule } from './inbox-routing.module';
 import { InboxComponent } from './inbox.component';
@@ -13,6 +14,7 @@ import { CommonUiKitModule } from '../../ui-kit/common-ui-kit/common-ui-kit.modu
   declarations: [InboxComponent, InboxItemComponent],
   imports: [
     CommonModule,
+    MatPaginatorModule,
     InboxRoutingModule,
     PipesModule,
     IconModule,

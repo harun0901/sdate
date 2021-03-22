@@ -1,5 +1,17 @@
 <div class="max-height-800 overflow-auto overflow-x">
-  <ng-container *ngFor="let notification of notificationStore">
-    <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Message" [notification]="notification"></sdate-inbox-item>
+  <ng-container *ngFor="let notification of notificationStore; let i = index">
+    <ng-container *ngIf="i >= startIndex && i < endIndex">
+      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Message" [notification]="notification"></sdate-inbox-item>
+      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Gift" [notification]="notification"></sdate-inbox-item>
+      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Kiss" [notification]="notification"></sdate-inbox-item>
+    </ng-container>
   </ng-container>
+</div>
+
+<div class="d-flex justify-content-center">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="onPaginationChangeEvent($event)">
+  </mat-paginator>
 </div>

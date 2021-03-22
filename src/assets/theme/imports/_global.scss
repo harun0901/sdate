@@ -18,7 +18,7 @@
 }
 
 .person-card img, .person-card .avatar-part{
-  width: 290px;
+  width: 100%;
   height: 290px;
 }
 .person-card .detail-part {
@@ -27,14 +27,14 @@
 
 @media (min-width: 576px) { //sm
   .person-sm-card {
-    width: 32% !important;
-    min-width: 240px;
-    min-height: 300px;
+    width: 100% !important;
+    min-width: 220px;
+    min-height: 270px;
   }
 
   .person-sm-card img, .person-sm-card .avatar-part{
-    width: 240px;
-    height: 240px;
+    width: 100%;
+    height: 220px;
   }
 
   .person-card .detail-part {
@@ -103,4 +103,8 @@ textarea:focus {
 
 th div.mat-sort-header-container {
   justify-content: center !important;
+}
+
+.mat-paginator-container {
+  background-color: #F2F2F2 !important;
 }

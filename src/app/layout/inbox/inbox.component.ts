@@ -15,6 +15,12 @@ export class InboxComponent implements OnInit {
   private unsubscribeAll: Subject<any> = new Subject<any>();
   notificationStore: NotificationEntity[] = [];
   NotificationType = NotificationType;
+  // MatPaginator Inputs
+  length = 9;
+  pageSize = 9;
+  pageSizeOptions: number[] = [9, 18, 36, 54];
+  startIndex = 0;
+  endIndex = 9;
 
   constructor(
     private notificationService: NotificationService,
@@ -28,10 +34,39 @@ export class InboxComponent implements OnInit {
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
       this.notificationStore = this.notificationService.notificationStore;
+      const res = this.notificationStore.filter(item => {
+        if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
+          if (!item.seen) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      })
+      this.length = res.length;
     });
+  }
+
+  onPaginationChangeEvent($event): void {
+    this.startIndex = $event.pageIndex * $event.pageSize;
+    this.endIndex = this.startIndex + $event.pageSize;
   }
 
   async getAllNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+    const res = this.notificationStore.filter(item => {
+      if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
+        if (!item.seen) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    })
+    this.length = res.length;
   }
 }

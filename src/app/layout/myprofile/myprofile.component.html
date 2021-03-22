@@ -1,13 +1,8 @@
 <div class="container text-black-50">
-
-
-<!--  <div class="width-300 height-300 bg-white border-1">-->
-<!--    <sdate-image-cropper></sdate-image-cropper>-->
-<!--  </div>-->
   <div>
     <h2>InfoCenter</h2>
-    <div class="d-flex align-items-center justify-content-around mt-10">
-      <div class="w-25 bg-primary m-5">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-chat text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
           <h1 class="text-white text-center font-35">{{newMsgCount}}</h1>
@@ -16,7 +11,7 @@
             class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.inbox])">read</span>
         </a>
       </div>
-      <div class="w-25 bg-primary m-5">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-eye text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
           <h1 class="text-white text-center font-35">{{newVisitorCount}}</h1>
@@ -25,7 +20,7 @@
             class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.visitors])">read</span>
         </a>
       </div>
-      <div class="w-25 bg-primary m-5">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-5">
         <a class="btn btn-primary text-decoration-none w-100">
           <i class="icon-heart text-white font-40 d-flex justify-content-center big-shadow-primary"></i>
           <h1 class="text-white text-center font-35">{{newLikeCount}}</h1>
@@ -34,12 +29,12 @@
             class="m-10 bg-white text-primary height-25 d-flex align-items-center justify-content-center" (click)="navigate([ROUTES.home.root, ROUTES.home.likes])">read</span>
         </a>
       </div>
-      <div class="w-25 bg-primary m-5">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-3 mb-5">
         <a class="btn btn-info text-decoration-none w-100">
           <i class="icon-personalMail text-white font-40 d-flex justify-content-center big-shadow-info"></i>
           <h1 class="text-white text-center font-35">!</h1>
-          <h3 class="text-white text-center">Verify your Email Address</h3>
-          <a href="//outlook.com" class="text-decoration-none"><span class="m-10 bg-white text-info height-25 d-flex align-items-center justify-content-center">To your mailbox</span></a>
+          <h3 class="text-white text-center text-overflow">Verify your Email Address</h3>
+          <a href="mailto:sdate@whitehouse.gov" class="text-decoration-none"><span class="m-10 bg-white text-info height-25 d-flex align-items-center justify-content-center text-overflow">To your mailbox</span></a>
         </a>
       </div>
     </div>
@@ -48,8 +43,8 @@
     <h2 class="mb-20">My Profile</h2>
     <sdate-profile [customerInfo] = "user" [isOwner] = "true"></sdate-profile>
   </div>
-  <div class="d-flex flex-wrap">
-    <div class="p-15 bg-white w-25 mr-5">
+  <div class="row mb-10">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 bg-white shadow-sm mb-5 py-10">
       <form [formGroup]="infoFG" (ngSubmit)="onInfoFGSubmitted()">
         <h2>Personal Information</h2>
         <p>*This data would not be published!</p>
@@ -71,20 +66,20 @@
         </div>
       </form>
     </div>
-    <div class="bg-white p-20 w-25 d-flex align-items-center">
-      <a class="btn text-decoration-none p-0 m-0" (click)="onAvatarClicked()">
-        <i class="icon-upload text-black-50 font-40 d-flex justify-content-center"></i>
-        <h5 class="text-black-50 text-center">Drag and Drop your image here to Upload or</h5>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 bg-white shadow-sm mb-5 py-10 align-items-center">
+      <div class="btn p-0 m-0 w-100 h-100" (click)="onAvatarClicked()">
+        <i class="icon-upload text-black-50 font-40"></i>
+        <h5 class="text-black-50 text-center text-overflow">Drag and Drop your image here to Upload or</h5>
         <h3 class="text-black-50 text-center">new Visitors</h3>
         <br>
         <span class="border-info border-1 text-info py-5 px-10 mt-20">Browse image</span>
         <br>
         <a class="btn text-primary">Guidelines</a>
-      </a>
+      </div>
     </div>
     <ng-container *ngIf="(uploadData$ | async) as uploadDataList">
-      <div class="btn m-1 p-0" *ngFor="let uploadData of (uploadData$ | async) as uploadDataList" (click)="onUploadDataClicked(uploadData.id, uploadData.data)">
-        <img class="width-300 height-300 border-4 border-secondary" [src]="uploadData.data" alt="#" />
+      <div class="btn m-0 p-0 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let uploadData of (uploadData$ | async) as uploadDataList" (click)="onUploadDataClicked(uploadData.id, uploadData.data)">
+        <img class="w-100 border-4 border-secondary" [src]="uploadData.data" alt="#" />
       </div>
     </ng-container>
   </div>

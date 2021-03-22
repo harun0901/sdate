@@ -55,7 +55,7 @@ export class GiftChatComponent implements OnInit {
           this.chatStoreService.addChat(this.data.customerId, res);
         }
         this.chatForm.reset();
-        this.addNotification();
+        this.addNotification(NotificationType.Gift);
         this.toastrService.success('You have just sent a gift successfully.');
         this.dialogRef.close();
       } catch (e) {
@@ -66,10 +66,10 @@ export class GiftChatComponent implements OnInit {
     }
   }
 
-  async addNotification(): Promise<void> {
+  async addNotification(notificationType: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.data.customerId,
-      pattern: NotificationType.Message,
+      pattern: notificationType,
     }).toPromise();
   }
 

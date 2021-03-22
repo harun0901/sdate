@@ -77,16 +77,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.newMsgCount = 0;
     const tmpNotificationStore = this.notificationService.notificationStore;
     const res = tmpNotificationStore.map((item) => {
-      switch (item.pattern) {
-        case NotificationType.Visit:
-          this.newVisitorCount ++;
-          break;
-        case NotificationType.Like:
-          this.newLikeCount ++;
-          break;
-        case NotificationType.Message:
-          this.newMsgCount ++;
-          break;
+      if (!item.seen) {
+        switch (item.pattern) {
+          case NotificationType.Visit:
+            this.newVisitorCount ++;
+            break;
+          case NotificationType.Like:
+            this.newLikeCount ++;
+            break;
+          case NotificationType.Message:
+            this.newMsgCount ++;
+            break;
+          case NotificationType.Gift:
+            this.newMsgCount ++;
+            break;
+          case NotificationType.Kiss:
+            this.newMsgCount ++;
+            break;
+        }
       }
     });
   }

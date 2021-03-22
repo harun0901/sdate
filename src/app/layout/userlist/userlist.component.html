@@ -1,5 +1,16 @@
 <div class="row flex-wrap">
-  <div class="col-10 col-md-6 col-lg-6 col-xl-4" *ngFor="let user of userList" >
-    <sdate-personcard [customerInfo]="user" [customerState]="userState"></sdate-personcard>
-  </div>
+  <ng-container *ngFor="let user of userList; let i = index">
+    <ng-container *ngIf="i >= startIndex && i < endIndex">
+      <div class="col-10 col-md-6 col-lg-6 col-xl-6 col-xxl-4">
+        <sdate-personcard [customerInfo]="user" [customerState]="userState"></sdate-personcard>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+<div class="d-flex justify-content-center">
+  <mat-paginator [length]="length"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="onPaginationChangeEvent($event)">
+  </mat-paginator>
 </div>

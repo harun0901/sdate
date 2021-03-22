@@ -1,5 +1,8 @@
 <ng-container>
   <sdate-spinner *ngIf="isLoading"></sdate-spinner>
+  <div class="d-flex justify-content-end">
+    <a class="btn p-0 m-0" mat-dialog-close><sdate-icon [width]="10" icon="close" color="mine-shaft"></sdate-icon></a>
+  </div>
   <div class="p-10" mat-dialog-content>
     <div class="d-flex justify-content-around align-items-center">
       <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mr-10 mb-10" (click)="fileInput.click()">Select File</button>

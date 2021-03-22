@@ -63,22 +63,23 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.chatStore = [];
-    this.router.params.subscribe(params => {
+    this.router.params.subscribe(async params => {
       this.openPageSv.send('chatroom');
       this.customerId = this.router.snapshot.paramMap.get('userId');
-      this.getCustomerInfo(this.customerId);
+      await this.getCustomerInfo(this.customerId);
       this.chatStoreService.setChatroomUserId(this.customerId);
-      this.getPartChatList(this.customerId);
+      await this.getPartChatList(this.customerId);
+      this.cRef.detectChanges();
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) { }
     });
     this.chatStoreService.chatroomStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
-    ).subscribe( chatEmmitInfo => {
+    ).subscribe( async chatEmmitInfo => {
         if (this.customerId === chatEmmitInfo.id) {
-          // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.chatroomStore;
-          this.getPartChatList(this.customerId);
-          console.log(this.chatStore);
-          // this.cRef.detectChanges();
+          await this.getPartChatList(this.customerId);
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
           } catch (err) { }

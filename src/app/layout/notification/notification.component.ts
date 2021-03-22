@@ -45,6 +45,14 @@ export class NotificationComponent implements OnInit {
         this.description = NotificationDescription.Message;
         this.dataLabel = 'read';
         break;
+      case NotificationType.Gift:
+        this.description = NotificationDescription.Gift;
+        this.dataLabel = 'read';
+        break;
+      case NotificationType.Kiss:
+        this.description = NotificationDescription.Kiss;
+        this.dataLabel = 'read';
+        break;
       case NotificationType.Block:
         this.description = NotificationDescription.Block;
         this.dataLabel = 'visit';
@@ -55,7 +63,9 @@ export class NotificationComponent implements OnInit {
   }
 
   onNotificationClicked(): void {
-    if (this.notification.pattern === NotificationType.Message) {
+    if (this.notification.pattern === NotificationType.Message ||
+      this.notification.pattern === NotificationType.Gift ||
+      this.notification.pattern === NotificationType.Kiss) {
       this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.notification.sender.id]);
     } else {
       this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.notification.sender.id]);
