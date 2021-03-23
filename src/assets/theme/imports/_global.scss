@@ -10,6 +10,10 @@
   text-decoration: none;
 }
 
+.menu-item.active {
+  background: #8DA3BA;
+}
+
 .person-card {
   width: 100% !important;
   min-width: 290px;
@@ -107,4 +111,8 @@ th div.mat-sort-header-container {
 
 .mat-paginator-container {
   background-color: #F2F2F2 !important;
+}
+
+section.emoji-mart {
+  width: 250px !important;
 }

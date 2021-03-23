@@ -23,7 +23,6 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Signal } from '../../core/models/base';
 import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
-import { UserRole } from '../../core/models/auth';
 
 @Component({
   selector: 'sdate-chatroom',
@@ -38,6 +37,9 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   customerInfo: User;
   chatForm: FormGroup;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  message = '';
+  showEmojiPicker = false;
+  set = 'twitter';
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
@@ -115,6 +117,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   async onTransferClicked(): Promise<void> {
+    this.showEmojiPicker = false;
     if (this.chatForm.valid) {
       try {
         const payload: SendMessagePayload = { receiverId: this.customerId, text: this.chatForm.value.message_content, gift: '', kiss: ''};
@@ -135,6 +138,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   onGiftClicked(): void {
+    this.showEmojiPicker = false;
     this.giftListDialog.open(GiftPanelComponent, {
       width: '300px',
       maxHeight: '400px',
@@ -145,6 +149,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   onKissClicked(): void {
+    this.showEmojiPicker = false;
     this.giftListDialog.open(KissChatComponent, {
       width: '300px',
       maxHeight: '400px',
@@ -155,9 +160,10 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   async onLikeClicked(): Promise<void> {
+    this.showEmojiPicker = false;
     const tmpUser = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
     this.addNotification(NotificationType.Like);
-    this.toastr.success(`You've successfully changed.`);
+    this.toastr.success(`You just liked ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
   }
 
@@ -169,10 +175,12 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   }
 
   onCustomerClicked(): void {
+    this.showEmojiPicker = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.customerInfo.id]);
   }
 
   onOwnerClicked(): void {
+    this.showEmojiPicker = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.authService.user.id]);
   }
 
@@ -180,6 +188,22 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     this.routerRouter.navigateByUrl(toAbsolutePath(path)).then(() => {
       this.scrollToService.scrollTo({ target: ScrollPosition.Root });
     });
+  }
+
+  toggleEmojiPicker($event) {
+    $event.preventDefault();
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event) {
+    this.message = `${this.message}${event.emoji.native}`;
+  }
+
+  onFocus() {
+    this.showEmojiPicker = false;
+  }
+  onBlur() {
+    console.log('onblur')
   }
 
   ngOnDestroy(): void {

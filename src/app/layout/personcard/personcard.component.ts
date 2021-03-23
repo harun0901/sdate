@@ -65,7 +65,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
       await this.addNotification(NotificationType.Like);
     }
-    this.toastr.success(`You've successfully changed.`);
+    this.toastr.success(`You just liked ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
   }
 
@@ -77,7 +77,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
       this.addNotification(NotificationType.Favorite);
     }
-    this.toastr.success(`You've successfully changed.`);
+    this.toastr.success(`You just favorite ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
   }
 

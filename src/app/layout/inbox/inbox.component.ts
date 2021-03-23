@@ -14,6 +14,7 @@ import { OpenPageService } from '../../core/services/open-page.service';
 export class InboxComponent implements OnInit {
   private unsubscribeAll: Subject<any> = new Subject<any>();
   notificationStore: NotificationEntity[] = [];
+  inboxNotifications: NotificationEntity[] = [];
   NotificationType = NotificationType;
   // MatPaginator Inputs
   length = 9;
@@ -34,18 +35,14 @@ export class InboxComponent implements OnInit {
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
       this.notificationStore = this.notificationService.notificationStore;
-      const res = this.notificationStore.filter(item => {
+      this.inboxNotifications = this.notificationStore.filter(item => {
         if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
-          if (!item.seen) {
-            return true;
-          } else {
-            return false;
-          }
+          return true;
         } else {
           return false;
         }
-      })
-      this.length = res.length;
+      });
+      this.length = this.inboxNotifications.length;
     });
   }
 
@@ -56,17 +53,13 @@ export class InboxComponent implements OnInit {
 
   async getAllNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
-    const res = this.notificationStore.filter(item => {
+    this.inboxNotifications = this.notificationStore.filter(item => {
       if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
-        if (!item.seen) {
-          return true;
-        } else {
-          return false;
-        }
+        return true;
       } else {
         return false;
       }
     })
-    this.length = res.length;
+    this.length = this.inboxNotifications.length;
   }
 }

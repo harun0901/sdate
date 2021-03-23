@@ -34,3 +34,10 @@ div.message_box.justify-content-end div.message_content:before {
 p.show-all-history {
   margin-left: 5% !important;
 }
+
+@media (max-width: 1023px) { //md
+  emoji-mart {
+    bottom: 50px !important;
+    right: 50px !important;
+  }
+}

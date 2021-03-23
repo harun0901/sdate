@@ -1,13 +1,9 @@
-<ng-container>
+<div class="position-relative h-100">
   <sdate-spinner *ngIf="isLoading"></sdate-spinner>
   <div class="d-flex justify-content-end">
     <a class="btn p-0 m-0" mat-dialog-close><sdate-icon [width]="10" icon="close" color="mine-shaft"></sdate-icon></a>
   </div>
   <div class="p-10" mat-dialog-content>
-    <div class="d-flex justify-content-around align-items-center">
-      <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mr-10 mb-10" (click)="fileInput.click()">Select File</button>
-      <button class="btn btn-primary height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mb-10" (click)="uploadImg()">Upload</button>
-    </div>
     <input class="hide" style="display: none;" type="file" (change)="fileChangeEvent($event)" #fileInput/>
     <image-cropper
       [imageChangedEvent]="imageChangedEvent"
@@ -21,5 +17,9 @@
     ></image-cropper>
     <img [src]="croppedImage" class="crop-image" />
   </div>
+  <div class="d-flex justify-content-around align-items-center position-absolute bottom-0 z-index-5">
+    <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mr-100 mb-10" (click)="fileInput.click()">Select File</button>
+    <button class="btn btn-primary height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mb-10" [disabled]="croppedImage === ''" (click)="uploadImg()">Upload</button>
+  </div>
   <div mat-dialog-actions></div>
-</ng-container>
+</div>

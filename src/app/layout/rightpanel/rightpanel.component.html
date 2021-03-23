@@ -2,11 +2,11 @@
   <div class="right-panel width-250">
     <div class="bg-transparent mb-10">
       <div class="d-flex align-items-center justify-content-end">
-        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Like)"><sdate-icon [width]="16" icon="heart-active" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Kiss)"><sdate-icon [width]="16" icon="kiss" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Gift)"><sdate-icon [width]="16" icon="gift" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Message)"><sdate-icon [width]="16" icon="message" color="mine-shaft"></sdate-icon></a>
-        <a class="menu-item m-0 p-2 shadow-sm" (click)="setSearchKey(NotificationType.Visit)"><sdate-icon [width]="16" icon="eye" color="mine-shaft"></sdate-icon></a>
+        <a [ngClass]="selectedSearchKey === NotificationType.Like ? 'menu-item m-0 p-2 shadow-sm active' : 'menu-item m-0 p-2 shadow-sm'" (click)="setSearchKey(NotificationType.Like)"><sdate-icon [width]="16" icon="heart-active" color="mine-shaft"></sdate-icon></a>
+        <a [ngClass]="selectedSearchKey === NotificationType.Kiss ? 'menu-item m-0 p-2 shadow-sm active' : 'menu-item m-0 p-2 shadow-sm'" (click)="setSearchKey(NotificationType.Kiss)"><sdate-icon [width]="16" icon="kiss" color="mine-shaft"></sdate-icon></a>
+        <a [ngClass]="selectedSearchKey === NotificationType.Gift ? 'menu-item m-0 p-2 shadow-sm active' : 'menu-item m-0 p-2 shadow-sm'" (click)="setSearchKey(NotificationType.Gift)"><sdate-icon [width]="16" icon="gift" color="mine-shaft"></sdate-icon></a>
+        <a [ngClass]="selectedSearchKey === NotificationType.Message ? 'menu-item m-0 p-2 shadow-sm active' : 'menu-item m-0 p-2 shadow-sm'" (click)="setSearchKey(NotificationType.Message)"><sdate-icon [width]="16" icon="message" color="mine-shaft"></sdate-icon></a>
+        <a [ngClass]="selectedSearchKey === NotificationType.Visit ? 'menu-item m-0 p-2 shadow-sm active' : 'menu-item m-0 p-2 shadow-sm'" (click)="setSearchKey(NotificationType.Visit)"><sdate-icon [width]="16" icon="eye" color="mine-shaft"></sdate-icon></a>
       </div>
     </div>
     <div class="bg-transparent overflow-auto vh-100 width-250 overflow-x">

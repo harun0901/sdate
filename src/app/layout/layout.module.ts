@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 import { LayoutComponent } from './layout.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -65,6 +66,7 @@ import { InboxModule } from './inbox/inbox.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    PickerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,

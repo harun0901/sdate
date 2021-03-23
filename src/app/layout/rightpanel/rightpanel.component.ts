@@ -27,6 +27,11 @@ export class RightpanelComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
       this.notificationStore = this.notificationService.notificationStore;
+      this.notificationStore.sort((a, b) => {
+        let da = new Date(a.createdAt),
+          db = new Date(b.createdAt);
+        return Number(db) - Number(da);
+      });
     });
   }
 
@@ -41,6 +46,11 @@ export class RightpanelComponent implements OnInit, OnDestroy {
   async getNotSeenNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
     this.notificationService.setNotificationStore(this.notificationStore);
+    this.notificationStore.sort((a, b) => {
+      let da = new Date(a.createdAt),
+        db = new Date(b.createdAt);
+      return Number(db) - Number(da);
+    });
   }
 
   ngOnDestroy(): void {

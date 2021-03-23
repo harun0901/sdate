@@ -1,7 +1,7 @@
 <div class="row flex-wrap">
   <ng-container *ngFor="let user of userList; let i = index">
     <ng-container *ngIf="i >= startIndex && i < endIndex">
-      <div class="col-10 col-md-6 col-lg-6 col-xl-6 col-xxl-4">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4">
         <sdate-personcard [customerInfo]="user" [customerState]="userState"></sdate-personcard>
       </div>
     </ng-container>

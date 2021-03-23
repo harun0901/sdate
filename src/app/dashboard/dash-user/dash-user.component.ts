@@ -39,7 +39,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
   nameList = '';
   gender = '';
   country = '';
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'gender', 'category', 'location'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'role', 'gender', 'category', 'location'];
   dataSource: MatTableDataSource<UserTableForm>;
   userList: User[] = [];
   categoryList: Option<string>[] = [];
@@ -152,6 +152,13 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         return item;
       });
+      // this.dataSource.data = this.dataSource.data.filter(item => {
+      //   if (item.select === true) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // });
     }
   }
 
@@ -233,7 +240,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
       return {
         id: order,
         name: item.fullName,
-        email: item.email,
+        role: item.role,
         gender: item.gender,
         category: categoryNamesList,
         location: item.location,

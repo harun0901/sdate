@@ -36,6 +36,9 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   customerInfo: User;
   chatForm: FormGroup;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  message = '';
+  showEmojiPicker = false;
+  set = 'twitter';
   @ViewChild('scrollBox') private myScrollContainer: ElementRef;
 
   constructor(
@@ -55,15 +58,19 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.chatStore = [];
     if (this.showFlag === undefined) {
       this.show = true;
     } else {
       this.show = this.showFlag;
     }
-    this.getCustomerInfo(this.customerId);
-    this.getPartChatList(this.customerId);
+    await this.getCustomerInfo(this.customerId);
+    await this.getPartChatList(this.customerId);
+    this.cRef.detectChanges();
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
     this.chatStoreService.chatStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
@@ -71,7 +78,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
           // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.getChat(this.customerId);
           this.getPartChatList(this.customerId);
-          // this.cRef.detectChanges();
+          this.cRef.detectChanges();
           try {
             this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
           } catch (err) { }
@@ -107,14 +114,17 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   onCustomerClicked(): void {
+    this.showEmojiPicker = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.customerInfo.id]);
   }
 
   onOwnerClicked(): void {
+    this.showEmojiPicker = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.authService.user.id]);
   }
 
   async onTransferClicked(): Promise<void> {
+    this.showEmojiPicker = false;
     if (this.chatForm.valid) {
       try {
         const payload: SendMessagePayload = { receiverId: this.customerId, text: this.chatForm.value.message_content, gift: '', kiss: ''};
@@ -135,6 +145,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   onGiftClicked(): void {
+    this.showEmojiPicker = false;
     this.giftListDialog.open(GiftPanelComponent, {
       width: '300px',
       maxHeight: '400px',
@@ -145,6 +156,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   onKissClicked(): void {
+    this.showEmojiPicker = false;
     this.giftListDialog.open(KissChatComponent, {
       width: '300px',
       maxHeight: '400px',
@@ -155,16 +167,19 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   onTitleClicked(): void {
+    this.showEmojiPicker = false;
     if (this.showFlag !== undefined) {
       this.chatStoreService.moveFirst(this.customerId);
     }
   }
 
   onCloseClicked(): void {
+    this.showEmojiPicker = false;
     this.chatStoreService.deleteChat(this.customerId);
   }
 
   onToggle(): void {
+    this.showEmojiPicker = false;
     if (this.showFlag === undefined) {
       this.show = !this.show;
     }
@@ -186,6 +201,22 @@ export class ChatboxComponent implements OnInit, OnDestroy {
       receiver_id: this.customerId,
       pattern: NotificationType.Message,
     }).toPromise();
+  }
+
+  toggleEmojiPicker($event) {
+    $event.preventDefault();
+    this.showEmojiPicker = !this.showEmojiPicker;
+  }
+
+  addEmoji(event) {
+    this.message = `${this.message}${event.emoji.native}`;
+  }
+
+  onFocus() {
+    this.showEmojiPicker = false;
+  }
+  onBlur() {
+    console.log('onblur')
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,6 @@
 import { Entity, SearchInfo } from './base';
 import { Category } from './category';
+import { UserRole } from './auth';
 
 export interface User extends Entity {
   email: string;
@@ -129,7 +130,7 @@ export interface UserTableForm {
   detail: User;
   id: number;
   name: string;
-  email: string;
+  role: string;
   gender: string;
   category: string;
   location: string;
