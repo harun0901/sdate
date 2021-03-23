@@ -190,20 +190,20 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleEmojiPicker($event) {
+  toggleEmojiPicker($event): void {
     $event.preventDefault();
     this.showEmojiPicker = !this.showEmojiPicker;
   }
 
-  addEmoji(event) {
+  addEmoji(event): void {
     this.message = `${this.message}${event.emoji.native}`;
   }
 
-  onFocus() {
+  onFocus(): void {
     this.showEmojiPicker = false;
   }
-  onBlur() {
-    console.log('onblur')
+  onBlur(): void {
+    console.log('onblur');
   }
 
   ngOnDestroy(): void {
