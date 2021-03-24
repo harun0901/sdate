@@ -11,7 +11,9 @@
     </div>
     <div class="bg-transparent overflow-auto vh-100 width-250 overflow-x">
       <ng-container *ngFor="let notification of notificationStore">
-        <sdate-notification *ngIf="(notification.pattern === selectedSearchKey || selectedSearchKey === NotificationType.Any) && notification.seen === 0" [notification]="notification"></sdate-notification>
+        <div [@flyInOut]="'in'" >
+          <sdate-notification *ngIf="(notification.pattern === selectedSearchKey || selectedSearchKey === NotificationType.Any) && notification.seen === 0" [notification]="notification"></sdate-notification>
+        </div>
       </ng-container>
     </div>
   </div>
