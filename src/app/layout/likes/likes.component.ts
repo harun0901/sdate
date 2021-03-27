@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { OpenPageService } from '../../core/services/open-page.service';
 import { User, UserShowType } from '../../core/models/user';
@@ -21,9 +22,11 @@ export class LikesComponent implements OnInit, OnDestroy {
   UserShowType = UserShowType;
   notificationStore: NotificationEntity[] = [];
   NotificationType = NotificationType;
+  isLoading = false;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
+    private scrollToService: ScrollToService,
     private openPageSv: OpenPageService,
     private userService: UserService,
     private signalService: SignalService,
@@ -53,11 +56,25 @@ export class LikesComponent implements OnInit, OnDestroy {
   }
 
   async getAllNotification(): Promise<void> {
-    this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+    try{
+      this.isLoading = true;
+      this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   async getLikedUser(): Promise<void> {
-    this.userList = await this.userService.getLikedUser().toPromise();
+    try{
+      this.isLoading = true;
+      this.userList = await this.userService.getLikedUser().toPromise();
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy(): void {

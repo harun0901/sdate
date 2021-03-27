@@ -4,7 +4,7 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { DEFAULT_IMAGE } from '../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
 import { AuthService } from '../../core/services/auth.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
@@ -20,21 +20,36 @@ import { SignalService } from '../../core/services/signal.service';
 import { User } from '../../core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentComponent } from '../payment/payment.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'sdate-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [IsMinePipe]
+  providers: [IsMinePipe],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({ transform: 'translateX(0)' })),
+      transition('void => *', [
+        style({ transform: 'translateX(100%)' }),
+        animate(500)
+      ]),
+      transition('* => void', [
+        animate(500)
+      ])
+    ]),
+  ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   ROUTES = ROUTES;
   userInfo: User;
+  isOpen = false;
   total = 0;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   newMsgCount = 0;
   newVisitorCount = 0;
   newLikeCount = 0;
+  notificationStore: NotificationEntity[];
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -48,12 +63,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private chatStoreService: ChatStoreService,
     private notificationService: NotificationService,
     private signalService: SignalService,
-    ) { }
+  ) {
+    this.notificationStore = [];
+  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.userInfo = this.auth.user;
-    this.subscribeMessages();
-    this.subscribeEvent();
+    await this.subscribeMessages();
+    await this.subscribeEvent();
     this.auth.user$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe((item) => {
@@ -68,6 +85,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
       this.calcInfoCenter();
+    });
+
+    await this.getNotSeenNotification();
+    this.notificationService.notificationStore$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe(notification => {
+      this.notificationStore = this.notificationService.notificationStore;
+      this.notificationStore = this.notificationStore.sort((a, b) => {
+        const da = new Date(a.createdAt);
+        const db = new Date(b.createdAt);
+        return Number(da) - Number(db);
+      }).filter(item => {
+        if (item.seen === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      this.isOpen = !this.isOpen;
     });
   }
 
@@ -97,10 +133,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-  ngOnDestroy(): void {
-    this.unsubscribeAll.next();
-    this.unsubscribeAll.complete();
   }
 
   private async subscribeMessages(): Promise<void> {
@@ -147,8 +179,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   navigate(path: string | string[]): void {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 
+  async getNotSeenNotification(): Promise<void> {
+    this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
+    this.notificationStore = this.notificationStore.sort((a, b) => {
+      const da = new Date(a.createdAt);
+      const db = new Date(b.createdAt);
+      return Number(da) - Number(db);
+    }).filter(item => {
+      if (item.seen === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
+  }
 }

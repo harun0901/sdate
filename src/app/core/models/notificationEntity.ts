@@ -17,6 +17,12 @@ export interface NotificationId {
   id: string;
 }
 
+export interface InboxPayload {
+  senderId: string;
+  receiverId: string;
+  pattern: string;
+}
+
 export enum NotificationType {
   Visit = 'visit',
   Like = 'like',

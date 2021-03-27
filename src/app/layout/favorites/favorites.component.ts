@@ -19,6 +19,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   userList: User[];
   userState: string;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  isLoading = false;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -45,7 +46,14 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   async getFavoriteUser(): Promise<void> {
-    this.userList = await this.userService.getFavoriteUser().toPromise();
+    try{
+      this.isLoading = true;
+      this.userList = await this.userService.getFavoriteUser().toPromise();
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy(): void {

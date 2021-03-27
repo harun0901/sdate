@@ -22,6 +22,7 @@ export class UserlistComponent implements OnInit, OnDestroy {
   pageSizeOptions: number[] = [9, 18, 36, 54];
   startIndex = 0;
   endIndex = 9;
+  isLoading = false;
 
   userList: User[];
   userState: string;
@@ -50,16 +51,23 @@ export class UserlistComponent implements OnInit, OnDestroy {
   }
 
   async getRandomUserByLimit(): Promise<void> {
-    this.userList = await this.userService.getRandomUserByLimit({
-      limit_count: ShowLimitCount.UserShowCount.toString(),
-      searchKey: {
-        lookingFor: this.searchService.searchKey.lookingFor,
-        startAge: this.searchService.searchKey.startAge,
-        endAge: this.searchService.searchKey.endAge,
-        location: this.searchService.searchKey.location,
-        ignoreFlag: this.searchService.searchKey.ignoreFlag,
-      }}).toPromise();
-    this.length = this.userList.length;
+    try{
+      this.isLoading = true;
+      this.userList = await this.userService.getRandomUserByLimit({
+        limit_count: ShowLimitCount.UserShowCount.toString(),
+        searchKey: {
+          lookingFor: this.searchService.searchKey.lookingFor,
+          startAge: this.searchService.searchKey.startAge,
+          endAge: this.searchService.searchKey.endAge,
+          location: this.searchService.searchKey.location,
+          ignoreFlag: this.searchService.searchKey.ignoreFlag,
+        }}).toPromise();
+      this.length = this.userList.length;
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   onPaginationChangeEvent($event): void {

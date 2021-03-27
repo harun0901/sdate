@@ -15,7 +15,7 @@ import {
   languageList,
   interestedList,
 } from '../../core/models/option';
-import { DEFAULT_IMAGE, Signal } from '../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset, Signal } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { User } from '../../core/models/user';
 import { UserService } from '../../core/services/user.service';
@@ -309,7 +309,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   navigate(path: string | string[]): void {
     this.routerNavigate.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 

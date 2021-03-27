@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { DEFAULT_IMAGE } from '../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
 import { NotificationService } from '../../core/services/notification.service';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
@@ -79,7 +79,7 @@ export class NotificationComponent implements OnInit {
 
   navigate(path: string | string[]): void {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 

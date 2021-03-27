@@ -1,3 +1,4 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <div class="row flex-wrap">
   <ng-container *ngFor="let user of userList; let i = index">
     <ng-container *ngIf="i >= startIndex && i < endIndex">

@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { ROUTES, toAbsolutePath } from 'src/app/core/data/routes';
 
-import { DEFAULT_IMAGE } from '../../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset } from '../../../core/models/base';
 import { ScrollPosition } from '../../../core/data/scroll-pos';
 import { NotificationService } from '../../../core/services/notification.service';
 import { NotificationDescription, NotificationEntity, NotificationType } from '../../../core/models/notificationEntity';
@@ -58,7 +58,11 @@ export class InboxItemComponent implements OnInit {
     }
   }
   async onNotificationClicked(): Promise<void> {
-    const res = await this.notificationService.updateNotification({id: this.notification.id}).toPromise();
+    const res = await this.notificationService.UpdateInboxItem({
+      senderId: this.notification.sender.id,
+      receiverId: this.notification.receiver.id,
+      pattern: this.notification.pattern
+    }).toPromise();
     this.notificationService.setNotificationStore(res);
     if (this.notification.pattern === NotificationType.Message) {
       this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.notification.sender.id]);
@@ -70,7 +74,11 @@ export class InboxItemComponent implements OnInit {
   async onCloseClicked(): Promise<void> {
     try {
       this.isLoading = true;
-      const res = await this.notificationService.DeleteNotification({id: this.notification.id}).toPromise();
+      const res = await this.notificationService.DeleteInboxItem({
+        senderId: this.notification.sender.id,
+        receiverId: this.notification.receiver.id,
+        pattern: this.notification.pattern
+      }).toPromise();
       this.notificationService.setNotificationStore(res);
     } catch (e) {
       this.isLoading = false;
@@ -81,7 +89,7 @@ export class InboxItemComponent implements OnInit {
 
   navigate(path: string | string[]): void {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 

@@ -1,10 +1,12 @@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 import { NotificationEntity, NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
 import { OpenPageService } from '../../core/services/open-page.service';
+import { ScrollPosition } from '../../core/data/scroll-pos';
 
 @Component({
   selector: 'sdate-inbox',
@@ -22,26 +24,22 @@ export class InboxComponent implements OnInit {
   pageSizeOptions: number[] = [9, 18, 36, 54];
   startIndex = 0;
   endIndex = 9;
+  isLoading = false;
 
   constructor(
     private notificationService: NotificationService,
     private openPageSv: OpenPageService,
+    private scrollToService: ScrollToService,
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.openPageSv.send('inbox');
-    this.getAllNotification();
+    await this.getAllNotification();
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
       this.notificationStore = this.notificationService.notificationStore;
-      this.inboxNotifications = this.notificationStore.filter(item => {
-        if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+      this.inboxNotifications = this.distinctArray(this.notificationStore);
       this.length = this.inboxNotifications.length;
     });
   }
@@ -52,14 +50,39 @@ export class InboxComponent implements OnInit {
   }
 
   async getAllNotification(): Promise<void> {
-    this.notificationStore = await this.notificationService.getAllNotification().toPromise();
-    this.inboxNotifications = this.notificationStore.filter(item => {
-      if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
-        return true;
+    try{
+      this.isLoading = true;
+      this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+      this.inboxNotifications = this.distinctArray(this.notificationStore);
+      this.length = this.inboxNotifications.length;
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  distinctArray(preList: NotificationEntity[]): NotificationEntity[] {
+    let resList: NotificationEntity[] = [];
+    const senderIdList: string[] = [];
+    const patternList: string[] = [];
+    preList.map(item => {
+      if (senderIdList.indexOf(item.sender.id) > -1 && patternList.indexOf(item.pattern) > -1) {
+        return item;
       } else {
-        return false;
+        if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
+          resList.push(item);
+          senderIdList.push(item.sender.id);
+          patternList.push(item.pattern);
+        }
+        return item;
       }
-    })
-    this.length = this.inboxNotifications.length;
+    });
+    resList = resList.sort((a, b) => {
+      const da = new Date(a.createdAt);
+      const db = new Date(b.createdAt);
+      return Number(db) - Number(da);
+    });
+    return resList;
   }
 }

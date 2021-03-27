@@ -29,7 +29,6 @@ export class RightpanelComponent implements OnInit, OnDestroy {
   notificationStore: NotificationEntity[];
   selectedSearchKey = NotificationType.Any;
   NotificationType = NotificationType;
-  isOpen = false;
 
   constructor(
     private notificationService: NotificationService,
@@ -37,18 +36,17 @@ export class RightpanelComponent implements OnInit, OnDestroy {
     this.notificationStore = [];
   }
 
-  ngOnInit(): void {
-    this.getNotSeenNotification();
+  async ngOnInit(): Promise<void> {
+    await this.getNotSeenNotification();
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
-    ).subscribe((notification) => {
-      this.notificationStore = this.notificationService.notificationStore;
-      this.notificationStore.sort((a, b) => {
+    ).subscribe(async notification => {
+      this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
+      this.notificationStore = await this.notificationStore.sort((a, b) => {
         const da = new Date(a.createdAt);
         const db = new Date(b.createdAt);
         return Number(db) - Number(da);
       });
-      this.isOpen = !this.isOpen;
     });
   }
 
@@ -63,7 +61,7 @@ export class RightpanelComponent implements OnInit, OnDestroy {
   async getNotSeenNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
     this.notificationService.setNotificationStore(this.notificationStore);
-    this.notificationStore.sort((a, b) => {
+    this.notificationStore = this.notificationStore.sort((a, b) => {
       const da = new Date(a.createdAt);
       const db = new Date(b.createdAt);
       return Number(db) - Number(da);

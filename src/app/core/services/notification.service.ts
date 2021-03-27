@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
-import { AddNotification, NotificationEntity, NotificationId } from '../models/notificationEntity';
+import { AddNotification, InboxPayload, NotificationEntity, NotificationId } from '../models/notificationEntity';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -53,8 +53,23 @@ export class NotificationService {
     return this.http.put<NotificationEntity[]>(url, payload);
   }
 
+  DeleteInboxItem(payload: InboxPayload): Observable<NotificationEntity[]> {
+    const url = `${environment.api}/sdate/notification/deleteInboxItem`;
+    return this.http.put<NotificationEntity[]>(url, payload);
+  }
+
+  UpdateInboxItem(payload: InboxPayload): Observable<NotificationEntity[]> {
+    const url = `${environment.api}/sdate/notification/updateInboxItem`;
+    return this.http.put<NotificationEntity[]>(url, payload);
+  }
+
   getAllNotification(): Observable<NotificationEntity[]> {
     const url = `${environment.api}/sdate/notification/getAllNotification`;
+    return this.http.get<NotificationEntity[]>(url);
+  }
+
+  getInboxList(): Observable<NotificationEntity[]> {
+    const url = `${environment.api}/sdate/notification/getInboxList`;
     return this.http.get<NotificationEntity[]>(url);
   }
 

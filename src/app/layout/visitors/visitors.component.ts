@@ -17,6 +17,7 @@ import { SearchService } from '../../core/services/search.service';
 export class VisitorsComponent implements OnInit, OnDestroy {
   userList: User[];
   userState: string;
+  isLoading = false;
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -43,7 +44,14 @@ export class VisitorsComponent implements OnInit, OnDestroy {
   }
 
   async getVisitUser(): Promise<void> {
-    this.userList = await this.userService.getVisitUser().toPromise();
+    try{
+      this.isLoading = true;
+      this.userList = await this.userService.getVisitUser().toPromise();
+    } catch (e) {
+      this.isLoading = false;
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy(): void {

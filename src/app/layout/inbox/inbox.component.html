@@ -1,3 +1,4 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <div class="max-height-800 overflow-auto overflow-x">
   <ng-container *ngFor="let notification of inboxNotifications; let i = index">
     <ng-container *ngIf="i >= startIndex && i < endIndex">

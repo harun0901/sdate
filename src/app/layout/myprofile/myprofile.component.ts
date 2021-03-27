@@ -12,7 +12,7 @@ import { ScrollPosition } from '../../core/data/scroll-pos';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { UploadType } from '../../core/models/upload';
 import { UploadService } from '../../core/services/upload.service';
-import { GState } from '../../core/models/base';
+import { GState, ScrollOffset } from '../../core/models/base';
 import { NotificationService } from '../../core/services/notification.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -87,7 +87,6 @@ export class MyprofileComponent implements OnInit, OnDestroy {
     });
   }
   onAvatarClicked(): void {
-    window.scroll(0, 0);
     this.uploadImgDialog.open(ImageCropperComponent, {
       width: '450px',
       height: '500px',
@@ -124,7 +123,7 @@ export class MyprofileComponent implements OnInit, OnDestroy {
 
   navigate(path: string | string[]): void {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 

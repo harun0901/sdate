@@ -27,3 +27,7 @@ div#notification_bar:hover {
 button.close-button:hover {
   border: 1px solid #D05068;
 }
+
+.content-width {
+  width: calc(100% - 60px);
+}

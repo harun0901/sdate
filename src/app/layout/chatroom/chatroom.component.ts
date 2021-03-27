@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DEFAULT_IMAGE } from '../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
@@ -186,7 +186,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
   navigate(path: string | string[]): void {
     this.routerRouter.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset });
     });
   }
 

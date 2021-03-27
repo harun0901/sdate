@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
-import { Signal, DEFAULT_IMAGE } from '../../core/models/base';
+import { Signal, DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
 import { User, UserShowType } from '../../core/models/user';
 import { ROUTES, toAbsolutePath } from '../../core/data/routes';
 import { ScrollPosition } from '../../core/data/scroll-pos';
@@ -45,7 +45,7 @@ export class PersoncardComponent implements OnInit {
 
   navigate(path: string | string[]): void {
     this.router.navigateByUrl(toAbsolutePath(path)).then(() => {
-      this.scrollToService.scrollTo({ target: ScrollPosition.Root });
+      this.scrollToService.scrollTo({ target: ScrollPosition.Root, offset: ScrollOffset});
     });
   }
 

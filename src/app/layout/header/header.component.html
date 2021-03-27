@@ -4,7 +4,9 @@
       <img class="height-35" src="../../../assets/images/logo.png" alt="#"/>
     </div>
     <div class="col-sm-6 justify-content-center align-items-center d-none d-lg-flex">
-      <a class="menu-item" (click)="navigate([ROUTES.home.root, ROUTES.home.chats])"><h4>CHATS</h4></a>
+      <a class="menu-item" (click)="navigate([ROUTES.home.root, ROUTES.home.chats])">
+        <h4>CHATS</h4>
+      </a>
       <a class="menu-item" (click)="navigate([ROUTES.home.root, ROUTES.home.inbox])">
         <h4 matBadge="{{newMsgCount}}" matBadgeOverlap="false">INBOX</h4>
       </a>
@@ -56,16 +58,15 @@
     </div>
   </div>
   <div class="d-flex align-items-center justify-content-around d-lg-none">
-      <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.chats])"><sdate-icon [width]="16" icon="message" color="white"></sdate-icon></a>
+      <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.chats])"><sdate-icon [width]="16" icon="message" color="white" matBadge="{{newMsgCount}}" matBadgeOverlap="false" matBadgeSize="small"></sdate-icon></a>
       <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.inbox])"><sdate-icon [width]="16" icon="eye" color="white"></sdate-icon></a>
-      <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.likes])"><sdate-icon [width]="16" icon="search" color="white"></sdate-icon></a>
       <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.likes])"><sdate-icon [width]="16" icon="star" color="white"></sdate-icon></a>
-      <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.visitors])"><sdate-icon [width]="16" icon="grid" color="white"></sdate-icon></a>
+      <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.visitors])"><sdate-icon [width]="16" icon="grid" color="white" matBadge="{{newVisitorCount}}" matBadgeOverlap="false" matBadgeSize="small"></sdate-icon></a>
       <a class="menu-item m-0 p-2" (click)="navigate([ROUTES.home.root, ROUTES.home.favorites])"><sdate-icon [width]="16" icon="heart" color="white"></sdate-icon></a>
       <button mat-icon-button [matMenuTriggerFor]="menu" class="p-5 mr-10" aria-label="Main Menu">
         <sdate-icon [width]="16" icon="list" color="white"></sdate-icon>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu #menu="matMenu" [class.d-none]="true">
         <button mat-menu-item (click)="navigate([ROUTES.home.root, ROUTES.home.myprofile])">
           <span>My Profile</span>
         </button>
@@ -89,4 +90,13 @@
       </mat-menu>
   </div>
 </header>
-<div id="root" class="p-20 bg-dark"></div>
+<div id="root" class="bg-dark"></div>
+<div class="d-block d-md-none">
+  <div *ngIf="notificationStore && notificationStore.length > 0" class="bg-transparent w-100 height-60">
+    <ng-container *ngFor="let notification of notificationStore">
+      <div [@flyInOut]="'in'" class="w-100 position-absolute z-index-10 overflow-x">
+        <sdate-notification  [notification]="notification"></sdate-notification>
+      </div>
+    </ng-container>
+  </div>
+</div>

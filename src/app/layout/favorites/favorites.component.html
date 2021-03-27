@@ -1,10 +1,11 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <div>
   <div class="bg-white shadow-lg d-flex align-items-center justify-content-start mb-10 w-100 height-70">
     <div class="m-5 shadow-sm">
       <img class="min-width-60 min-height-60 width-60 height-60" [src]="DEFAULT_IMAGE" alt="#"/>
     </div>
     <div class="ml-10 d-flex flex-column justify-content-around py-10 notify-info">
-      <h4>Welcome AlekseiPanov</h4>
+      <h4>Welcome</h4>
       <p class="text-overflow d-none d-sm-block p-0 m-0">New design on sdate - Keep the full overview and optimize your profile in the infoCenter.</p>
       <div class="d-flex justify-content-end align-items-center">
         <a class="text-primary text-decoration-none" [routerLink]="['/home/my-profile']">To the infoCenter</a>

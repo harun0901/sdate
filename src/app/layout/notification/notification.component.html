@@ -1,17 +1,17 @@
 <div class="position-relative text-black-50 rounded-sm">
   <div id="notification_bar" [attr.data-label] = "dataLabel" (click)="onNotificationClicked()"
-       class="position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 width-250">
+       class="position-relative bg-white shadow-sm d-flex align-items-center justify-content-start mb-10 w-100">
     <div class="pr-1">
       <img class="width-60 height-60 rounded-sm" [src]="notification.sender.avatar || DEFAULT_IMAGE" alt="#"/>
     </div>
     <div>
-      <div class="d-flex width-180 align-items-center justify-content-between">
-        <p class="width-90 text-overflow">{{notification && notification.sender.fullName}}</p>
-        <p class="m-0 font-10 width-80 text-overflow">{{notification && notification.createdAt.toString() | timeAgo}}</p>
+      <div class="d-flex align-items-center justify-content-between">
+        <p class="w-50 text-overflow">{{notification && notification.sender.fullName}}</p>
+        <p class="m-0 font-10 w-50 text-overflow">{{notification && notification.createdAt.toString() | timeAgo}}</p>
         <p class="width-10"></p>
       </div>
-      <div class="d-flex width-180 align-items-center justify-content-start">
-        <p class="m-0 font-12 width-165 text-overflow">{{description}}</p>
+      <div class="d-flex align-items-center justify-content-start">
+        <p class="m-0 font-12 w-100 text-overflow">{{description}}</p>
       </div>
     </div>
   </div>
