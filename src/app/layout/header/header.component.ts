@@ -87,22 +87,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.calcInfoCenter();
     });
 
-    await this.getNotSeenNotification();
+    // await this.getNotSeenNotification();
+    await this.getAllNotification();
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(notification => {
       this.notificationStore = this.notificationService.notificationStore;
-      this.notificationStore = this.notificationStore.sort((a, b) => {
-        const da = new Date(a.createdAt);
-        const db = new Date(b.createdAt);
-        return Number(da) - Number(db);
-      }).filter(item => {
-        if (item.seen === 0) {
-          return true;
-        } else {
-          return false;
-        }
-      });
       this.isOpen = !this.isOpen;
     });
   }
@@ -185,17 +175,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   async getNotSeenNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
-    this.notificationStore = this.notificationStore.sort((a, b) => {
-      const da = new Date(a.createdAt);
-      const db = new Date(b.createdAt);
-      return Number(da) - Number(db);
-    }).filter(item => {
-      if (item.seen === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    this.notificationService.setNotificationStore(this.notificationStore);
+  }
+
+  async getAllNotification(): Promise<void> {
+    this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+    this.notificationService.setNotificationStore(this.notificationStore);
   }
 
   ngOnDestroy(): void {

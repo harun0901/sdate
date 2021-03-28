@@ -34,7 +34,9 @@ export class InboxComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.openPageSv.send('inbox');
-    await this.getAllNotification();
+    // await this.getAllNotification();
+    this.notificationStore = this.notificationService.notificationStore;
+    this.inboxNotifications = this.distinctArray(this.notificationStore);
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe((notification) => {
@@ -49,20 +51,21 @@ export class InboxComponent implements OnInit {
     this.endIndex = this.startIndex + $event.pageSize;
   }
 
-  async getAllNotification(): Promise<void> {
-    try{
-      this.isLoading = true;
-      this.notificationStore = await this.notificationService.getAllNotification().toPromise();
-      this.inboxNotifications = this.distinctArray(this.notificationStore);
-      this.length = this.inboxNotifications.length;
-    } catch (e) {
-      this.isLoading = false;
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  // async getAllNotification(): Promise<void> {
+  //   try{
+  //     this.isLoading = true;
+  //     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
+  //     this.inboxNotifications = this.distinctArray(this.notificationStore);
+  //     this.length = this.inboxNotifications.length;
+  //   } catch (e) {
+  //     this.isLoading = false;
+  //   } finally {
+  //     this.isLoading = false;
+  //   }
+  // }
 
-  distinctArray(preList: NotificationEntity[]): NotificationEntity[] {
+  distinctArray(notifylist: NotificationEntity[]): NotificationEntity[] {
+    const preList = notifylist;
     let resList: NotificationEntity[] = [];
     const senderIdList: string[] = [];
     const patternList: string[] = [];

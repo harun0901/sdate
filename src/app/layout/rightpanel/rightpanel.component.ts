@@ -18,8 +18,8 @@ import { NotificationEntity, NotificationType } from '../../core/models/notifica
         animate(500)
       ]),
       transition('* => void', [
-        animate(500)
-        // animate(500, style({ opacity: 0 }))
+        // animate(500)
+        animate(500, style({ opacity: 0 }))
       ])
     ]),
   ],
@@ -37,16 +37,13 @@ export class RightpanelComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getNotSeenNotification();
+    this.notificationStore = this.notificationService.notificationStore;
+    this.notificationStore = this.sortArray(this.notificationStore);
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(async notification => {
-      this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
-      this.notificationStore = await this.notificationStore.sort((a, b) => {
-        const da = new Date(a.createdAt);
-        const db = new Date(b.createdAt);
-        return Number(db) - Number(da);
-      });
+      this.notificationStore = this.notificationService.notificationStore;
+      this.notificationStore = this.sortArray(this.notificationStore);
     });
   }
 
@@ -58,15 +55,25 @@ export class RightpanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  async getNotSeenNotification(): Promise<void> {
-    this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
-    this.notificationService.setNotificationStore(this.notificationStore);
-    this.notificationStore = this.notificationStore.sort((a, b) => {
+  sortArray(preList: NotificationEntity[]): NotificationEntity[] {
+    let resList = preList;
+    resList = resList.sort((a, b) => {
       const da = new Date(a.createdAt);
       const db = new Date(b.createdAt);
       return Number(db) - Number(da);
     });
+    return resList;
   }
+
+  // async getNotSeenNotification(): Promise<void> {
+  //   this.notificationStore = await this.notificationService.getNotSeenNotification().toPromise();
+  //   this.notificationService.setNotificationStore(this.notificationStore);
+  //   this.notificationStore = this.notificationStore.sort((a, b) => {
+  //     const da = new Date(a.createdAt);
+  //     const db = new Date(b.createdAt);
+  //     return Number(db) - Number(da);
+  //   });
+  // }
 
   ngOnDestroy(): void {
     this.unsubscribeAll.next();

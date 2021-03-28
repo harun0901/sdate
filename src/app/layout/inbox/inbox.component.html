@@ -2,9 +2,7 @@
 <div class="max-height-800 overflow-auto overflow-x">
   <ng-container *ngFor="let notification of inboxNotifications; let i = index">
     <ng-container *ngIf="i >= startIndex && i < endIndex">
-      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Message" [notification]="notification"></sdate-inbox-item>
-      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Gift" [notification]="notification"></sdate-inbox-item>
-      <sdate-inbox-item *ngIf="notification.pattern === NotificationType.Kiss" [notification]="notification"></sdate-inbox-item>
+      <sdate-inbox-item [notification]="notification"></sdate-inbox-item>
     </ng-container>
   </ng-container>
 </div>
