@@ -42,6 +42,15 @@
 //    height: 220px;
 //  }
 //}
+@media (max-width: 767px) {
+  @media (min-width: 400px) {
+    .col-tiny-6 {
+      flex: 0 0 50% !important;
+      max-width: 50% !important;
+    }
+  }
+}
+
 
 .online-state {
   width: 8px;

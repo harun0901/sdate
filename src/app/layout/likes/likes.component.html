@@ -1,6 +1,6 @@
 <sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <div class="row">
-  <div class="col-6 col-md-4 col-lg-6 col-xl-4 col-xxl-3" *ngFor="let user of userList" >
+  <div class="col-12 col-tiny-6 col-md-4 col-lg-6 col-xl-4 col-xxl-3" *ngFor="let user of userList" >
     <sdate-personcard [customerInfo]="user" [customerState]="UserShowType.LIKE"></sdate-personcard>
   </div>
 </div>
@@ -10,7 +10,7 @@
 <div class="row mt-20">
   <ng-container *ngFor="let notification of notificationStore">
     <ng-container *ngIf="notification.pattern === NotificationType.Like && notification.seen === 0">
-      <div class="col-6 col-md-4 col-lg-6 col-xl-4 col-xxl-3">
+      <div class="col-12 col-tiny-6 col-md-4 col-lg-6 col-xl-4 col-xxl-3">
         <sdate-personcard [customerInfo]="notification.sender" [customerState]="UserShowType.RANDOM"></sdate-personcard>
       </div>
     </ng-container>
