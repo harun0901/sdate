@@ -67,10 +67,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     }
     await this.getCustomerInfo(this.customerId);
     await this.getPartChatList(this.customerId);
-    this.cRef.detectChanges();
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
     this.chatStoreService.chatStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe( chatEmmitInfo => {
@@ -78,10 +74,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
           // this.chatStore.push(chatEmmitInfo.chat);
           this.chatStore = this.chatStoreService.getChat(this.customerId);
           this.getPartChatList(this.customerId);
-          this.cRef.detectChanges();
-          try {
-            this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-          } catch (err) { }
         }
       }
     );
@@ -90,6 +82,10 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   async getPartChatList(customerId): Promise<void> {
     this.chatStore = await this.chatService.getPartChatList({id: customerId}).toPromise();
     this.chatStoreService.setChatStore(this.customerId, this.chatStore);
+    this.cRef.detectChanges();
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
   async onAllChatHistoryClicked(): Promise<void> {
