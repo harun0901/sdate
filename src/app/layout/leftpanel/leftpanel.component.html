@@ -9,33 +9,6 @@
         <button class="btn btn-info w-100 py-5" (click)="onPaymentClicked()">Buy Coins</button>
       </div>
     </div>
-    <div class="bg-white p-10 shadow-sm text-black-50">
-      <h4>Search</h4>
-      <hr class="my-10 bg-dark"/>
-      <p class="mb-5">I'm looking for</p>
-      <div class="w-100 d-flex justify-content-around align-items-center mb-10" *ngIf="lookingForVal == LookingFor.MAN">
-        <button class="btn btn-dark w-50 d-flex justify-content-center p-1" (click)="femaleClicked()"><sdate-icon [width]="25" icon="female" color="geraldine"></sdate-icon></button>
-        <button class="btn btn-primary w-50 d-flex justify-content-center p-1" (click)="maleClicked()"><sdate-icon [width]="25" icon="male" color="white"></sdate-icon></button>
-      </div>
-      <div class="w-100 d-flex justify-content-around align-items-center mb-10" *ngIf="lookingForVal == LookingFor.WOMAN">
-        <button class="btn btn-primary w-50 d-flex justify-content-center p-1" (click)="femaleClicked()"><sdate-icon [width]="25" icon="female" color="white"></sdate-icon></button>
-        <button class="btn btn-dark w-50 d-flex justify-content-center p-1" (click)="maleClicked()"><sdate-icon [width]="25" icon="male" color="geraldine"></sdate-icon></button>
-      </div>
-      <div class="d-flex align-items-center justify-content-around">
-        <label class="mr-5">Age range</label>
-        <input class="width-35 height-25 border-dark border-2 text-black-50 text-center rounded-sm" [value]="startAge" /> <span> ~ </span> <input class="width-35 height-25 border-dark text-black-50 border-2 text-center rounded-sm" [value]="endAge" />
-      </div>
-
-      <div class="my-25">
-        <npn-slider [min]="AgeLimit.START" [max]="AgeLimit.END" (onChange)="onSliderChange($event)"></npn-slider>
-      </div>
-      <p class="m-0">City</p>
-      <div class="mb-15">
-        <input class="w-75 height-30 border-dark border-2 rounded-sm mr-5 text-black-50" placeholder="location" [(ngModel)]="location" />
-        <button class="btn p-0"><sdate-icon [width]="25" icon="geo" color="geraldine"></sdate-icon></button>
-      </div>
-
-      <button class="btn btn-primary py-5" (click)="onSearchClicked()">SEARCH</button>
-    </div>
+    <sdate-search-panel></sdate-search-panel>
   </div>
 </div>

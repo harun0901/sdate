@@ -39,6 +39,7 @@ import { AvatarModule } from '../ui-kit/avatar/avatar.module';
 import { GiftModule } from './gift/gift.module';
 import { KissModule } from './kiss/kiss.module';
 import { InboxModule } from './inbox/inbox.module';
+import { SearchPanelComponent } from './search-panel/search-panel.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { InboxModule } from './inbox/inbox.module';
     UserlistComponent,
     ChatboxComponent,
     PaymentComponent,
+    SearchPanelComponent,
   ],
   imports: [
     CommonModule,

@@ -37,7 +37,18 @@ const routes: Routes = [
         resolve: { user: UserResolver },
         canActivate: [RoleGuard],
         data: {
-          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator]
+          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator],
+          hasSearch: false
+        }
+      },
+      {
+        path: ROUTES.home.search,
+        component: UserlistComponent,
+        resolve: { user: UserResolver },
+        canActivate: [RoleGuard],
+        data: {
+          roles: [UserRole.Admin, UserRole.Customer, UserRole.Moderator],
+          hasSearch: true
         }
       },
       {

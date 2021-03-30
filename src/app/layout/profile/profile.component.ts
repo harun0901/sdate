@@ -166,7 +166,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   async onAvatarClicked(): Promise<void> {
     if (this.isEditable) {
-      window.scroll(0, 0);
       this.uploadImgDialog.open(ImageCropperComponent, {
         width: '450px',
         height: '500px',

@@ -1,6 +1,6 @@
-<div class="person-card person-sm-card shadow mb-20 mx-1 text-black-50">
+<div class="shadow mb-20 mx-1 text-black-50">
     <div class="avatar-part overflow-hidden" (click)="onAvatarClicked()">
-      <img class="thumbnail" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/>
+      <img class="thumbnail w-100" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/>
     </div>
     <div [ngClass]="newVisitorFlag !== undefined && newVisitorFlag === 0 ? 'border-2 border-primary' : 'border-0'">
       <div class="detail-part px-10 d-flex flex-column justify-content-around">
@@ -12,11 +12,11 @@
           <p class="w-25 text-overflow m-0 font-12">{{customerInfo && customerInfo.location}}</p>
           <div class="w-75">
             <div class="d-flex align-items-center justify-content-end">
-              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onFavoriteClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.FAVORITE ? 'star-active' : 'star'}}" color="geraldine"></sdate-icon></a>
-              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onLikeClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.LIKE ? 'heart-active' : 'heart'}}" color="geraldine"></sdate-icon></a>
-              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onKissClicked()"><sdate-icon [width]="14" icon="kiss" color="geraldine"></sdate-icon></a>
-              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onGiftClicked()"><sdate-icon [width]="14" icon="gift" color="geraldine"></sdate-icon></a>
-              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onMessageClick()"><sdate-icon [width]="14" icon="message-active" color="geraldine"></sdate-icon></a>
+              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onFavoriteClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.FAVORITE ? 'star-active' : 'star'}}" color="geraldine" size="12"></sdate-icon></a>
+              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onLikeClicked()"><sdate-icon [width]="14" icon="{{customerState == UserShowType.LIKE ? 'heart-active' : 'heart'}}" color="geraldine" size="12"></sdate-icon></a>
+              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onKissClicked()"><sdate-icon [width]="14" icon="kiss" color="geraldine" size="12"></sdate-icon></a>
+              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onGiftClicked()"><sdate-icon [width]="14" icon="gift" color="geraldine" size="12"></sdate-icon></a>
+              <a class="btn btn-outline-primary m-0 p-1 mr-1" (click)="onMessageClick()"><sdate-icon [width]="14" icon="message-active" color="geraldine" size="12"></sdate-icon></a>
             </div>
           </div>
         </div>

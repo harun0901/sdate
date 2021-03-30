@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../core/services/user.service';
 import { ShowLimitCount, User, UserShowType } from '../../core/models/user';
@@ -16,6 +16,7 @@ import { SearchService } from '../../core/services/search.service';
   styleUrls: ['./userlist.component.scss']
 })
 export class UserlistComponent implements OnInit, OnDestroy {
+
   // MatPaginator Inputs
   length = 9;
   pageSize = 9;
@@ -23,6 +24,7 @@ export class UserlistComponent implements OnInit, OnDestroy {
   startIndex = 0;
   endIndex = 9;
   isLoading = false;
+  hasSearch = false;
 
   userList: User[];
   userState: string;
@@ -32,12 +34,14 @@ export class UserlistComponent implements OnInit, OnDestroy {
     private openPageSv: OpenPageService,
     private signalService: SignalService,
     private searchService: SearchService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.searchService.setIgnoreFlag(true);
     this.openPageSv.send('chats');
     this.userState = UserShowType.RANDOM;
+    this.hasSearch = this.route.snapshot.data.hasSearch;
     this.getRandomUserByLimit();
     this.signalService.signalEvent$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)

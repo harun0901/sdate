@@ -14,37 +14,34 @@
   background: #8DA3BA;
 }
 
-.person-card {
-  width: 100% !important;
-  min-width: 290px;
-  min-height: 350px;
-  box-sizing: border-box;
+.detail-part {
+  height: 70px;
 }
 
-.person-card img, .person-card .avatar-part{
-  width: 100%;
-  height: 290px;
-}
-.person-card .detail-part {
-  height: 60px;
-}
-
-@media (min-width: 576px) { //sm
-  .person-sm-card {
-    width: 100% !important;
-    min-width: 220px;
-    min-height: 270px;
-  }
-
-  .person-sm-card img, .person-sm-card .avatar-part{
-    width: 100%;
-    height: 220px;
-  }
-
-  .person-card .detail-part {
-    height: 60px;
-  }
-}
+//.person-card {
+//  width: 100% !important;
+//  min-width: 290px;
+//  min-height: 350px;
+//  box-sizing: border-box;
+//}
+//
+//.person-card img, .person-card .avatar-part{
+//  width: 100%;
+//  height: 290px;
+//}
+//
+//@media (min-width: 576px) { //sm
+//  .person-sm-card {
+//    width: 100% !important;
+//    min-width: 220px;
+//    min-height: 270px;
+//  }
+//
+//  .person-sm-card img, .person-sm-card .avatar-part{
+//    width: 100%;
+//    height: 220px;
+//  }
+//}
 
 .online-state {
   width: 8px;
