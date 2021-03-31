@@ -93,10 +93,10 @@
   </div>
 </header>
 <div id="root" class="bg-dark"></div>
-<div class="d-none d-md-none">
+<div class="d-block d-md-none">
   <div *ngIf="notificationStore && notificationStore.length > 0" class="bg-transparent w-100 height-60">
-    <ng-container *ngFor="let notification of notificationStore">
-      <div *ngIf="!notification.seen" [@flyInOut]="'in'" class="w-100 position-absolute z-index-10 overflow-x">
+    <ng-container *ngFor="let notification of notificationStore; let i = index;">
+      <div *ngIf="!notification.seen && i === 0" [@flyInOut] class="mobile-notification w-100 position-absolute z-index-10 overflow-x">
         <sdate-notification  [notification]="notification"></sdate-notification>
       </div>
     </ng-container>

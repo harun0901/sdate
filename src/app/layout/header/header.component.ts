@@ -31,11 +31,12 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     trigger('flyInOut', [
       state('in', style({ transform: 'translateX(0)' })),
       transition('void => *', [
-        style({ transform: 'translateX(100%)' }),
-        animate(500)
+        // style({ transform: 'translateX(100%)' }),
+        // animate(500)
+        animate(700, style({ opacity: 1 }))
       ]),
       transition('* => void', [
-        animate(500)
+        animate(700, style({ opacity: 0 }))
       ])
     ]),
   ],
@@ -89,10 +90,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     // await this.getNotSeenNotification();
     await this.getAllNotification();
+    this.notificationStore = this.filterArray(this.notificationStore);
     this.notificationService.notificationStore$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe(notification => {
       this.notificationStore = this.notificationService.notificationStore;
+      this.notificationStore = this.filterArray(this.notificationStore);
       this.isOpen = !this.isOpen;
     });
   }
@@ -181,6 +184,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   async getAllNotification(): Promise<void> {
     this.notificationStore = await this.notificationService.getAllNotification().toPromise();
     this.notificationService.setNotificationStore(this.notificationStore);
+  }
+
+  filterArray(preList: NotificationEntity[]): NotificationEntity[] {
+    let resList = preList;
+    resList = resList.filter(item => {
+      if (!item.seen) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return resList;
   }
 
   ngOnDestroy(): void {
