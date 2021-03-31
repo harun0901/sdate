@@ -64,7 +64,9 @@ export class InboxItemComponent implements OnInit {
       pattern: this.notification.pattern
     }).toPromise();
     this.notificationService.setNotificationStore(res);
-    if (this.notification.pattern === NotificationType.Message) {
+    if (this.notification.pattern === NotificationType.Message
+      || this.notification.pattern === NotificationType.Kiss
+      || this.notification.pattern === NotificationType.Gift) {
       this.navigate([ROUTES.home.root, ROUTES.home.chatroom_root, this.notification.sender.id]);
     } else {
       this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.notification.sender.id]);

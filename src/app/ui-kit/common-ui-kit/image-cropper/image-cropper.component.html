@@ -17,8 +17,8 @@
     ></image-cropper>
     <img [src]="croppedImage" class="crop-image" />
   </div>
-  <div class="d-flex justify-content-around align-items-center position-absolute bottom-0 z-index-5">
-    <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mr-100 mb-10" (click)="fileInput.click()">Select File</button>
+  <div class="d-flex justify-content-around align-items-center position-absolute w-100 bottom-0 z-index-5">
+    <button class="btn btn-info height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mb-10" (click)="fileInput.click()">Select File</button>
     <button class="btn btn-primary height-30 width-100 d-flex align-items-center justify-content-center rounded-0 mb-10" [disabled]="croppedImage === ''" (click)="uploadImg()">Upload</button>
   </div>
   <div mat-dialog-actions></div>
