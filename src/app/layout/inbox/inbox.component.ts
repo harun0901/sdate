@@ -70,7 +70,7 @@ export class InboxComponent implements OnInit {
     const senderIdList: string[] = [];
     const patternList: string[] = [];
     preList.map(item => {
-      if (senderIdList.indexOf(item.sender.id) > -1 && patternList.indexOf(item.pattern) > -1) {
+      if (senderIdList.indexOf(item.sender.id) > -1) {
         return item;
       } else {
         if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {

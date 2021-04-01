@@ -5,12 +5,14 @@ export interface NotificationEntity extends Entity {
   sender: User;
   receiver: User;
   pattern: string;
+  content: string;
   seen: number;
 }
 
 export interface AddNotification {
   receiver_id: string;
   pattern: string;
+  content: string;
 }
 
 export interface NotificationId {
@@ -21,6 +23,7 @@ export interface InboxPayload {
   senderId: string;
   receiverId: string;
   pattern: string;
+  content: string;
 }
 
 export enum NotificationType {

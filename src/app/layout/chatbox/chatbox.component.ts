@@ -127,7 +127,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         const res = await this.chatService.sendMessage(payload).toPromise();
         this.chatStore.push(res);
         this.chatForm.reset();
-        await this.addNotification();
+        await this.addNotification(payload.text);
         this.cRef.detectChanges();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -192,10 +192,11 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     });
   }
 
-  async addNotification(): Promise<void> {
+  async addNotification(content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
       pattern: NotificationType.Message,
+      content
     }).toPromise();
   }
 

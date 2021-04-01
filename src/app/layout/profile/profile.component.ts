@@ -118,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (this.authService.user.role === UserRole.Admin) {
           this.isEditable = true;
         }
-        this.addNotification(NotificationType.Visit);
+        this.addNotification(NotificationType.Visit, '');
       } else {
         this.customerId = this.customerInfo.id;
         this.isEditable = true;
@@ -153,10 +153,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  async addNotification(patternStr: string): Promise<void> {
+  async addNotification(patternStr: string, content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
-      pattern: patternStr
+      pattern: patternStr,
+      content
     }).toPromise();
   }
 
@@ -232,7 +233,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   async onBlockUserClicked(): Promise<void> {
     if (!this.isEditable) {
       await this.userService.blockUser({id: this.customerInfo.id}).toPromise();
-      await this.addNotification(NotificationType.Block);
+      await this.addNotification(NotificationType.Block, '');
       this.getBlockedUser();
       this.toastr.success(`You've successfully blocked this customer.`);
     }
@@ -241,7 +242,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   async onFavoriteClicked(): Promise<void> {
     if (!this.isEditable) {
       await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
-      await this.addNotification(NotificationType.Favorite);
+      await this.addNotification(NotificationType.Favorite, '');
       this.toastr.success(`You've successfully sent a favorite signal.`);
     }
   }
@@ -249,7 +250,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   async onLikeClicked(): Promise<void> {
     if (!this.isEditable) {
       await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
-      await this.addNotification(NotificationType.Like);
+      await this.addNotification(NotificationType.Like, '');
       this.toastr.success(`You've successfully sent a like signal.`);
     }
   }

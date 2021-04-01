@@ -10,6 +10,16 @@
         <p class="w-100 text-overflow font-18">{{notification && notification.sender.fullName}}</p>
       </div>
       <div class="d-flex w-90 align-items-center justify-content-start">
+        <ng-container *ngIf="notification.pattern === NotificationType.Kiss">
+          <div class="bg-white rounded-sm">
+            <sdate-icon [width]="30" icon="kiss" color="geraldine"></sdate-icon>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="notification.pattern === NotificationType.Gift">
+          <div class="d-flex justify-content-center align-items-center">
+            <img class="width-30 height-30 rounded-sm border-2 border-secondary m-1" [src]="notification.content" alt="#"/>
+          </div>
+        </ng-container>
         <p class="m-0 font-12 w-100 text-overflow font-16">{{description}}</p>
       </div>
       <div class="d-flex w-90 align-items-center justify-content-start">

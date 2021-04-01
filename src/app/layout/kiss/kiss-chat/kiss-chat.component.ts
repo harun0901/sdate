@@ -55,7 +55,7 @@ export class KissChatComponent implements OnInit {
           this.chatStoreService.addChat(this.data.customerId, res);
         }
         this.kissForm.reset();
-        this.addNotification(NotificationType.Kiss);
+        this.addNotification(NotificationType.Kiss, '');
         this.toastrService.success('You have just sent a kiss successfully.');
         this.dialogRef.close();
       } catch (e) {
@@ -66,10 +66,11 @@ export class KissChatComponent implements OnInit {
     }
   }
 
-  async addNotification(notificationType: string): Promise<void> {
+  async addNotification(notificationType: string, content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.data.customerId,
       pattern: notificationType,
+      content
     }).toPromise();
   }
 

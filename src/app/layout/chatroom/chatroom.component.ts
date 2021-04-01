@@ -125,7 +125,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
         this.chatStore.push(res);
         this.chatForm.reset();
         // this.cRef.detectChanges();
-        await this.addNotification(NotificationType.Message);
+        await this.addNotification(NotificationType.Message, payload.text);
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
         } catch (err) { }
@@ -162,15 +162,16 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   async onLikeClicked(): Promise<void> {
     this.showEmojiPicker = false;
     const tmpUser = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
-    this.addNotification(NotificationType.Like);
+    this.addNotification(NotificationType.Like, '');
     this.toastr.success(`You just liked ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
   }
 
-  async addNotification(notificationType: string): Promise<void> {
+  async addNotification(notificationType: string, content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
       pattern: notificationType,
+      content
     }).toPromise();
   }
 

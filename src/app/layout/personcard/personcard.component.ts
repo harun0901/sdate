@@ -63,7 +63,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.removeLikeUser({id: this.customerInfo.id}).toPromise();
     } else {
       user = await this.userService.likeUser({id: this.customerInfo.id}).toPromise();
-      await this.addNotification(NotificationType.Like);
+      await this.addNotification(NotificationType.Like, '');
     }
     this.toastr.success(`You just liked ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
@@ -75,7 +75,7 @@ export class PersoncardComponent implements OnInit {
       user = await this.userService.removeFavoriteUser({id: this.customerInfo.id}).toPromise();
     } else {
       user = await this.userService.favoriteUser({id: this.customerInfo.id}).toPromise();
-      this.addNotification(NotificationType.Favorite);
+      this.addNotification(NotificationType.Favorite, '');
     }
     this.toastr.success(`You just favorite ${this.customerInfo.fullName}.`);
     this.signalService.sendSignal(Signal.UserListchanged);
@@ -101,10 +101,11 @@ export class PersoncardComponent implements OnInit {
     });
   }
 
-  async addNotification(message: string): Promise<void> {
+  async addNotification(message: string, content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerInfo.id,
       pattern: message,
+      content
     }).toPromise();
   }
 

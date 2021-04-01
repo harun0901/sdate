@@ -18,6 +18,7 @@ export class InboxItemComponent implements OnInit {
   description: string;
   dataLabel: string;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  NotificationType = NotificationType;
   isLoading = false;
   @Input() notification: NotificationEntity;
   constructor(
@@ -42,7 +43,7 @@ export class InboxItemComponent implements OnInit {
         this.dataLabel = 'visit';
         break;
       case NotificationType.Message:
-        this.description = NotificationDescription.Message;
+        this.description = this.notification.content;
         this.dataLabel = 'read';
         break;
       case NotificationType.Gift:
@@ -61,7 +62,8 @@ export class InboxItemComponent implements OnInit {
     const res = await this.notificationService.UpdateInboxItem({
       senderId: this.notification.sender.id,
       receiverId: this.notification.receiver.id,
-      pattern: this.notification.pattern
+      pattern: this.notification.pattern,
+      content: this.notification.content
     }).toPromise();
     this.notificationService.setNotificationStore(res);
     if (this.notification.pattern === NotificationType.Message
@@ -79,7 +81,8 @@ export class InboxItemComponent implements OnInit {
       const res = await this.notificationService.DeleteInboxItem({
         senderId: this.notification.sender.id,
         receiverId: this.notification.receiver.id,
-        pattern: this.notification.pattern
+        pattern: this.notification.pattern,
+        content: this.notification.content
       }).toPromise();
       this.notificationService.setNotificationStore(res);
     } catch (e) {
