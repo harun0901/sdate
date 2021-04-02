@@ -20,7 +20,7 @@
             <img class="width-30 height-30 rounded-sm border-2 border-secondary m-1" [src]="notification.content" alt="#"/>
           </div>
         </ng-container>
-        <p class="m-0 font-12 w-100 text-overflow font-16">{{description}}</p>
+        <p class="m-0 font-12 w-70 text-overflow font-16">{{description}}</p>
       </div>
       <div class="d-flex w-90 align-items-center justify-content-start">
         <p class="m-0 font-10 w-100 text-overflow font-15">{{notification && notification.createdAt.toString() | timeAgo}}</p>

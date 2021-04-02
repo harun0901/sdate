@@ -41,3 +41,7 @@ p.show-all-history {
     right: 50px !important;
   }
 }
+
+emoji-mart::ng-deep .emoji-mart-bar {
+  display: none;
+}

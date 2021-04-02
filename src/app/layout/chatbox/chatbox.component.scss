@@ -30,3 +30,7 @@ div.message_box.justify-content-end div.message_content:before {
   bottom: .3rem;
   border-color: transparent transparent transparent #D05068;
 }
+
+emoji-mart::ng-deep .emoji-mart-bar {
+  display: none;
+}

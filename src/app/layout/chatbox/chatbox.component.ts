@@ -206,7 +206,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   }
 
   addEmoji(event): void {
-    this.message = `${this.message}${event.emoji.native}`;
+    this.message = `${(this.message === null ? '' : this.message)}${event.emoji.native}`;
   }
 
   onFocus(): void {
