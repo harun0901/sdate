@@ -11,7 +11,7 @@ import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatService } from '../../core/services/chat.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService } from '../../core/services/user.service';
-import { User } from '../../core/models/user';
+import { User, USER_STATE } from '../../core/models/user';
 import { NotificationType } from '../../core/models/notificationEntity';
 import { NotificationService } from '../../core/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,6 +40,7 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   message = '';
   showEmojiPicker = false;
   set = 'twitter';
+  USER_STATE = USER_STATE;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(

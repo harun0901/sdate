@@ -53,6 +53,7 @@ export interface UpdateUserPayload {
   about: string;
   location: string;
   balance: number;
+  state: number;
 }
 
 export interface UserFact {
@@ -84,6 +85,11 @@ export interface UserId {
   id: string;
 }
 
+export interface UserData {
+  id: string;
+  data: string;
+}
+
 export interface UpdatePasswordPayload {
   id: string;
   password: string;
@@ -103,6 +109,13 @@ export enum UserShowType {
   VISITOR = 'VISITORUSERLIST',
   LIKE = 'LIKEUSERLIST',
   FAVORITE = 'FAVORITELIST'
+}
+
+export enum USER_STATE {
+  PENDING = 0,
+  NORMAL = 1,
+  SUSPEND = 2,
+  DELETED = 9,
 }
 
 export enum Gender {

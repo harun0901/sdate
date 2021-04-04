@@ -172,7 +172,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         height: '500px',
         panelClass: 'full-panel',
         backdropClass: 'custom-backdrop',
-        data: {type: UploadType.AvatarUploading, detailInfo: ''}
+        data: {type: UploadType.AvatarUploading, detailInfo: '', customerId: ''}
       });
     } else {
       this.uploadData = await this.uploadService.getCustomerUploadByIdState({
@@ -233,7 +233,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   async onBlockUserClicked(): Promise<void> {
     if (!this.isEditable) {
       await this.userService.blockUser({id: this.customerInfo.id}).toPromise();
-      await this.addNotification(NotificationType.Block, '');
+      // await this.addNotification(NotificationType.Block, '');
       this.getBlockedUser();
       this.toastr.success(`You've successfully blocked this customer.`);
     }

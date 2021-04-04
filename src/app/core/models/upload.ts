@@ -25,11 +25,13 @@ export enum UploadType {
   AvatarUploading = 0,
   GiftUploading = 1,
   PersonImageUploading = 4,
+  CustomerAvatarUploading = 5,
 }
 
 export interface UploadDialogData {
   type: number;
   detailInfo: string;
+  customerId: string;
 }
 
 export interface ImageSlider {

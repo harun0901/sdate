@@ -32,7 +32,7 @@ export class DashGiftComponent implements OnInit {
       height: '500px',
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop',
-      data: { type: UploadType.GiftUploading, detailInfo: 'gift Dialog' }
+      data: { type: UploadType.GiftUploading, detailInfo: 'gift Dialog', customerId: '' }
     });
   }
 

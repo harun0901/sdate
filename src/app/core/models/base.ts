@@ -17,6 +17,7 @@ export enum Signal {
   UserListchanged = 'USERLISTCHANGED',
   VisitorListChanged = 'VISITORLISTCHANGED',
   SearchAgain = 'SEARCHAGAIN',
+  AVATAR_CHANGED = 'avatar_changed',
 }
 
 export enum GState {

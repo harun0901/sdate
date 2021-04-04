@@ -29,6 +29,7 @@ export interface DecodedToken {
   role: UserRole;
   iat: number;
   exp: number;
+  state: number;
 }
 
 

@@ -7,8 +7,9 @@ import { ToastrService } from '../../../core/services/toastr.service';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { GiftService } from '../../../core/services/gift.service';
-import { GState } from '../../../core/models/base';
+import { GState, Signal } from '../../../core/models/base';
 import { UploadStatus, UploadType, UploadDialogData } from '../../../core/models/upload';
+import { SignalService } from '../../../core/services/signal.service';
 
 @Component({
   selector: 'sdate-image-cropper',
@@ -16,11 +17,13 @@ import { UploadStatus, UploadType, UploadDialogData } from '../../../core/models
   styleUrls: ['./image-cropper.component.scss'],
 })
 export class ImageCropperComponent implements OnInit {
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
   isLoading = false;
 
   constructor(
+    private signalService: SignalService,
     private uploadService: UploadService,
     private toastrService: ToastrService,
     private userService: UserService,
@@ -68,7 +71,7 @@ export class ImageCropperComponent implements OnInit {
       this.toastrService.success('Image successfully uploaded.');
       const tmpImagePath = response.uploadURL.split('?')[0];
       if (this.dataInfo.type === UploadType.AvatarUploading) {
-        await this.userService.updateAvatar({ id: tmpImagePath }).toPromise();
+        await this.userService.updateAvatar({ data: tmpImagePath, id: this.authService.user.id }).toPromise();
         await this.authService.getAuth().toPromise();
       } else if (this.dataInfo.type === UploadType.GiftUploading) {
         const res = await this.giftService.register({path: tmpImagePath, state: GState.Accept}).toPromise();
@@ -81,6 +84,9 @@ export class ImageCropperComponent implements OnInit {
           state: GState.Accept,
         }).toPromise();
         this.uploadService.getByIdState({ uploaderId: this.authService.user.id, state: GState.Accept });
+      } else if (this.dataInfo.type === UploadType.CustomerAvatarUploading) {
+        await this.userService.updateAvatar({ data: tmpImagePath, id: this.dataInfo.customerId }).toPromise();
+        this.signalService.sendSignal(Signal.AVATAR_CHANGED);
       }
       this.isLoading = true;
       this.dialogRef.close();

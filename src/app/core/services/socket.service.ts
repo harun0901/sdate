@@ -22,7 +22,6 @@ export class SocketService {
   }
 
   disconnect(id: string): any {
-    console.log('disconnect = ', id);
     this.socket.emit(environment.socket.disconnect, id);
   }
 

@@ -5,11 +5,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from '../../core/services/toastr.service';
+import { USER_STATE } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 
 export class LoginComponent implements OnInit {
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     private dialogRef: MatDialogRef<LoginComponent>,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -40,7 +41,12 @@ export class LoginComponent implements OnInit {
       /*********real mode***************/
       await this.auth.login(loginInfo).toPromise();
       const token = await this.auth.decodeToken();
-      this.auth.navigateByUserRole(token.role);
+      if (token.state === USER_STATE.DELETED) {
+        this.toastr.danger(`You are blocked from the support team.`);
+      } else {
+        this.auth.navigateByUserRole(token.role);
+        this.toastr.success(`You've successfully logged in.`);
+      }
       /*********test mode***************/
       // if (loginInfo.email !== 'admin@gmail.com' || loginInfo.password !== 'adminadmin') {
       //   throw new Error('invalid ID');
@@ -48,7 +54,6 @@ export class LoginComponent implements OnInit {
       // this.auth.navigateByUserRole(UserRole.Admin);
       /*********test mode***************/
       this.dialogRef.close();
-      this.toastr.success(`You've successfully logged in.`);
     } catch (e) {
       this.toastr.danger(`Invalid email or password. Please try again.`);
     } finally {

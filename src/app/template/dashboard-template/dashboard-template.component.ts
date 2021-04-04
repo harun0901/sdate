@@ -30,36 +30,36 @@ export class DashboardTemplateComponent implements OnInit {
       label: 'GiftManage',
       route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageGift])
     },
-    {
-      icon: 'customers',
-      label: 'Contact',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageContact])
-    },
-    {
-      icon: 'contractors',
-      label: 'Guideline',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageGuideline])
-    },
-    {
-      icon: 'ideaboard',
-      label: 'Faq',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageFaq])
-    },
-    {
-      icon: 'hiring',
-      label: 'Terms & Conditions',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageTerms])
-    },
-    {
-      icon: 'marketing',
-      label: 'Privacy and Imprint',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.managePrivacy])
-    },
-    {
-      icon: 'reviews',
-      label: 'Language',
-      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageLanguage])
-    },
+    // {
+    //   icon: 'customers',
+    //   label: 'Contact',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageContact])
+    // },
+    // {
+    //   icon: 'contractors',
+    //   label: 'Guideline',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageGuideline])
+    // },
+    // {
+    //   icon: 'ideaboard',
+    //   label: 'Faq',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageFaq])
+    // },
+    // {
+    //   icon: 'hiring',
+    //   label: 'Terms & Conditions',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageTerms])
+    // },
+    // {
+    //   icon: 'marketing',
+    //   label: 'Privacy and Imprint',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.managePrivacy])
+    // },
+    // {
+    //   icon: 'reviews',
+    //   label: 'Language',
+    //   route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageLanguage])
+    // },
   ];
   constructor() { }
 

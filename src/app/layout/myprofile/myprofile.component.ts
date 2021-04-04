@@ -92,7 +92,7 @@ export class MyprofileComponent implements OnInit, OnDestroy {
       height: '500px',
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop',
-      data: { type: UploadType.PersonImageUploading, detailInfo: '' }
+      data: { type: UploadType.PersonImageUploading, detailInfo: '', customerId: '' }
     });
   }
 

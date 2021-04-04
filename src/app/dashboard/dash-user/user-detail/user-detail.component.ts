@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { DEFAULT_IMAGE, Signal } from '../../../core/models/base';
 import { ImageCropperComponent } from '../../../ui-kit/common-ui-kit/image-cropper/image-cropper.component';
@@ -8,17 +8,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastrService } from '../../../core/services/toastr.service';
 import { SignalService } from '../../../core/services/signal.service';
-import { UpdateUserPayload, UserDetailDialogForm } from '../../../core/models/user';
+import { UpdateUserPayload, USER_STATE, UserDetailDialogForm } from '../../../core/models/user';
 import * as option from '../../../core/models/option';
 import { PasswordUpdateComponent } from '../password-update/password-update.component';
 import { UserService } from '../../../core/services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sdate-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss']
+  styleUrls: ['./user-detail.component.scss'],
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   customerFG: FormGroup;
@@ -35,8 +37,11 @@ export class UserDetailComponent implements OnInit {
   relationshipList = option.relationshipList;
   interestedList = option.interestedList;
   languageList = option.languageList;
-
+  stateList = option.stateList;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
+  USER_STATE = USER_STATE;
+  private unsubscribeAll: Subject<any> = new Subject<any>();
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -69,32 +74,44 @@ export class UserDetailComponent implements OnInit {
       lastLogin: ['', [Validators.required]],
       ipAddress: ['', [Validators.required]],
       balance: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      about: [''],
     });
   }
 
   ngOnInit(): void {
-      this.customerFG.setValue({
-        fullName: this.customerDetail.detail.fullName,
-        email: this.customerDetail.detail.email,
-        role: this.customerDetail.detail.role,
-        gender: this.customerDetail.detail.gender,
-        lookingFor: this.customerDetail.detail.lookingFor,
-        body: this.customerDetail.detail.body,
-        education: this.customerDetail.detail.education,
-        interestedIn: this.customerDetail.detail.interestedIn,
-        kids: this.customerDetail.detail.kids,
-        profession: this.customerDetail.detail.profession,
-        relationshipStatus: this.customerDetail.detail.relationshipStatus,
-        smoker: this.customerDetail.detail.smoker,
-        language: this.customerDetail.detail.language,
-        height: this.customerDetail.detail.height,
-        alcohol: this.customerDetail.detail.alcohol,
-        location: this.customerDetail.detail.location,
-        birthday: this.customerDetail.detail.birthday,
-        lastLogin: this.customerDetail.detail.lastLogin.toString().substring(0, 19),
-        ipAddress: this.customerDetail.detail.ipAddress,
-        balance: this.customerDetail.detail.balance,
-      });
+    this.customerFG.setValue({
+      fullName: this.customerDetail.detail.fullName,
+      email: this.customerDetail.detail.email,
+      role: this.customerDetail.detail.role,
+      gender: this.customerDetail.detail.gender,
+      lookingFor: this.customerDetail.detail.lookingFor,
+      body: this.customerDetail.detail.body,
+      education: this.customerDetail.detail.education,
+      interestedIn: this.customerDetail.detail.interestedIn,
+      kids: this.customerDetail.detail.kids,
+      profession: this.customerDetail.detail.profession,
+      relationshipStatus: this.customerDetail.detail.relationshipStatus,
+      smoker: this.customerDetail.detail.smoker,
+      language: this.customerDetail.detail.language,
+      height: this.customerDetail.detail.height,
+      alcohol: this.customerDetail.detail.alcohol,
+      location: this.customerDetail.detail.location,
+      birthday: this.customerDetail.detail.birthday,
+      lastLogin: this.customerDetail.detail.lastLogin.toString().substring(0, 19),
+      ipAddress: this.customerDetail.detail.ipAddress,
+      balance: this.customerDetail.detail.balance,
+      state: this.customerDetail.detail.state,
+      about: this.customerDetail.detail.about,
+    });
+    this.signalService.signalEvent$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll),
+    ).subscribe(async pattern => {
+      if (pattern === Signal.AVATAR_CHANGED) {
+        const res = await this.userService.getUserInfo(this.customerDetail.detail.id).toPromise();
+        this.customerDetail.detail.avatar = res.avatar;
+      }
+    });
   }
 
   async onSubmitClicked($event): Promise<void> {
@@ -116,15 +133,15 @@ export class UserDetailComponent implements OnInit {
   }
 
   onAvatarClicked(): void {
-    // if ( typeof this.customerDetail.detail !== 'undefined') {
-    //   this.uploadImgDialog.open(ImageCropperComponent, {
-    //     width: '450px',
-    //     height: '500px',
-    //     panelClass: 'full-panel',
-    //     backdropClass: 'custom-backdrop',
-    //     data: {type: UploadType.AvatarUploading, detailInfo: ''}
-    //   });
-    // }
+    if (typeof this.customerDetail.detail !== 'undefined') {
+      this.uploadImgDialog.open(ImageCropperComponent, {
+        width: '450px',
+        height: '500px',
+        panelClass: 'full-panel',
+        backdropClass: 'custom-backdrop',
+        data: {type: UploadType.CustomerAvatarUploading, detailInfo: '', customerId: this.customerDetail.detail.id},
+      });
+    }
   }
 
   onUpdatePassword($event): void {
@@ -132,7 +149,7 @@ export class UserDetailComponent implements OnInit {
     this.passwordDialog.open(PasswordUpdateComponent, {
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop',
-      data: {detail: this.customerDetail.detail}
+      data: {detail: this.customerDetail.detail},
     });
   }
 
@@ -149,6 +166,11 @@ export class UserDetailComponent implements OnInit {
   onCloseClicked($event): void {
     $event.preventDefault();
     this.dialogRef.close();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 
 }

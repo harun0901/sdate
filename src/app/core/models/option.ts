@@ -1,4 +1,4 @@
-import { Gender, LookingFor } from './user';
+import { Gender, LookingFor, USER_STATE } from './user';
 import { UserRole } from './auth';
 
 export interface Option<T> {
@@ -131,4 +131,11 @@ export const languageList: Option<string>[] = [
   {value: 'spanish', label: 'Spanish'},
   {value: 'turkish', label: 'Turkish'},
   {value: 'hebrew', label: 'Hebrew'},
+];
+
+export const stateList: Option<USER_STATE>[] = [
+  {value: USER_STATE.DELETED, label: 'Deleted'},
+  {value: USER_STATE.NORMAL, label: 'Using'},
+  {value: USER_STATE.SUSPEND, label: 'Suspend'},
+  {value: USER_STATE.PENDING, label: 'Pending'},
 ];

@@ -45,11 +45,13 @@
         <sdate-select label="Profession" [options]="professionList" formControlName="profession"></sdate-select>
         <sdate-select label="RelationshipStatus" [options]="relationshipList" formControlName="relationshipStatus"></sdate-select>
         <sdate-select label="Smoker" [options]="smokerList" formControlName="smoker"></sdate-select>
+        <sdate-text-input label="About" value="" placeholder="About User" formControlName="about"></sdate-text-input>
       </div>
       <div class="col-12 col-md-3">
         <sdate-select label="Language" [options]="languageList" formControlName="language"></sdate-select>
         <sdate-select label="Height" [options]="heightList" formControlName="height"></sdate-select>
         <sdate-select label="Alcohol" [options]="alcoholicList" formControlName="alcohol"></sdate-select>
+        <sdate-select label="State" [style]="customerDetail.detail.state === USER_STATE.DELETED ? 'color: red' : ''" [options]="stateList" formControlName="state"></sdate-select>
       </div>
     </div>
     <div class="d-flex justify-content-end mx-20 mb-10">
