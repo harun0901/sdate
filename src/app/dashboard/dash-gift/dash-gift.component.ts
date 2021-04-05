@@ -17,13 +17,11 @@ export class DashGiftComponent implements OnInit {
   gift$ = this.giftService.gift$.asObservable();
   constructor(
     private giftService: GiftService,
-    private authService: AuthService,
-    private userService: UserService,
     public uploadImgDialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-    this.giftService.getGiftByState({ state: GState.Accept });
+  async ngOnInit(): Promise<void> {
+    await this.giftService.getGiftByState({ state: GState.Accept });
   }
 
   onGiftAddClicked(): void {
@@ -38,7 +36,7 @@ export class DashGiftComponent implements OnInit {
 
   async onGiftClicked(itemId): Promise<void> {
     if (confirm('Are you sure to delete this item?')) {
-      const res = await this.giftService.updateGift({ giftId: itemId, state: GState.Decline }).toPromise();
+      const res = await this.giftService.updateGift({ giftId: itemId, price: 0, state: GState.Decline }).toPromise();
       this.giftService.setGifts(res);
     }
   }

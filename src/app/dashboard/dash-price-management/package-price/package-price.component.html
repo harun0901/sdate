@@ -1,26 +1,12 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <section>
-  <div class="container">
+  <div class="container mb-30">
     <h2 class="font-weight-bold text-center my-30">Package Price Management</h2>
-    <div class="d-flex justify-content-around">
-      <label class="font-weight-bold">Package 1</label>
-      <sdate-text-input type="number" label="Price" placeholder="2$"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="200"></sdate-text-input>
-      <sdate-text-input type="number" label="Bonus" placeholder="20"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-around">
-      <label class="font-weight-bold">Package 1</label>
-      <sdate-text-input type="number" label="Price" placeholder="2$"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="200"></sdate-text-input>
-      <sdate-text-input type="number" label="Bonus" placeholder="20"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-around">
-      <label class="font-weight-bold">Package 1</label>
-      <sdate-text-input type="number" label="Price" placeholder="2$"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="200"></sdate-text-input>
-      <sdate-text-input type="number" label="Bonus" placeholder="20"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-end mx-50">
-      <button class="btn btn-primary font-weight-bold">SUBMIT</button>
+    <div class="d-flex justify-content-around" *ngFor="let item of (packages$ | async) as items">
+      <label class="font-weight-bold">Package {{ item.index }}</label>
+      <sdate-text-input type="number" label="Price" placeholder="2$" [(ngModel)]="item.price" (focusout)="onChange(item)"></sdate-text-input>
+      <sdate-text-input type="number" label="Credits" placeholder="200" [(ngModel)]="item.credit" (focusout)="onChange(item)"></sdate-text-input>
+      <sdate-text-input type="number" label="Bonus" placeholder="20" [(ngModel)]="item.bonus" (focusout)="onChange(item)"></sdate-text-input>
     </div>
   </div>
 </section>

@@ -6,6 +6,7 @@ import { DashPriceManagementComponent } from './dash-price-management.component'
 import { PackagePriceComponent } from './package-price/package-price.component';
 import { GiftPriceComponent } from './gift-price/gift-price.component';
 import { CommonUiKitModule } from '../../ui-kit/common-ui-kit/common-ui-kit.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,6 +15,8 @@ import { CommonUiKitModule } from '../../ui-kit/common-ui-kit/common-ui-kit.modu
     CommonModule,
     DashPriceManagementRoutingModule,
     CommonUiKitModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
 })
 export class DashPriceManagementModule { }

@@ -2,16 +2,19 @@ import { Entity } from './base';
 
 export interface Gift extends Entity {
   path: string;
+  price: number;
   state: number;
 }
 
 export interface RegisterGiftPayload{
   path: string;
+  price: number;
   state: number;
 }
 
 export interface UpdateGiftPayload{
   giftId: string;
+  price: number;
   state: number;
 }
 

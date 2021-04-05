@@ -1,23 +1,12 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
 <section>
-  <div class="container">
+  <div class="container mb-150">
     <h2 class="font-weight-bold text-center my-30">Gift Price Management</h2>
-    <div class="d-flex justify-content-around align-items-center">
-      <img class="width-50 height-50 border-radius-8 border-3" src="assets/images/uploaded/avatar.png" alt="#"/>
-      <sdate-text-input label="Name" placeholder="BeautyPig"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="4"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <img class="width-50 height-50 border-radius-8 border-3" src="assets/images/uploaded/avatar.png" alt="#"/>
-      <sdate-text-input label="Name" placeholder="BeautyPig"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="4"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-around align-items-center">
-      <img class="width-50 height-50 border-radius-8 border-3" src="assets/images/uploaded/avatar.png" alt="#"/>
-      <sdate-text-input label="Name" placeholder="BeautyPig"></sdate-text-input>
-      <sdate-text-input type="number" label="Credits" placeholder="4"></sdate-text-input>
-    </div>
-    <div class="d-flex justify-content-end mx-50">
-      <button class="btn btn-primary font-weight-bold">SUBMIT</button>
+    <div class="row">
+      <div *ngFor="let item of (gift$ | async) as items" class="d-flex justify-content-center align-items-center col-4">
+        <img class="width-50 height-50 border-radius-8 border-3" [src]="item && item.path" alt="#"/>
+        <sdate-text-input type="number" label="Credits" placeholder="4" [(ngModel)]="item.price" (focusout)="onChange(item)"></sdate-text-input>
+      </div>
     </div>
   </div>
 </section>

@@ -26,6 +26,10 @@ export enum GState {
   Decline = 2
 }
 
+export enum GiftDefaultPrice {
+  value = 5
+}
+
 export enum Opinion {
   Yes = 'YES',
   No = 'NO',

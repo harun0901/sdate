@@ -7,7 +7,7 @@ import { ToastrService } from '../../../core/services/toastr.service';
 import { UserService } from '../../../core/services/user.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { GiftService } from '../../../core/services/gift.service';
-import { GState, Signal } from '../../../core/models/base';
+import { GiftDefaultPrice, GState, Signal } from '../../../core/models/base';
 import { UploadStatus, UploadType, UploadDialogData } from '../../../core/models/upload';
 import { SignalService } from '../../../core/services/signal.service';
 
@@ -74,7 +74,7 @@ export class ImageCropperComponent implements OnInit {
         await this.userService.updateAvatar({ data: tmpImagePath, id: this.authService.user.id }).toPromise();
         await this.authService.getAuth().toPromise();
       } else if (this.dataInfo.type === UploadType.GiftUploading) {
-        const res = await this.giftService.register({path: tmpImagePath, state: GState.Accept}).toPromise();
+        const res = await this.giftService.register({path: tmpImagePath, price: GiftDefaultPrice.value, state: GState.Accept}).toPromise();
         this.giftService.setGifts(res);
       } else if (this.dataInfo.type === UploadType.PersonImageUploading) {
         const res = await this.uploadService.register({
