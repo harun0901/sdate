@@ -30,6 +30,11 @@ export class DashboardTemplateComponent implements OnInit {
       label: 'GiftManage',
       route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.manageGift])
     },
+    {
+      icon: 'hiring',
+      label: 'PriceManage',
+      route: toAbsolutePath([ROUTES.dashboard.root, ROUTES.dashboard.priceManagement])
+    },
     // {
     //   icon: 'customers',
     //   label: 'Contact',

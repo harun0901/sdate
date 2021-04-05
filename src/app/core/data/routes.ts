@@ -47,6 +47,7 @@ export const ROUTES = {
     dashboard: 'dashboard',
     manageUser: 'manage-user',
     categoryManage: 'manage-category',
+    priceManagement: 'price-management',
     payment: 'payment',
     manageGift: 'manage-gift',
     manageContact: 'manage-contact',

@@ -112,15 +112,15 @@ const routes: Routes = [
           roles: [UserRole.Admin, UserRole.SuperAdmin]
         },
       },
-      // {
-      //   path: ROUTES.dashboard.categoryManage,
-      //   loadChildren: () => import('./dash-language/dash-language.module').then(m => m.DashLanguageModule),
-      //   resolve: { user: UserResolver },
-      //   canActivate: [RoleGuard],
-      //   data: {
-      //     roles: [UserRole.Admin, UserRole.SuperAdmin]
-      //   },
-      // }
+      {
+        path: ROUTES.dashboard.priceManagement,
+        loadChildren: () => import('./dash-price-management/dash-price-management.module').then(m => m.DashPriceManagementModule),
+        resolve: { user: UserResolver },
+        canActivate: [RoleGuard],
+        data: {
+          roles: [UserRole.Admin, UserRole.SuperAdmin]
+        },
+      }
     ]
   }
 ];
