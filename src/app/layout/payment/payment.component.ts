@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 
 import { PaymentItems } from '../../core/models/payment';
+import { PackageService } from '../../core/services/package.service';
 
 @Component({
   selector: 'sdate-payment',
@@ -12,19 +13,26 @@ export class PaymentComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
   PaymentItems = PaymentItems;
   isPay: boolean;
-  amount: number;
+  price: number;
   currency: string;
+  packages$ = this.packageService.packages$.asObservable();
 
-  ngOnInit(): void {
+  constructor(
+    private packageService: PackageService,
+  ) {
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.packageService.getPackages();
     this.isPay = false;
-    this.amount = 0;
+    this.price = 0;
     this.currency = 'USD';
     this.initConfig();
   }
 
-  onPaymentItemClicked(amount: number): void {
+  onPaymentItemClicked(price: number): void {
     this.isPay = true;
-    this.amount = amount;
+    this.price = price;
   }
 
   private initConfig(): void {
@@ -37,11 +45,11 @@ export class PaymentComponent implements OnInit {
           {
             amount: {
               currency_code: this.currency,
-              value: this.amount.toString(),
+              value: this.price.toString(),
               breakdown: {
                 item_total: {
                   currency_code: this.currency,
-                  value: this.amount.toString()
+                  value: this.price.toString()
                 }
               }
             },
@@ -52,7 +60,7 @@ export class PaymentComponent implements OnInit {
                 category: 'DIGITAL_GOODS',
                 unit_amount: {
                   currency_code: this.currency,
-                  value: this.amount.toString(),
+                  value: this.price.toString(),
                 },
               }
             ]

@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
+import { DEFAULT_IMAGE, messageCredit, ScrollOffset } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
@@ -121,8 +121,14 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     this.showEmojiPicker = false;
     if (this.chatForm.valid) {
       try {
+        if (this.authService.user.balance < messageCredit) {
+          this.toastr.danger('Shortage of Coin, you can\'t have a chat.');
+          return;
+        }
         const payload: SendMessagePayload = { receiverId: this.customerId, text: this.chatForm.value.message_content, gift: '', kiss: ''};
         const res = await this.chatService.sendMessage(payload).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * messageCredit }).toPromise();
+        this.authService.setUser(resUser);
         this.chatStore.push(res);
         this.chatForm.reset();
         // this.cRef.detectChanges();
@@ -203,9 +209,6 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
   onFocus(): void {
     this.showEmojiPicker = false;
-  }
-  onBlur(): void {
-    console.log('onblur');
   }
 
   ngOnDestroy(): void {

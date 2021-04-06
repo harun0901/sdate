@@ -88,11 +88,11 @@
           <ng-container *ngIf="isBlocked">
             <p class="text-primary text-center mt-20">You can't send a message to this customer because this customer blocked you.</p>
           </ng-container>
-          <ng-container *ngIf="customerInfo.state === USER_STATE.DELETED">
+          <ng-container *ngIf="customerInfo && customerInfo.state === USER_STATE.DELETED">
             <p class="text-primary text-center mt-20">This customer is closed.</p>
           </ng-container>
-          <ng-container *ngIf="!isBlocked && customerInfo.state !== USER_STATE.DELETED">
-            <textarea autofocus class="w-100 h-100 m-0 border-0" (blur)="onBlur()" (focus)="onFocus()" [(ngModel)]="message" rows="3" cols="50" formControlName="message_content"></textarea>
+          <ng-container *ngIf="customerInfo && !isBlocked && customerInfo.state !== USER_STATE.DELETED">
+            <textarea autofocus class="w-100 h-100 m-0 border-0" (focus)="onFocus()" [(ngModel)]="message" rows="3" cols="50" formControlName="message_content"></textarea>
             <button (click) ="toggleEmojiPicker($event)" class="position-absolute ml-n40 mt-40 border-0 bg-transparent">😀</button>
             <br>
             <emoji-mart class="emoji-mart position-absolute bottom-250 right-150" showPreview="false" set="{{set}}" *ngIf="showEmojiPicker" (emojiSelect)="addEmoji($event)" title="Pick your emoji…"></emoji-mart>

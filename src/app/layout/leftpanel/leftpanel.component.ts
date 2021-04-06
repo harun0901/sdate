@@ -25,7 +25,7 @@ export class LeftpanelComponent implements OnInit {
   onPaymentClicked(): void {
     this.paymentDialog.open(PaymentComponent, {
       width: '300px',
-      panelClass: 'word-panel',
+      panelClass: 'radius-panel',
       backdropClass: 'custom-backdrop'
     });
   }

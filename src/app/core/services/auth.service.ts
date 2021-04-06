@@ -53,6 +53,11 @@ export class AuthService {
     );
   }
 
+  setUser(tmpUser: User): void {
+    this.user = tmpUser;
+    this.user$.next(this.user);
+  }
+
   register(payload: User): Observable<LoginResponse> {
     payload.role = UserRole.Customer;
     const url = `${environment.api}/auth/register`;

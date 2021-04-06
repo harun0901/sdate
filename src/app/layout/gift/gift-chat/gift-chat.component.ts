@@ -10,6 +10,8 @@ import { NotificationType } from '../../../core/models/notificationEntity';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastrService } from '../../../core/services/toastr.service';
+import { messageCredit } from '../../../core/models/base';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'sdate-gift-chat',
@@ -23,6 +25,7 @@ export class GiftChatComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private chatService: ChatService,
     private toastrService: ToastrService,
     private chatStoreService: ChatStoreService,
@@ -42,20 +45,26 @@ export class GiftChatComponent implements OnInit {
   async onTransferClicked(): Promise<void> {
     if (this.chatForm.valid) {
       try {
+        if (this.authService.user.balance < this.data.gift.price) {
+          this.toastrService.danger('Shortage of Coin, you can\'t have a chat.');
+          return;
+        }
         const payload: SendMessagePayload = {
           receiverId: this.data.customerId,
           text: this.chatForm.value.message_content,
-          gift: this.data.path,
+          gift: this.data.gift.path,
           kiss: ''
         };
         const res = await this.chatService.sendMessage(payload).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * this.data.gift.price }).toPromise();
+        this.authService.setUser(resUser);
         if (this.data.type === ChatType.RoomChat) {
           this.chatStoreService.addRoomChat(res);
         } else if (this.data.type === ChatType.BoxChat) {
           this.chatStoreService.addChat(this.data.customerId, res);
         }
         this.chatForm.reset();
-        this.addNotification(NotificationType.Gift, this.data.path);
+        this.addNotification(NotificationType.Gift, this.data.gift.path);
         this.toastrService.success('You have just sent a gift successfully.');
         this.dialogRef.close();
       } catch (e) {

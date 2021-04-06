@@ -162,3 +162,7 @@ export interface GenerateFaker {
   gender: string;
   country: string;
 }
+
+export interface UpdateUserBalance {
+  amount: number;
+}

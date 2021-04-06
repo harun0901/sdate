@@ -30,5 +30,5 @@ export interface GiftPanelPayload{
 export interface GiftChatPayload{
   type: string;
   customerId: string;
-  path: string;
+  gift: Gift;
 }

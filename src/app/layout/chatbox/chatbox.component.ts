@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
+import { DEFAULT_IMAGE, messageCredit, ScrollOffset } from '../../core/models/base';
 import { Chat, ChatRoomEventType, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
@@ -19,6 +19,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { GiftPanelComponent } from '../gift/gift-panel/gift-panel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
+import { ToastrService } from '../../core/services/toastr.service';
 
 @Component({
   selector: 'sdate-chatbox',
@@ -42,6 +43,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   @ViewChild('scrollBox') private myScrollContainer: ElementRef;
 
   constructor(
+    private router: Router,
+    private giftListDialog: MatDialog,
     private notificationService: NotificationService,
     private chatStoreService: ChatStoreService,
     private scrollToService: ScrollToService,
@@ -50,8 +53,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private giftListDialog: MatDialog,
-    private router: Router,
+    private toastr: ToastrService,
   ) {
     this.chatForm = this.formBuilder.group({
       message_content: ['', [Validators.required]],
@@ -123,8 +125,14 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     this.showEmojiPicker = false;
     if (this.chatForm.valid) {
       try {
+        if (this.authService.user.balance < messageCredit) {
+          this.toastr.danger('Shortage of Coin, you can\'t have a chat.');
+          return;
+        }
         const payload: SendMessagePayload = { receiverId: this.customerId, text: this.chatForm.value.message_content, gift: '', kiss: ''};
         const res = await this.chatService.sendMessage(payload).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * messageCredit }).toPromise();
+        this.authService.setUser(resUser);
         this.chatStore.push(res);
         this.chatForm.reset();
         await this.addNotification(payload.text);

@@ -137,7 +137,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (message.sender.id === this.chatStoreService.chatroomUserId) {
             this.chatStoreService.addRoomChat(message);
           } else {
-            this.chatStoreService.addChat(message.sender.id, message);
+            if (message.text !== '' || message.kiss !== '' || message.gift !== ''){
+              this.chatStoreService.addChat(message.sender.id, message);
+            }
           }
         }
       }
@@ -160,7 +162,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onPaymentClicked(): void {
     this.paymentDialog.open(PaymentComponent, {
       width: '300px',
-      panelClass: 'word-panel',
+      panelClass: 'radius-panel',
       backdropClass: 'custom-backdrop'
     });
   }

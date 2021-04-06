@@ -1,6 +1,6 @@
 <div>
   <div class="d-flex justify-content-center align-items-center">
-    <img class="width-100 height-100 rounded-sm border-4 border-secondary m-1" [src]="data.path" alt="#"/>
+    <img class="width-100 height-100 rounded-sm border-4 border-secondary m-1" [src]="data.gift.path" alt="#"/>
   </div>
   <div>
     <form [formGroup]="chatForm"  (ngSubmit)="onTransferClicked()" (keydown.control.enter)="onTransferClicked()">

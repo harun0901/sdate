@@ -2,7 +2,7 @@
   <h2 class="text-white">SELECT YOUR GIFT</h2>
 </div>
 <div class="d-flex justify-content-around align-items-center flex-wrap bg-primary">
-  <a class="btn btn-primary p-0" (click)="onGiftClicked(item.path)" *ngFor="let item of (gift$ | async) as items">
+  <a class="btn btn-primary p-0" (click)="onGiftClicked(item)" *ngFor="let item of (gift$ | async) as items">
     <img class="width-50 height-50 rounded-sm border-2 border-secondary m-1" [src]="item.path" alt="#"/>
   </a>
 </div>

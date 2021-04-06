@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GiftChatComponent } from '../gift-chat/gift-chat.component';
-import { GiftPanelPayload } from '../../../core/models/gift';
+import { Gift, GiftPanelPayload } from '../../../core/models/gift';
 import { GiftService } from '../../../core/services/gift.service';
 import { GState } from '../../../core/models/base';
 
@@ -25,14 +25,14 @@ export class GiftPanelComponent implements OnInit {
     this.giftService.getGiftByState({ state: GState.Accept });
   }
 
-  onGiftClicked(pathInfo: string): void {
+  onGiftClicked(gift: Gift): void {
     this.dialogRef.close();
     this.giftChatDialog.open(GiftChatComponent, {
       width: '300px',
       maxHeight: '400px',
       panelClass: 'full-panel',
       backdropClass: 'custom-backdrop',
-      data: { type: this.data.type, customerId: this.data.customerId, path: pathInfo },
+      data: { type: this.data.type, customerId: this.data.customerId, gift },
     });
   }
 

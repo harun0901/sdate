@@ -111,6 +111,12 @@ textarea:focus {
   border-radius: 0px !important;
 }
 
+.radius-panel  mat-dialog-container {
+  padding: 0px !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
 th div.mat-sort-header-container {
   justify-content: center !important;
 }

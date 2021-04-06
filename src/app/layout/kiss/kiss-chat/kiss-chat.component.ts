@@ -10,6 +10,8 @@ import { GiftChatPayload } from '../../../core/models/gift';
 import { ChatType, SendMessagePayload } from '../../../core/models/chat';
 import { NotificationType } from '../../../core/models/notificationEntity';
 import { ToastrService } from '../../../core/services/toastr.service';
+import { kissCredit } from '../../../core/models/base';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
   selector: 'sdate-kiss-chat',
@@ -23,6 +25,7 @@ export class KissChatComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private chatService: ChatService,
     private toastrService: ToastrService,
     private chatStoreService: ChatStoreService,
@@ -42,6 +45,10 @@ export class KissChatComponent implements OnInit {
   async onTransferClicked(): Promise<void> {
     if (this.kissForm.valid) {
       try {
+        if (this.authService.user.balance < kissCredit) {
+          this.toastrService.danger('Shortage of Coin, you can\'t have a chat.');
+          return;
+        }
         const payload: SendMessagePayload = {
           receiverId: this.data.customerId,
           text: this.kissForm.value.message_content,
@@ -49,6 +56,8 @@ export class KissChatComponent implements OnInit {
           kiss: 'kiss'
         };
         const res = await this.chatService.sendMessage(payload).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * kissCredit }).toPromise();
+        this.authService.setUser(resUser);
         if (this.data.type === ChatType.RoomChat) {
           this.chatStoreService.addRoomChat(res);
         } else if (this.data.type === ChatType.BoxChat) {
