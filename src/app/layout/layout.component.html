@@ -14,7 +14,7 @@
     <sdate-rightpanel></sdate-rightpanel>
   </div>
 </div>
-<div class="position-sticky bottom-10 max-height-400 z-index-10 float-right z-index-10 d-md-none">
+<div class="position-fixed bottom-10 right-0 max-height-400 float-right z-index-10 d-md-none">
   <div *ngFor="let chatId of chatIdStore; let index=index">
     <ng-container *ngIf="index < 1">
       <sdate-chatbox class="d-flex align-items-end" [customerId]="chatId"></sdate-chatbox>

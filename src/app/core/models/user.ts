@@ -118,6 +118,13 @@ export enum USER_STATE {
   DELETED = 9,
 }
 
+export const UserStateComment = {
+  [USER_STATE.PENDING]: 'PENDING',
+  [USER_STATE.NORMAL]: 'NORMAL',
+  [USER_STATE.SUSPEND]: 'SUSPENDED',
+  [USER_STATE.DELETED]: 'BLOCKED',
+}
+
 export enum Gender {
   WOMAN = 'Woman',
   MAN = 'Man',

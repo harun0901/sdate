@@ -15,7 +15,7 @@ import { CategoryComponent } from './category/category.component';
 import { Option } from '../../core/models/option';
 import { CategoryService } from '../../core/services/category.service';
 import { DEFAULT_IMAGE, Signal } from '../../core/models/base';
-import { genderList } from '../../core/models/option';
+import { genderList, roleList } from '../../core/models/option';
 
 @Component({
   selector: 'sdate-dash-user',
@@ -27,6 +27,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
 
   DEFAULT_IMAGE = DEFAULT_IMAGE;
   genderList = genderList;
+  roleList = roleList;
   isLoading = false;
   genFakerCount = 10;
   onlineUserCount = 0;
@@ -38,6 +39,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
   location = '';
   nameList = '';
   gender = '';
+  selectedRole = '';
   country = '';
   displayedColumns: string[] = ['select', 'id', 'name', 'role', 'gender', 'category', 'location'];
   dataSource: MatTableDataSource<UserTableForm>;
@@ -152,13 +154,6 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         return item;
       });
-      // this.dataSource.data = this.dataSource.data.filter(item => {
-      //   if (item.select === true) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // });
     }
   }
 
@@ -226,7 +221,7 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
         return true;
       }
     });
-    const users = this.userList.map((item, index) => {
+    let users = this.userList.map((item, index) => {
       const order = index + 1;
       if (item.role === UserRole.Customer && item.gender === Gender.MAN) {
         this.manCount ++;
@@ -248,9 +243,16 @@ export class DashUserComponent implements OnInit, OnDestroy, AfterViewInit {
         select: false,
       };
     });
+    if (this.selectedRole !== 'Any' && this.selectedRole !== '') {
+      users = users.filter(item => item.role === this.selectedRole);
+    }
     this.dataSource = new MatTableDataSource(users);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  async onRoleChanged(): Promise<void> {
+    await this.getAllOperators();
   }
 
   ngOnDestroy(): void {

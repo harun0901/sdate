@@ -5,6 +5,7 @@ import { ColorPipe } from './color.pipe';
 import { AgePipe } from './age.pipe';
 import { IsMinePipe } from './is-mine.pipe';
 import { TimeAgoPipe } from './time-ago.pipe';
+import { RouteToAbsolutePipe } from './route-to-absolute.pipe';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { TimeAgoPipe } from './time-ago.pipe';
     AgePipe,
     IsMinePipe,
     TimeAgoPipe,
+    RouteToAbsolutePipe,
   ],
   imports: [
     CommonModule
@@ -21,6 +23,7 @@ import { TimeAgoPipe } from './time-ago.pipe';
     AgePipe,
     IsMinePipe,
     TimeAgoPipe,
+    RouteToAbsolutePipe,
   ]
 })
 export class PipesModule { }

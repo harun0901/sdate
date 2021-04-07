@@ -6,7 +6,7 @@ import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-soc
 
 import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from '../../core/services/toastr.service';
-import { USER_STATE } from '../../core/models/user';
+import { USER_STATE, UserStateComment } from '../../core/models/user';
 
 @Component({
   selector: 'sdate-login',
@@ -51,8 +51,8 @@ export class LoginComponent implements OnInit {
       /*********real mode***************/
       await this.auth.login(loginInfo).toPromise();
       const token = await this.auth.decodeToken();
-      if (token.state === USER_STATE.DELETED) {
-        this.toastr.danger(`You are blocked from the support team.`);
+      if (token.state !== USER_STATE.NORMAL) {
+        this.toastr.danger(`You are ${UserStateComment[token.state]} from the support team.`);
       } else {
         this.auth.navigateByUserRole(token.role);
         this.toastr.success(`You've successfully logged in.`);

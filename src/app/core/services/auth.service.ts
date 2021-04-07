@@ -9,7 +9,7 @@ import jwt_decode from 'jwt-decode';
 import { environment } from '../../../environments/environment';
 import { ROUTES } from '../data/routes';
 import { SuccessResponse } from '../models/success-response';
-import { User } from '../models/user';
+import { User, USER_STATE } from '../models/user';
 import {
   UserRole,
   LoginPayload,
@@ -56,6 +56,9 @@ export class AuthService {
   setUser(tmpUser: User): void {
     this.user = tmpUser;
     this.user$.next(this.user);
+    if (this.user.state !== USER_STATE.NORMAL) {
+      this.logout();
+    }
   }
 
   register(payload: User): Observable<LoginResponse> {
