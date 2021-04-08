@@ -28,7 +28,7 @@
         <sdate-text-input label="Last Login" placeholder="User last login date" formControlName="lastLogin"></sdate-text-input>
       </div>
     </div>
-    <div class="row flex-wrap">
+    <div class="row">
       <div class="col-12 col-md-3">
         <sdate-text-input type="number" label="Balance" value="" placeholder="User balance" formControlName="balance"></sdate-text-input>
         <sdate-text-input label="IP Address" placeholder="User ipaddress" formControlName="ipAddress"></sdate-text-input>
@@ -45,14 +45,29 @@
         <sdate-select label="Profession" [options]="professionList" formControlName="profession"></sdate-select>
         <sdate-select label="RelationshipStatus" [options]="relationshipList" formControlName="relationshipStatus"></sdate-select>
         <sdate-select label="Smoker" [options]="smokerList" formControlName="smoker"></sdate-select>
-        <sdate-text-input label="About" value="" placeholder="About User" formControlName="about"></sdate-text-input>
+        <sdate-select label="State" [style]="customerDetail.detail.state === USER_STATE.DELETED ? 'color: red' : ''" [options]="stateList" formControlName="state"></sdate-select>
       </div>
       <div class="col-12 col-md-3">
         <sdate-select label="Language" [options]="languageList" formControlName="language"></sdate-select>
         <sdate-select label="Height" [options]="heightList" formControlName="height"></sdate-select>
         <sdate-select label="Alcohol" [options]="alcoholicList" formControlName="alcohol"></sdate-select>
-        <sdate-select label="State" [style]="customerDetail.detail.state === USER_STATE.DELETED ? 'color: red' : ''" [options]="stateList" formControlName="state"></sdate-select>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <sdate-textarea label="About" placeholder="About User" formControlName="about"></sdate-textarea>
+      </div>
+      <div class="col-md-3 d-flex flex-column align-items-center justify-content-center">
+        <div class="btn border-secondary border-2" (click)="onUploadClicked()">
+          <i class="icon-upload text-black-50 font-40"></i>
+          <h5 class="text-black-50 text-center text-overflow">Upload images</h5>
+        </div>
+      </div>
+      <ng-container *ngIf="(uploadData$ | async) as uploadDataList">
+        <div class="col-md-2 btn m-0 p-0" *ngFor="let uploadData of (uploadData$ | async) as uploadDataList" (click)="onUploadDataClicked(uploadData.id, uploadData.data)">
+          <img class="w-100 border-2 border-secondary" [src]="uploadData.data" alt="#" />
+        </div>
+      </ng-container>
     </div>
     <div class="d-flex justify-content-end mx-20 mb-10">
       <button class="btn btn-success mr-10" (click)="onUpdatePassword($event)">Update Password</button>

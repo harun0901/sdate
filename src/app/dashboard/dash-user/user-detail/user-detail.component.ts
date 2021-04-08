@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { DEFAULT_IMAGE, Signal } from '../../../core/models/base';
+import { DEFAULT_IMAGE, GState, Signal } from '../../../core/models/base';
 import { ImageCropperComponent } from '../../../ui-kit/common-ui-kit/image-cropper/image-cropper.component';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UploadType } from '../../../core/models/upload';
@@ -14,6 +14,7 @@ import { PasswordUpdateComponent } from '../password-update/password-update.comp
 import { UserService } from '../../../core/services/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { UploadService } from '../../../core/services/upload.service';
 
 @Component({
   selector: 'sdate-user-detail',
@@ -23,6 +24,7 @@ import { Subject } from 'rxjs';
 export class UserDetailComponent implements OnInit, OnDestroy {
 
   isLoading = false;
+  uploadData$ = this.uploadService.uploadData$;
   customerFG: FormGroup;
   roleList = option.roleList;
   genderList = option.genderList;
@@ -40,6 +42,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   stateList = option.stateList;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
   USER_STATE = USER_STATE;
+
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(
@@ -50,6 +53,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private toastr: ToastrService,
     private passwordDialog: MatDialog,
     private signalService: SignalService,
+    private uploadService: UploadService,
     public dialogRef: MatDialogRef<UserDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public customerDetail: UserDetailDialogForm,
   ) {
@@ -79,7 +83,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.customerFG.setValue({
       fullName: this.customerDetail.detail.fullName,
       email: this.customerDetail.detail.email,
@@ -104,6 +108,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       state: this.customerDetail.detail.state,
       about: this.customerDetail.detail.about,
     });
+    await this.uploadService.getByIdState({uploaderId: this.customerDetail.detail.id, state: GState.Accept});
     this.signalService.signalEvent$.asObservable().pipe(
       takeUntil(this.unsubscribeAll),
     ).subscribe(async pattern => {
@@ -141,6 +146,27 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         backdropClass: 'custom-backdrop',
         data: {type: UploadType.CustomerAvatarUploading, detailInfo: '', customerId: this.customerDetail.detail.id},
       });
+    }
+  }
+
+  onUploadClicked(): void {
+    this.uploadImgDialog.open(ImageCropperComponent, {
+      width: '450px',
+      height: '500px',
+      panelClass: 'full-panel',
+      backdropClass: 'custom-backdrop',
+      data: { type: UploadType.PersonImageUploading, detailInfo: '', customerId: this.customerDetail.detail.id }
+    });
+  }
+
+  async onUploadDataClicked(uploadIdInfo: string, dataInfo: string): Promise<void> {
+    if (confirm('Are you sure to delete this item?')) {
+      const res = await this.uploadService.updateUpload({
+        uploadId: uploadIdInfo,
+        data: dataInfo,
+        state: GState.Decline
+      }).toPromise();
+      await this.uploadService.getByIdState({uploaderId: this.customerDetail.detail.id, state: GState.Accept});
     }
   }
 

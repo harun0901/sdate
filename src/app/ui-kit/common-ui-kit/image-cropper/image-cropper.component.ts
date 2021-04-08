@@ -77,13 +77,14 @@ export class ImageCropperComponent implements OnInit {
         const res = await this.giftService.register({path: tmpImagePath, price: GiftDefaultPrice.value, state: GState.Accept}).toPromise();
         this.giftService.setGifts(res);
       } else if (this.dataInfo.type === UploadType.PersonImageUploading) {
+        const tempId = (this.dataInfo.customerId !== '' ? this.dataInfo.customerId : this.authService.user.id);
         const res = await this.uploadService.register({
-          uploaderId: this.authService.user.id,
+          uploaderId: tempId,
           type: this.dataInfo.type,
           data: tmpImagePath,
           state: GState.Accept,
         }).toPromise();
-        this.uploadService.getByIdState({ uploaderId: this.authService.user.id, state: GState.Accept });
+        await this.uploadService.getByIdState({ uploaderId: tempId, state: GState.Accept });
       } else if (this.dataInfo.type === UploadType.CustomerAvatarUploading) {
         await this.userService.updateAvatar({ data: tmpImagePath, id: this.dataInfo.customerId }).toPromise();
         this.signalService.sendSignal(Signal.AVATAR_CHANGED);
