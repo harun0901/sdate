@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       if (token.state !== USER_STATE.NORMAL) {
         this.toastr.danger(`You are ${UserStateComment[token.state]} from the support team.`);
       } else {
-        this.auth.navigateByUserRole(token.role);
+        await this.auth.navigateByUserRole(token.role);
         this.toastr.success(`You've successfully logged in.`);
       }
       /*********test mode***************/
