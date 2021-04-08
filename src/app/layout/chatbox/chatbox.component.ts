@@ -151,8 +151,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   onGiftClicked(): void {
     this.showEmojiPicker = false;
     this.giftListDialog.open(GiftPanelComponent, {
-      width: '300px',
-      maxHeight: '400px',
+      width: '420px',
+      height: '500px',
       panelClass: 'word-panel',
       backdropClass: 'custom-backdrop',
       data: { type: ChatType.BoxChat, customerId: this.customerId }

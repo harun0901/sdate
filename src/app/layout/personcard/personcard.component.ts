@@ -83,8 +83,8 @@ export class PersoncardComponent implements OnInit {
 
   onGiftClicked(): void {
     this.messageDialog.open(GiftPanelComponent, {
-      width: '300px',
-      maxHeight: '400px',
+      width: '420px',
+      height: '500px',
       panelClass: 'word-panel',
       backdropClass: 'custom-backdrop',
       data: { type: ChatType.RoomChat, customerId: this.customerInfo.id }

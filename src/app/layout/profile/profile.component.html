@@ -5,6 +5,9 @@
         <span class="position-absolute top-0 left-15 mx-auto"><i class="icon-upload text-black-50 font-60"></i></span>
       </ng-container>
       <a class=""><img class="w-100 h-100 rounded-lg border-secondary border-3" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/></a>
+      <div *ngIf="!isEditable" class="d-sm-none">
+        <p class="text-center text-info">Album({{ uploadImageCount }} of picture)</p>
+      </div>
     </div>
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-5">
       <form [formGroup]="basicFG" (ngSubmit)="onBasicSubmitClicked()">

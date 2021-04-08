@@ -111,6 +111,10 @@ textarea:focus {
   border-radius: 0px !important;
 }
 
+.full-screen-modal .mat-dialog-container {
+  max-width: none;
+}
+
 .radius-panel  mat-dialog-container {
   padding: 0px !important;
   border-radius: 12px !important;
@@ -127,4 +131,8 @@ th div.mat-sort-header-container {
 
 section.emoji-mart {
   width: 250px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

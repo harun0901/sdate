@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   languageList = languageList;
   interestedList = interestedList;
   uploadData: Upload[];
+  uploadImageCount = 0;
   DEFAULT_IMAGE: string = DEFAULT_IMAGE;
 
   constructor(
@@ -107,7 +108,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.uploadData = [];
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.isEditFact = false;
     this.isEditBasic = false;
     this.isEditable = false;
@@ -119,13 +120,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.isEditable = true;
         }
         this.addNotification(NotificationType.Visit, '');
+        this.getUploadImageCount();
       } else {
         this.customerId = this.customerInfo.id;
         this.isEditable = true;
       }
     });
     this.getCustomEditInfo();
-    this.getBlockedUser();
+    await this.getBlockedUser();
     this.openPageSv.send('profile');
     this.authService.user$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
@@ -165,6 +167,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.customerInfo = await this.userService.getById(customerId).toPromise();
   }
 
+  async getUploadImageCount(): Promise<void> {
+    if (!this.isEditable) {
+      this.uploadData = await this.uploadService.getCustomerUploadByIdState({
+        uploaderId: this.customerId,
+        state: GState.Accept
+      }).toPromise();
+      this.uploadImageCount = this.uploadData.length;
+      if (this.customerInfo.avatar) {
+        this.uploadImageCount ++;
+      }
+    }
+  }
+
   async onAvatarClicked(): Promise<void> {
     if (this.isEditable) {
       this.uploadImgDialog.open(ImageCropperComponent, {
@@ -185,10 +200,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       if (imageList.length !== 0) {
         this.uploadImgDialog.open(ImageSliderComponent, {
-          // width: '1200px',
-          maxWidth: '600px',
-          maxHeight: '700px',
-          // height: '600px',
+          width: '700px',
           panelClass: 'word-panel',
           backdropClass: 'custom-backdrop',
           data: { images: imageList }
@@ -264,8 +276,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onGiftClicked(): void {
     if (!this.isEditable) {
       this.messageDialog.open(GiftPanelComponent, {
-        width: '300px',
-        maxHeight: '400px',
+        width: '420px',
+        height: '500px',
         panelClass: 'word-panel',
         backdropClass: 'custom-backdrop',
         data: {type: ChatType.RoomChat, customerId: this.customerId}

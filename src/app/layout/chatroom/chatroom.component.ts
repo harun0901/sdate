@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DEFAULT_IMAGE, messageCredit, ScrollOffset } from '../../core/models/base';
+import { DEFAULT_IMAGE, GState, messageCredit, ScrollOffset } from '../../core/models/base';
 import { OpenPageService } from '../../core/services/open-page.service';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { Chat, ChatType, SendMessagePayload } from '../../core/models/chat';
@@ -23,6 +23,10 @@ import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import { Signal } from '../../core/models/base';
 import { ToastrService } from '../../core/services/toastr.service';
 import { SignalService } from '../../core/services/signal.service';
+import { ImageCropperComponent } from '../../ui-kit/common-ui-kit/image-cropper/image-cropper.component';
+import { UploadType } from '../../core/models/upload';
+import { ImageSliderComponent } from '../../ui-kit/common-ui-kit/image-slider/image-slider.component';
+import { UploadService } from '../../core/services/upload.service';
 
 @Component({
   selector: 'sdate-chatroom',
@@ -56,7 +60,9 @@ export class ChatroomComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private giftListDialog: MatDialog,
     private toastr: ToastrService,
+    private uploadService: UploadService,
     private signalService: SignalService,
+    private uploadImgDialog: MatDialog,
     private notificationService: NotificationService
   ) {
     this.chatForm = this.formBuilder.group({
@@ -147,8 +153,8 @@ export class ChatroomComponent implements OnInit, OnDestroy {
   onGiftClicked(): void {
     this.showEmojiPicker = false;
     this.giftListDialog.open(GiftPanelComponent, {
-      width: '300px',
-      maxHeight: '400px',
+      width: '420px',
+      height: '500px',
       panelClass: 'word-panel',
       backdropClass: 'custom-backdrop',
       data: { type: ChatType.RoomChat, customerId: this.customerId }
@@ -209,6 +215,27 @@ export class ChatroomComponent implements OnInit, OnDestroy {
 
   onFocus(): void {
     this.showEmojiPicker = false;
+  }
+
+  async onAvatarClicked(): Promise<void> {
+    const uploadData = await this.uploadService.getCustomerUploadByIdState({
+      uploaderId: this.customerId,
+      state: GState.Accept
+    }).toPromise();
+    const imageList = uploadData.map((item) => item.data);
+    if (this.customerInfo.avatar) {
+      imageList.push(this.customerInfo.avatar);
+    }
+    if (imageList.length !== 0) {
+      this.uploadImgDialog.open(ImageSliderComponent, {
+        width: '700px',
+        panelClass: 'word-panel',
+        backdropClass: 'custom-backdrop',
+        data: { images: imageList }
+      });
+    } else {
+      this.toastr.danger(`There's no images to present.`);
+    }
   }
 
   ngOnDestroy(): void {

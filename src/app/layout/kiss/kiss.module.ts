@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { KissChatComponent } from './kiss-chat/kiss-chat.component';
 import { IconModule } from '../../ui-kit/icon/icon.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [KissChatComponent],
@@ -15,6 +16,7 @@ import { IconModule } from '../../ui-kit/icon/icon.module';
     FormsModule,
     ReactiveFormsModule,
     IconModule,
+    MatDialogModule,
   ],
 })
 export class KissModule { }

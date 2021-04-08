@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { GiftPanelComponent } from './gift-panel/gift-panel.component';
 import { GiftChatComponent } from './gift-chat/gift-chat.component';
 import { IconModule } from '../../ui-kit/icon/icon.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -17,6 +18,7 @@ import { IconModule } from '../../ui-kit/icon/icon.module';
     CommonModule,
     IconModule,
     ReactiveFormsModule,
+    MatDialogModule,
   ],
 })
 export class GiftModule { }

@@ -1,8 +1,20 @@
-<div class="bg-primary d-flex justify-content-center align-items-center p-5">
-  <h2 class="text-white">SELECT YOUR GIFT</h2>
-</div>
-<div class="d-flex justify-content-around align-items-center flex-wrap bg-primary">
-  <a class="btn btn-primary p-0" (click)="onGiftClicked(item)" *ngFor="let item of (gift$ | async) as items">
-    <img class="width-50 height-50 rounded-sm border-2 border-secondary m-1" [src]="item.path" alt="#"/>
-  </a>
-</div>
+<section>
+  <div class="position-relative bg-primary d-flex justify-content-between align-items-center w-100 p-10">
+    <h4 class="text-white m-0 p-0">SELECT YOUR GIFT</h4>
+    <a class="close cursor-pointer position-absolute top-0 right-0 z-index-10 m-10" mat-dialog-close><span class="material-icons">close</span></a>
+  </div>
+  <div class="px-15 py-10 overflow-auto content-body">
+    <div class="row">
+      <div class="col-3 px-5 py-1" *ngFor="let item of (gift$ | async) as items">
+        <div class="shadow-lg border-1 border-secondary d-flex flex-column align-items-center cursor-pointer" (click)="onGiftClicked(item)">
+          <div class="py-10">
+            <img class="w-100" [src]="item.path" alt="#"/>
+          </div>
+          <div class="py-1 w-100 bg-secondary">
+            <p class="text-white text-center m-0 p-0">{{ item.price }} Coins</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
