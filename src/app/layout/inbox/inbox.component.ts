@@ -73,7 +73,11 @@ export class InboxComponent implements OnInit {
       if (senderIdList.indexOf(item.sender.id) > -1) {
         return item;
       } else {
-        if (item.pattern === NotificationType.Message || item.pattern === NotificationType.Gift || item.pattern === NotificationType.Kiss) {
+        if (item.pattern === NotificationType.Message
+          || item.pattern === NotificationType.Gift
+          || item.pattern === NotificationType.Kiss
+          || item.pattern === NotificationType.Gif
+        ) {
           resList.push(item);
           senderIdList.push(item.sender.id);
           patternList.push(item.pattern);

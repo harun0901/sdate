@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -10,17 +10,23 @@ import { GiftChatPayload } from '../../../core/models/gift';
 import { ChatType, SendMessagePayload } from '../../../core/models/chat';
 import { NotificationType } from '../../../core/models/notificationEntity';
 import { ToastrService } from '../../../core/services/toastr.service';
-import { kissCredit } from '../../../core/models/base';
 import { UserService } from '../../../core/services/user.service';
+import { BasicInformation } from '../../../core/models/basic';
+import { takeUntil } from 'rxjs/operators';
+import { BasicService } from '../../../core/services/basic.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'sdate-kiss-chat',
   templateUrl: './kiss-chat.component.html',
   styleUrls: ['./kiss-chat.component.scss']
 })
-export class KissChatComponent implements OnInit {
+export class KissChatComponent implements OnInit, OnDestroy {
+
+  private unsubscribeAll: Subject<any> = new Subject<any>();
 
   kissForm: FormGroup;
+  kissCredit = 0;
   userInfo = this.authService.user;
 
   constructor(
@@ -30,6 +36,7 @@ export class KissChatComponent implements OnInit {
     private toastrService: ToastrService,
     private chatStoreService: ChatStoreService,
     private notificationService: NotificationService,
+    private basicService: BasicService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<KissChatComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GiftChatPayload,
@@ -40,12 +47,18 @@ export class KissChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.kissCredit = this.basicService.getItemValue(BasicInformation.kiss);
+    this.basicService.basic$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe( item => {
+      this.kissCredit = this.basicService.getItemValue(BasicInformation.kiss);
+    });
   }
 
   async onTransferClicked(): Promise<void> {
     if (this.kissForm.valid) {
       try {
-        if (this.authService.user.balance < kissCredit) {
+        if (this.authService.user.balance < this.kissCredit) {
           this.toastrService.danger('Shortage of Coin, you can\'t have a chat.');
           return;
         }
@@ -53,10 +66,11 @@ export class KissChatComponent implements OnInit {
           receiverId: this.data.customerId,
           text: this.kissForm.value.message_content,
           gift: '',
-          kiss: 'kiss'
+          kiss: 'kiss',
+          gif: ''
         };
         const res = await this.chatService.sendMessage(payload).toPromise();
-        const resUser = await this.userService.updateUserBalance({ amount: -1 * kissCredit }).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * this.kissCredit }).toPromise();
         this.authService.setUser(resUser);
         if (this.data.type === ChatType.RoomChat) {
           this.chatStoreService.addRoomChat(res);
@@ -81,6 +95,12 @@ export class KissChatComponent implements OnInit {
       pattern: notificationType,
       content
     }).toPromise();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
+    this.chatStoreService.setChatroomUserId('');
   }
 
 }

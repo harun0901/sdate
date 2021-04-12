@@ -7,10 +7,11 @@ import { PackagePriceComponent } from './package-price/package-price.component';
 import { GiftPriceComponent } from './gift-price/gift-price.component';
 import { CommonUiKitModule } from '../../ui-kit/common-ui-kit/common-ui-kit.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BasicInformationComponent } from './basic-information/basic-information.component';
 
 
 @NgModule({
-  declarations: [DashPriceManagementComponent, PackagePriceComponent, GiftPriceComponent],
+  declarations: [DashPriceManagementComponent, PackagePriceComponent, GiftPriceComponent, BasicInformationComponent],
   imports: [
     CommonModule,
     DashPriceManagementRoutingModule,

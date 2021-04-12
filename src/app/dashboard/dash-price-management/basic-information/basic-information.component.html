@@ -1,0 +1,11 @@
+<sdate-spinner *ngIf="isLoading"></sdate-spinner>
+<section>
+  <div class="container mb-150">
+    <h2 class="font-weight-bold text-center my-30">Basic Information Management</h2>
+    <div class="row">
+      <div *ngFor="let item of (basic$ | async) as items" class="d-flex justify-content-center align-items-center col-4">
+        <sdate-text-input type="number" label="{{ item.key }} Credits" placeholder="0" [(ngModel)]="item.value" (focusout)="onChange(item)"></sdate-text-input>
+      </div>
+    </div>
+  </div>
+</section>

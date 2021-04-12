@@ -57,6 +57,10 @@ export class NotificationComponent implements OnInit {
         this.description = NotificationDescription.Block;
         this.dataLabel = 'visit';
         break;
+      case NotificationType.Gif:
+        this.description = NotificationDescription.Gif;
+        this.dataLabel = 'read';
+        break;
       default:
         this.description = '';
     }

@@ -32,6 +32,7 @@ export enum NotificationType {
   Favorite = 'favorite',
   Message = 'message',
   Gift = 'gift',
+  Gif = 'gif',
   Kiss = 'kiss',
   Block = 'block',
   Any = 'any',
@@ -43,6 +44,7 @@ export enum NotificationDescription {
   Favorite = 'Sent a favorite signal to you',
   Message = 'sent a message to you',
   Gift = 'sent a gift to you',
+  Gif = 'sent a gif to you',
   Kiss = 'sent a Kiss to you',
   Block = 'make you as a blocked Customer',
 }

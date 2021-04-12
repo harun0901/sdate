@@ -50,6 +50,10 @@ export class InboxItemComponent implements OnInit {
         this.description = NotificationDescription.Gift;
         this.dataLabel = 'read';
         break;
+      case NotificationType.Gif:
+        this.description = NotificationDescription.Gif;
+        this.dataLabel = 'read';
+        break;
       case NotificationType.Kiss:
         this.description = NotificationDescription.Kiss;
         this.dataLabel = 'read';

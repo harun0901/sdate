@@ -38,6 +38,7 @@ export interface Chat extends Entity {
   text: string;
   gift: string;
   kiss: string;
+  gif: string;
   seen: number;
   createdAt: string;
   updatedAt: string;
@@ -53,6 +54,7 @@ export interface SendMessagePayload {
   text: string;
   gift: string;
   kiss: string;
+  gif: string;
 }
 
 export interface SeenMessageDto {

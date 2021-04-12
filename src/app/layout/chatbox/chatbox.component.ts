@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import Giphy from 'giphy-api';
 
-import { DEFAULT_IMAGE, messageCredit, ScrollOffset } from '../../core/models/base';
+import { DEFAULT_IMAGE, ScrollOffset } from '../../core/models/base';
 import { Chat, ChatRoomEventType, ChatType, SendMessagePayload } from '../../core/models/chat';
 import { ChatStoreService } from '../../core/services/chat-store.service';
 import { ChatService } from '../../core/services/chat.service';
@@ -20,6 +21,8 @@ import { GiftPanelComponent } from '../gift/gift-panel/gift-panel.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KissChatComponent } from '../kiss/kiss-chat/kiss-chat.component';
 import { ToastrService } from '../../core/services/toastr.service';
+import { BasicInformation } from '../../core/models/basic';
+import { BasicService } from '../../core/services/basic.service';
 
 @Component({
   selector: 'sdate-chatbox',
@@ -28,6 +31,12 @@ import { ToastrService } from '../../core/services/toastr.service';
 })
 export class ChatboxComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
+
+  showGiphySearch = false;
+  giphySearchTerm = '';
+  giphyResults = [];
+  messageCredit = 0;
+  gifCredit = 0;
   isBlocked = false;
   @Input() showFlag: boolean;
   show: boolean;
@@ -53,6 +62,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
+    private basicService: BasicService,
     private toastr: ToastrService,
   ) {
     this.chatForm = this.formBuilder.group({
@@ -79,6 +89,15 @@ export class ChatboxComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.messageCredit = this.basicService.getItemValue(BasicInformation.message);
+    this.gifCredit = this.basicService.getItemValue(BasicInformation.message);
+    this.basicService.basic$.asObservable().pipe(
+      takeUntil(this.unsubscribeAll)
+    ).subscribe( item => {
+      this.messageCredit = this.basicService.getItemValue(BasicInformation.message);
+      this.gifCredit = this.basicService.getItemValue(BasicInformation.message);
+    });
   }
 
   async getPartChatList(customerId): Promise<void> {
@@ -113,29 +132,38 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onCustomerClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.customerInfo.id]);
   }
 
   onOwnerClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     this.navigate([ROUTES.home.root, ROUTES.home.profile_root, this.authService.user.id]);
   }
 
   async onTransferClicked(): Promise<void> {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     if (this.chatForm.valid) {
       try {
-        if (this.authService.user.balance < messageCredit) {
+        if (this.authService.user.balance < this.messageCredit) {
           this.toastr.danger('Shortage of Coin, you can\'t have a chat.');
           return;
         }
-        const payload: SendMessagePayload = { receiverId: this.customerId, text: this.chatForm.value.message_content, gift: '', kiss: ''};
+        const payload: SendMessagePayload = {
+          receiverId: this.customerId,
+          text: this.chatForm.value.message_content,
+          gift: '',
+          kiss: '',
+          gif: ''
+        };
         const res = await this.chatService.sendMessage(payload).toPromise();
-        const resUser = await this.userService.updateUserBalance({ amount: -1 * messageCredit }).toPromise();
+        const resUser = await this.userService.updateUserBalance({ amount: -1 * this.messageCredit }).toPromise();
         this.authService.setUser(resUser);
         this.chatStore.push(res);
         this.chatForm.reset();
-        await this.addNotification(payload.text);
+        await this.addNotification(NotificationType.Message, payload.text);
         this.cRef.detectChanges();
         try {
           this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
@@ -150,6 +178,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onGiftClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     this.giftListDialog.open(GiftPanelComponent, {
       width: '420px',
       height: '500px',
@@ -161,6 +190,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onKissClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     this.giftListDialog.open(KissChatComponent, {
       width: '300px',
       maxHeight: '400px',
@@ -172,6 +202,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onTitleClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     if (this.showFlag !== undefined) {
       this.chatStoreService.moveFirst(this.customerId);
     }
@@ -179,11 +210,13 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onCloseClicked(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     this.chatStoreService.deleteChat(this.customerId);
   }
 
   onToggle(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
     if (this.showFlag === undefined) {
       this.show = !this.show;
     }
@@ -200,10 +233,10 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     });
   }
 
-  async addNotification(content: string): Promise<void> {
+  async addNotification(notificationType: string, content: string): Promise<void> {
     const res = await this.notificationService.addNotification({
       receiver_id: this.customerId,
-      pattern: NotificationType.Message,
+      pattern: notificationType,
       content
     }).toPromise();
   }
@@ -219,9 +252,55 @@ export class ChatboxComponent implements OnInit, OnDestroy {
 
   onFocus(): void {
     this.showEmojiPicker = false;
+    this.showGiphySearch = false;
   }
   onBlur(): void {
     console.log('onblur');
+  }
+
+  searchGiphy(): void {
+    const giphy = Giphy();
+    const searchTerm = this.giphySearchTerm;
+    giphy.search(searchTerm)
+      .then(res => {
+        this.giphyResults = res.data;
+      })
+      .catch(console.error);
+  }
+
+  async sendGif(title, url): Promise<void> {
+    this.showGiphySearch = false;
+    try {
+      if (this.authService.user.balance < this.gifCredit) {
+        this.toastr.danger('Shortage of Coin, you can\'t have a chat.');
+        return;
+      }
+      const payload: SendMessagePayload = {
+        receiverId: this.customerId,
+        text: title,
+        gift: '',
+        kiss: '',
+        gif: url
+      };
+      const res = await this.chatService.sendMessage(payload).toPromise();
+      const resUser = await this.userService.updateUserBalance({ amount: -1 * this.gifCredit }).toPromise();
+      this.authService.setUser(resUser);
+      this.chatStore.push(res);
+      this.chatForm.reset();
+      // this.cRef.detectChanges();
+      await this.addNotification(NotificationType.Gif, url);
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) { }
+    } catch (e) {
+      console.log(e);
+    } finally {
+
+    }
+  }
+
+  toggleGiphySearch(): void {
+    this.showGiphySearch = !this.showGiphySearch;
   }
 
   ngOnDestroy(): void {

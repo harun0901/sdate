@@ -27,6 +27,11 @@
                   <img class="width-50 height-50 rounded-sm border-2 border-secondary m-1" [src]="chat.gift" alt="#"/>
                 </div>
               </ng-container>
+              <ng-container *ngIf="chat.gif">
+                <div class="d-flex justify-content-center align-items-center">
+                  <img class="width-200 height-200 rounded-sm border-2 border-secondary m-1" [src]="chat.gif" alt="#"/>
+                </div>
+              </ng-container>
               <p class="p-0 m-0">
                 {{chat.text}}
               </p>
@@ -60,15 +65,30 @@
             <button (click) ="toggleEmojiPicker($event)" class="position-absolute ml-n40 mt-40 border-0 bg-transparent">😀</button>
             <br>
             <emoji-mart class="emoji-mart position-absolute bottom-50 right-50" set="{{set}}" *ngIf="showEmojiPicker" (emojiSelect)="addEmoji($event)" title="Pick your emoji…"></emoji-mart>
+            <div *ngIf="showGiphySearch" class="giphy-search position-absolute bottom-250 right-150">
+              <form (ngSubmit)="searchGiphy()">
+                <input type="text" placeholder="Search for a GIF" name="giphy" [(ngModel)]="giphySearchTerm">
+              </form>
+              <ul class="search-results">
+                <li class="gif-result" *ngFor="let result of giphyResults">
+                  <img src="{{ result.images.downsized_large.url }}" (click)="sendGif(result.title, result.images.original.url)">
+                </li>
+              </ul>
+            </div>
           </ng-container>
         </div>
-        <div class="d-flex align-items-center width-105">
+        <div class="d-flex align-items-center width-140">
           <div class="height-70 width-70 d-flex align-items-center justify-content-center dark-border">
             <button class="m-0 p-2 height-70 width-70 bg-primary btn m-0 rounded-0" type="submit"><sdate-icon [width]="50" icon="sent" color="white"></sdate-icon></button>
           </div>
           <div class="d-flex flex-column">
-            <a class="m-0 p-2 height-35 width-35 bg-primary btn m-0 rounded-0  dark-border" (click)="onKissClicked()"><sdate-icon [width]="17" icon="kiss" color="white"></sdate-icon></a>
-            <a class="m-0 p-2 height-35 width-35 bg-primary btn m-0 rounded-0  dark-border" (click)="onGiftClicked()"><sdate-icon [width]="17" icon="gift" color="white"></sdate-icon></a>
+            <div class="d-flex bg-primary justify-content-center dark-border">
+              <a class="m-0 p-2 height-35 width-35 btn m-0 rounded-0" (click)="onKissClicked()"><sdate-icon [width]="17" icon="kiss" color="white"></sdate-icon></a>
+            </div>
+            <div class="d-flex align-items-center">
+              <a class="m-0 p-2 height-35 width-35 bg-primary btn m-0 rounded-0  dark-border" (click)="onGiftClicked()"><sdate-icon [width]="17" icon="gift" color="white"></sdate-icon></a>
+              <a class="m-0 p-2 height-35 width-35 bg-primary text-white btn m-0 rounded-0  dark-border" (click)="toggleGiphySearch()">Gif</a>
+            </div>
           </div>
         </div>
       </div>

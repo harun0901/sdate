@@ -10,7 +10,6 @@ import { NotificationType } from '../../../core/models/notificationEntity';
 import { NotificationService } from '../../../core/services/notification.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastrService } from '../../../core/services/toastr.service';
-import { messageCredit } from '../../../core/models/base';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -53,7 +52,8 @@ export class GiftChatComponent implements OnInit {
           receiverId: this.data.customerId,
           text: this.chatForm.value.message_content,
           gift: this.data.gift.path,
-          kiss: ''
+          kiss: '',
+          gif: '',
         };
         const res = await this.chatService.sendMessage(payload).toPromise();
         const resUser = await this.userService.updateUserBalance({ amount: -1 * this.data.gift.price }).toPromise();

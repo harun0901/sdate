@@ -21,6 +21,7 @@ import { User } from '../../core/models/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentComponent } from '../payment/payment.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BasicService } from '../../core/services/basic.service';
 
 @Component({
   selector: 'sdate-header',
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private scrollToService: ScrollToService,
     private socketService: SocketService,
     private chatService: ChatService,
+    private basicService: BasicService,
     private isMinePipe: IsMinePipe,
     private chatStoreService: ChatStoreService,
     private notificationService: NotificationService,
@@ -72,6 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userInfo = this.auth.user;
     await this.subscribeMessages();
     await this.subscribeEvent();
+    await this.basicService.getBasic();
     this.auth.user$.asObservable().pipe(
       takeUntil(this.unsubscribeAll)
     ).subscribe((item) => {
