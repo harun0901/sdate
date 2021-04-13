@@ -5,7 +5,7 @@
   </div>
   <div class="col col-lg-1 d-none d-lg-block" *ngIf="exceptPageList.indexOf(openPage) > -1">
   </div>
-  <div [ngClass]="exceptPageList.indexOf(openPage) > -1 ? 'col col-sm-12 col-lg-8' : 'col col-sm-12 col-lg-6'">
+  <div [ngClass]="exceptPageList.indexOf(openPage) > -1 ? 'col col-sm-12 col-lg-8' : 'col col-sm-12 col-lg-6'" [class.px-0]="openPage === 'chatroom'" [class.px-lg-15]="openPage === 'chatroom'">
     <div class="w-100 h-100 mt-20">
       <router-outlet></router-outlet>
     </div>
@@ -42,4 +42,4 @@
     </ng-container>
   </div>
 </div>
-<sdate-footer></sdate-footer>
+<sdate-footer [class.d-none]="openPage === 'chatroom'" [class.d-sm-block]="openPage === 'chatroom'"></sdate-footer>

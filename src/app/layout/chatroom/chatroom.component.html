@@ -1,8 +1,8 @@
 <div class="w-100 d-flex">
   <div class="col col-lg-3 d-none d-lg-block">
-    <div class="bg-white shadow-sm width-200 min-height-400 p-0 m-0">
-      <div class="width-200 height-200 p-1 cursor-pointer" (click)="onAvatarClicked()">
-        <img class="width-200 height-200 rounded-sm border-2 border-secondary" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/>
+    <div class="bg-white shadow-sm max-width-200 min-height-400 p-0 m-0">
+      <div class="p-1 cursor-pointer" (click)="onAvatarClicked()">
+        <img class="w-100 rounded-sm border-2 border-secondary" [src]="(customerInfo && customerInfo.avatar) || DEFAULT_IMAGE" alt="#"/>
       </div>
       <div class="w-90 m-auto">
         <h2 class="text-primary text-center cursor-pointer" (click)="onCustomerClicked()">{{ customerInfo && customerInfo.fullName }}</h2>
@@ -34,9 +34,9 @@
       </div>
     </div>
   </div>
-  <div class="col col-12 col-lg-9 mb-30">
-    <div class="py-15 height-100 mb-1 bg-white shadow-sm ">
-      <h3 class="text-center mb-10">{{ customerInfo && customerInfo.fullName }}</h3>
+  <div class="col-12 col-lg-9 p-1 px-lg-15">
+    <div class="py-15 mb-1 bg-white shadow-sm ">
+      <h3 class="text-center my-10">{{ customerInfo && customerInfo.fullName }}</h3>
       <div class="d-flex align-items-center justify-content-center">
         <span class="mr-10">online</span>
         <div class="bg-light online-state"></div>
