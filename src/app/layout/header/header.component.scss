@@ -1,8 +1,20 @@
+@import "../../../assets/theme";
+
 header {
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0px;
   z-index: 120;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.virtual-header {
+  height: 85px;
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    height: 45px !important;
+  }
 }
 
 .overflow-x {
