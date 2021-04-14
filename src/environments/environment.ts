@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  api: 'https://qa-date-api.herokuapp.com',
+  api: 'https://qa-date-api-web.herokuapp.com',
   localStorage: {
     prefix: 'sdate',
     accessToken: 'access_token',
     customerSignupWizard: 'customer_signup_wizard',
   },
   socket: {
-    url: 'https://qa-date-api.herokuapp.com',
+    url: 'https://qa-date-api-web.herokuapp.com',
     join: 'join',
     disconnect: 'endjoin',
     events: 'events',
@@ -21,7 +21,7 @@ export const environment = {
 };
 
 /*
- * For real hosting use https://qa-date-api.herokuapp.com
+ * For real hosting use https://qa-date-api-web.herokuapp.com
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *
