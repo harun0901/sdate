@@ -53,7 +53,7 @@
         </button>
       </mat-menu>
       <div class="d-none d-lg-block">
-        <sdate-avatar [size]="45" [src]="userInfo && userInfo.avatar"></sdate-avatar>
+        <a [routerLink]="[ROUTES.home.root, ROUTES.home.myprofile] | routeToAbsolute"><sdate-avatar [size]="45" [src]="userInfo && userInfo.avatar"></sdate-avatar></a>
       </div>
     </div>
   </div>

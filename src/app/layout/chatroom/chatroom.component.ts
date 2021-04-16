@@ -39,7 +39,7 @@ export class ChatroomComponent implements OnInit, OnDestroy  {
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   showGiphySearch = false;
-  giphySearchTerm = '';
+  giphySearchTerm = 'love';
   giphyResults = [];
   messageCredit = 0;
   gifCredit = 0;
@@ -86,6 +86,7 @@ export class ChatroomComponent implements OnInit, OnDestroy  {
       this.customerId = this.router.snapshot.paramMap.get('userId');
       await this.getCustomerInfo(this.customerId);
       this.chatStoreService.setChatroomUserId(this.customerId);
+      this.chatStoreService.deleteChat(this.customerId);
       await this.getPartChatList(this.customerId);
       this.cRef.detectChanges();
       try {
@@ -113,6 +114,7 @@ export class ChatroomComponent implements OnInit, OnDestroy  {
       this.messageCredit = this.basicService.getItemValue(BasicInformation.message);
       this.gifCredit = this.basicService.getItemValue(BasicInformation.gif);
     });
+    this.searchGiphy();
   }
 
   async getPartChatList(customerId): Promise<void> {

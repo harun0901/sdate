@@ -39,8 +39,14 @@ export class ImageCropperComponent implements OnInit {
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
   }
+
   imageCropped(event: ImageCroppedEvent): void {
-    this.croppedImage = event.base64;
+    if (event.base64.length > Math.pow(2, 13) * 200) {
+      this.croppedImage = null;
+      this.toastrService.danger('File exceeds the maximum size');
+    } else {
+      this.croppedImage = event.base64;
+    }
   }
   imageLoaded(): void { // image: HTMLImageElement
     // show cropper
@@ -55,6 +61,11 @@ export class ImageCropperComponent implements OnInit {
 
   async uploadImg(): Promise<void> {
     this.isLoading = true;
+    if (this.croppedImage === null) {
+      this.isLoading = false;
+      this.toastrService.danger('File exceeds the maximum size');
+      return;
+    }
     const response = await this.uploadService.getUploadURL({fileName: this.imageChangedEvent.target.files[0].name}).toPromise();
     const binary = atob(this.croppedImage.split(',')[1]);
     const array = [];

@@ -69,8 +69,8 @@
               <form (ngSubmit)="searchGiphy()">
                 <input type="text" placeholder="Search for a GIF" name="giphy" [(ngModel)]="giphySearchTerm">
               </form>
-              <ul class="search-results">
-                <li class="gif-result" *ngFor="let result of giphyResults">
+              <ul class="search-results row">
+                <li class="gif-result col-6 p-0" *ngFor="let result of giphyResults">
                   <img src="{{ result.images.downsized_large.url }}" (click)="sendGif(result.title, result.images.original.url)">
                 </li>
               </ul>

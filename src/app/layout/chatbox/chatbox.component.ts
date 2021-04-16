@@ -33,7 +33,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
   showGiphySearch = false;
-  giphySearchTerm = '';
+  giphySearchTerm = 'love';
   giphyResults = [];
   messageCredit = 0;
   gifCredit = 0;
@@ -98,6 +98,7 @@ export class ChatboxComponent implements OnInit, OnDestroy {
       this.messageCredit = this.basicService.getItemValue(BasicInformation.message);
       this.gifCredit = this.basicService.getItemValue(BasicInformation.message);
     });
+    this.searchGiphy();
   }
 
   async getPartChatList(customerId): Promise<void> {
