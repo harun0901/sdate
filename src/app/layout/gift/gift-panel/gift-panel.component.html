@@ -8,7 +8,7 @@
       <div class="col-3 px-5 py-1" *ngFor="let item of (gift$ | async) as items">
         <div class="shadow-lg border-1 border-secondary d-flex flex-column align-items-center cursor-pointer justify-content-between h-100" (click)="onGiftClicked(item)">
           <div class="py-10">
-            <img class="w-100" [src]="item.path" alt="#"/>
+            <img class="w-100" [src]="item.path" alt="Gift Path"/>
           </div>
           <div class="py-1 w-100 bg-secondary">
             <p class="text-white text-center m-0 p-0">{{ item.price }} Coins</p>
