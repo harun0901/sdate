@@ -4,20 +4,19 @@
 
 export const environment = {
   production: false,
-  api: 'https://qa-date-api-web.herokuapp.com',
+  api: 'http://kinkflirt.com:3000',
   localStorage: {
     prefix: 'sdate',
     accessToken: 'access_token',
     customerSignupWizard: 'customer_signup_wizard',
   },
   socket: {
-    url: 'https://qa-date-api-web.herokuapp.com',
+    url: 'http://kinkflirt.com:3000',
     join: 'join',
     disconnect: 'endjoin',
     events: 'events',
     messages: 'messages',
   },
-
 };
 
 /*
